@@ -32,9 +32,13 @@ func (h *haodanku) GetLinks() {
 	h.SetUIEnable(false)
 	startPage, _ := strconv.Atoi(h.StartPage.Text())
 	endPage, _ := strconv.Atoi(h.EndPage.Text())
-	if endPage <= startPage {
-		startPage = endPage
+	if startPage <= 1 {
+		startPage = 1
 	}
+	if endPage <= startPage {
+		endPage = startPage
+	}
+	h.ResetPage(startPage, endPage)
 	fmt.Println("haodanku")
 	fmt.Println(startPage, endPage)
 	go func() {
@@ -78,4 +82,11 @@ func (h *haodanku) SetUIEnable(enable bool) {
 	h.GetBtn.SetEnabled(enable)
 	h.StartPage.SetEnabled(enable)
 	h.EndPage.SetEnabled(enable)
+}
+
+func (h *haodanku) ResetPage(startPage int, endPage int){
+	s := strconv.Itoa(startPage)
+	e := strconv.Itoa(endPage)
+	h.StartPage.SetText(s)
+	h.EndPage.SetText(e)
 }

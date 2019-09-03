@@ -1,5 +1,5 @@
 ##build
 ```
 # rsrc.exe -manifest taobao_links.exe.manifest -o rsrc.syso
-# go build -ldflags="-H windowsgui"
+# go build -ldflags="-w -H windowsgui"
 ``` 
