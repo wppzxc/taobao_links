@@ -16,55 +16,67 @@ const (
 type Dataoke struct {
 	SubUrl      string
 	GetBtn      *walk.PushButton
-	PageUpBtn   *walk.PushButton
-	PageDownBtn *walk.PushButton
 	Links       *walk.TextEdit
-	Page        *walk.LineEdit
-	PageNum     int
+	StartPage   *walk.LineEdit
+	EndPage     *walk.LineEdit
 }
 
 func GetDataokePage() *Dataoke {
 	dataoke := &Dataoke{
-		SubUrl:  "",
-		Links:   new(walk.TextEdit),
-		Page:    &walk.LineEdit{},
-		PageNum: 3,
+		SubUrl:    "",
+		Links:     &walk.TextEdit{},
+		StartPage: &walk.LineEdit{},
+		EndPage:   &walk.LineEdit{},
 	}
-	dataoke.Page.SetText("3")
 	return dataoke
 }
 
 func (d *Dataoke) GetLinks() {
-	d.SetBtnEnable(false)
-	p, _ := strconv.Atoi(d.Page.Text())
-	if p <= 0 {
-		p = 1
-	}
-	d.PageNum = p
+	d.SetUIEnable(false)
 	switch d.SubUrl {
 	case "top":
 		fmt.Println("top")
 		d.GetTopLinks()
 	case "quan":
+		startPage, _ := strconv.Atoi(d.StartPage.Text())
+		endPage, _ := strconv.Atoi(d.EndPage.Text())
+		if endPage <= startPage {
+			startPage = endPage
+		}
 		fmt.Println("quan")
-		d.GetQuanLinks()
+		fmt.Println(startPage, endPage)
+		d.GetQuanLinks(startPage, endPage)
 	}
 }
 
 func (d *Dataoke) GetTopLinks() {
 	url := dataokeHost + topUrl
 	fmt.Println(url)
-	go d.GetAndUpdateLinks(url)
+	go func() {
+		text := d.GetLinksText(url)
+		d.UpdateLinks(text)
+	}()
 }
 
-func (d *Dataoke) GetQuanLinks() {
-	url := dataokeHost + quanUrl + d.Page.Text()
-	fmt.Println(url)
-	go d.GetAndUpdateLinks(url)
+func (d *Dataoke) GetQuanLinks(start int, end int) {
+	go func() {
+		text := d.GetMutiPagesQuanLinks(start, end)
+		d.UpdateLinks(text)
+	}()
 }
 
-func (d *Dataoke) GetAndUpdateLinks(url string) {
-	defer d.SetBtnEnable(true)
+func (d *Dataoke) GetMutiPagesQuanLinks(start int, end int) string {
+	text := ""
+	for i := start ; i <= end ; i++ {
+		url := dataokeHost + quanUrl + strconv.Itoa(i)
+		fmt.Println(url)
+		tmp := d.GetLinksText(url)
+		text = text + "\n" + tmp
+	}
+	return text
+}
+
+func (d *Dataoke) GetLinksText(url string) string {
 	items, err := top.GetTopItems(url)
 	if err != nil {
 		fmt.Println("Error : ", err)
@@ -73,33 +85,21 @@ func (d *Dataoke) GetAndUpdateLinks(url string) {
 	if err != nil {
 		fmt.Println("Error : ", err)
 	}
-	text := top.GetTextFromStrings(links)
+	return top.GetTextFromStrings(links)
+}
+
+func (d *Dataoke) UpdateLinks(text string) {
+	defer d.SetUIEnable(true)
 	d.Links.SetText(text)
 }
 
-func (d *Dataoke) GetNextPageQuanLinks() {
-	d.PageNum ++
-	d.Page.SetText(strconv.Itoa(d.PageNum))
-	d.GetQuanLinks()
-}
-
-func (d *Dataoke) GetBackPageQuanLinks() {
-	if d.PageNum - 1 <= 1 {
-		d.PageNum = 1
-	} else {
-		d.PageNum --
-		d.Page.SetText(strconv.Itoa(d.PageNum))
-	}
-	d.GetQuanLinks()
-}
-
-func (d *Dataoke) SetBtnEnable(enable bool) {
+func (d *Dataoke) SetUIEnable(enable bool) {
 	d.GetBtn.SetEnabled(enable)
-	d.PageUpBtn.SetEnabled(enable)
-	d.PageDownBtn.SetEnabled(enable)
+	d.StartPage.SetEnabled(enable)
+	d.EndPage.SetEnabled(enable)
 }
 
 func (d *Dataoke) ResetPage() {
-	d.PageNum = 1
-	d.Page.SetText("1")
+	d.StartPage.SetText("1")
+	d.EndPage.SetText("1")
 }
