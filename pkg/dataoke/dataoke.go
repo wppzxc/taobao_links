@@ -3,6 +3,7 @@ package dataoke
 import (
 	"fmt"
 	"github.com/lxn/walk"
+	. "github.com/lxn/walk/declarative"
 	"github.com/wpp/taobao_links/pkg/dataoke/top"
 	"strconv"
 )
@@ -14,11 +15,12 @@ const (
 )
 
 type Dataoke struct {
-	SubUrl      string
-	GetBtn      *walk.PushButton
-	Links       *walk.TextEdit
-	StartPage   *walk.LineEdit
-	EndPage     *walk.LineEdit
+	MainPage  *TabPage
+	SubUrl    string
+	GetBtn    *walk.PushButton
+	Links     *walk.TextEdit
+	StartPage *walk.LineEdit
+	EndPage   *walk.LineEdit
 }
 
 func GetDataokePage() *Dataoke {
@@ -27,6 +29,79 @@ func GetDataokePage() *Dataoke {
 		Links:     &walk.TextEdit{},
 		StartPage: &walk.LineEdit{},
 		EndPage:   &walk.LineEdit{},
+	}
+	dataoke.MainPage = &TabPage{
+		Title:  "大淘客",
+		Layout: VBox{},
+		DataBinder: DataBinder{
+			DataSource: dataoke,
+			AutoSubmit: true,
+			OnSubmitted: dataoke.ResetPage,
+		},
+		Children: []Widget{
+			Composite{
+				MaxSize: Size{0, 50},
+				Layout:  HBox{},
+				Children: []Widget{
+					HSpacer{},
+					RadioButtonGroup{
+						DataMember: "SubUrl",
+						Buttons: []RadioButton{{
+							Name: "Quan",
+							Text:  "领券直播",
+							Value: "quan",
+						}, {
+							Name: "Top",
+							Text:  "实时榜单",
+							Value: "top",
+						}},
+					},
+					PushButton{
+						AssignTo: &dataoke.GetBtn,
+						Text:      "拉取",
+						OnClicked: dataoke.GetLinks,
+					},
+				},
+			},
+			Composite{
+				Layout:             VBox{},
+				Children: []Widget{
+					HSpacer{},
+					TextLabel{
+						Text: "淘宝链接：",
+					},
+					TextEdit{
+						ReadOnly: true,
+						AssignTo: &dataoke.Links,
+						VScroll: true,
+					},
+				},
+			},
+			Composite{
+				Layout: HBox{Margins: Margins{}},
+				Children: []Widget{
+					HSpacer{},TextLabel{
+						Text: "起始页：",
+					},
+					
+					LineEdit{
+						AssignTo: &dataoke.StartPage,
+						MaxSize: Size{20, 0},
+						Text: "1",
+						Enabled: Bind("Quan.Checked"),
+					},
+					TextLabel{
+						Text: "结束页：",
+					},
+					LineEdit{
+						AssignTo: &dataoke.EndPage,
+						MaxSize: Size{20, 0},
+						Text: "1",
+						Enabled: Bind("Quan.Checked"),
+					},
+				},
+			},
+		},
 	}
 	return dataoke
 }
@@ -67,7 +142,7 @@ func (d *Dataoke) GetQuanLinks(start int, end int) {
 
 func (d *Dataoke) GetMutiPagesQuanLinks(start int, end int) string {
 	text := ""
-	for i := start ; i <= end ; i++ {
+	for i := start; i <= end; i++ {
 		url := dataokeHost + quanUrl + strconv.Itoa(i)
 		fmt.Println(url)
 		tmp := d.GetLinksText(url)
