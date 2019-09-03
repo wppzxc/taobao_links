@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	. "github.com/lxn/walk/declarative"
 	"github.com/wpp/taobao_links/pkg/dataoke"
 	haodanku "github.com/wpp/taobao_links/pkg/haodanku"
@@ -8,10 +9,13 @@ import (
 )
 
 func main() {
-	dataoke := dataoke.GetDataokePage()
-	haodanku := haodanku.GetHaodankuPage()
-	taokeyi := taokeyi.GetTaokeyiPage()
-	MainWindow{
+	// init dataoke
+	dtk := dataoke.GetDataokePage()
+	// init haodanku
+	hdk := haodanku.GetHaodankuPage()
+	// init taokeyi
+	tky := taokeyi.GetTaokeyiPage()
+	if _, err := (MainWindow{
 		Title:   "淘宝链接获取工具",
 		Size: Size{400, 600},
 		Layout:  VBox{},
@@ -22,9 +26,9 @@ func main() {
 						Title:  "大淘客",
 						Layout: VBox{},
 						DataBinder: DataBinder{
-							DataSource: dataoke,
+							DataSource: dtk,
 							AutoSubmit: true,
-							OnSubmitted: dataoke.ResetPage,
+							OnSubmitted: dtk.ResetPage,
 						},
 						Children: []Widget{
 							Composite{
@@ -45,9 +49,9 @@ func main() {
 										}},
 									},
 									PushButton{
-										AssignTo: &dataoke.GetBtn,
+										AssignTo: &dtk.GetBtn,
 										Text:      "拉取",
-										OnClicked: dataoke.GetLinks,
+										OnClicked: dtk.GetLinks,
 									},
 								},
 							},
@@ -60,7 +64,7 @@ func main() {
 									},
 									TextEdit{
 										ReadOnly: true,
-										AssignTo: &dataoke.Links,
+										AssignTo: &dtk.Links,
 										VScroll: true,
 									},
 								},
@@ -73,7 +77,7 @@ func main() {
 									},
 									
 									LineEdit{
-										AssignTo: &dataoke.StartPage,
+										AssignTo: &dtk.StartPage,
 										MaxSize: Size{20, 0},
 										Text: "1",
 										Enabled: Bind("Quan.Checked"),
@@ -82,7 +86,7 @@ func main() {
 										Text: "结束页：",
 									},
 									LineEdit{
-										AssignTo: &dataoke.EndPage,
+										AssignTo: &dtk.EndPage,
 										MaxSize: Size{20, 0},
 										Text: "1",
 										Enabled: Bind("Quan.Checked"),
@@ -95,7 +99,7 @@ func main() {
 						Title: "好单库",
 						Layout: VBox{},
 						DataBinder: DataBinder{
-							DataSource: haodanku,
+							DataSource: hdk,
 							AutoSubmit: true,
 						},
 						Children: []Widget{
@@ -105,9 +109,9 @@ func main() {
 								Children: []Widget{
 									HSpacer{},
 									PushButton{
-										AssignTo: &haodanku.GetBtn,
+										AssignTo: &hdk.GetBtn,
 										Text:      "拉取",
-										OnClicked: haodanku.GetLinks,
+										OnClicked: hdk.GetLinks,
 									},
 								},
 							},
@@ -120,7 +124,7 @@ func main() {
 									},
 									TextEdit{
 										ReadOnly: true,
-										AssignTo: &haodanku.Links,
+										AssignTo: &hdk.Links,
 										VScroll: true,
 									},
 								},
@@ -133,7 +137,7 @@ func main() {
 									},
 									
 									LineEdit{
-										AssignTo: &haodanku.StartPage,
+										AssignTo: &hdk.StartPage,
 										MaxSize: Size{20, 0},
 										Text: "1",
 									},
@@ -141,7 +145,7 @@ func main() {
 										Text: "结束页：",
 									},
 									LineEdit{
-										AssignTo: &haodanku.EndPage,
+										AssignTo: &hdk.EndPage,
 										MaxSize: Size{20, 0},
 										Text: "1",
 									},
@@ -149,9 +153,11 @@ func main() {
 							},
 						},
 					},
-					taokeyi,
+					tky,
 				},
 			},
 		},
-	}.Run()
+	}).Run(); err != nil {
+		fmt.Println(err)
+	}
 }
