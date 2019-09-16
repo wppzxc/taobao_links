@@ -16,16 +16,16 @@ func main() {
 	// init taokeyi
 	tky := taokeyi.GetTaokeyiPage()
 	if _, err := (MainWindow{
-		Title:   "淘宝链接获取工具",
+		Title: "淘宝链接获取工具",
 		//Icon: "./assets/img/icon.ico",
-		Size: Size{400, 600},
-		Layout:  VBox{},
+		Size:   Size{400, 600},
+		Layout: VBox{},
 		Children: []Widget{
 			TabWidget{
 				Pages: []TabPage{
 					*dtk.MainPage,
 					*hdk.MainPage,
-					tky,
+					*tky.MainPage,
 				},
 			},
 		},
