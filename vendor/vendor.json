@@ -33,6 +33,24 @@
 			"revisionTime": "2019-07-16T18:53:35Z"
 		},
 		{
+			"checksumSHA1": "NWdKy2mIvqbKMJAu0QqrTzEYdkg=",
+			"path": "github.com/tealeg/xlsx",
+			"revision": "a6243d92b3699a06d678109bc19b1529b3f84aba",
+			"revisionTime": "2019-08-07T18:21:18Z"
+		},
+		{
+			"checksumSHA1": "vOb1WRJLC/QcicLruAzkJJRkTMk=",
+			"path": "github.com/zserge/lorca",
+			"revision": "6fa5493f3d15d4c07b01b95f2c8fc3433dc307fd",
+			"revisionTime": "2019-08-03T12:40:19Z"
+		},
+		{
+			"checksumSHA1": "FMCll7iA7e8mu9UXUDsR1McgS10=",
+			"path": "github.com/zserge/webview",
+			"revision": "16c93bcaeaeb6aa7bb5a1432de3bef0b9ecc44f3",
+			"revisionTime": "2019-01-23T07:26:48Z"
+		},
+		{
 			"checksumSHA1": "ag6CP2CjfMRiJxDuBDVKytu5sR8=",
 			"path": "golang.org/x/net/html",
 			"revision": ""
@@ -40,6 +58,11 @@
 		{
 			"checksumSHA1": "iWvOOLdDxvI4AVX6px6/HYBPeaQ=",
 			"path": "golang.org/x/net/html/atom",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "7EZyXN0EmZLgGxZxK01IJua4c8o=",
+			"path": "golang.org/x/net/websocket",
 			"revision": ""
 		},
 		{
