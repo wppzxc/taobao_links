@@ -22,6 +22,13 @@ type UpData struct {
 	PageSize   int `json:"pageSize"`
 	WithCoupon int `json:"withCoupon"`
 	SortType   int `json:"sortType"`
+	RangeList  []Range `json:"rangeList"`
+}
+
+type Range struct {
+	RangeFrom int64 `json:"rangeFrom"`
+	RangeId int `json:"rangeId"`
+	RangeTo int64 `json:"rangeTo"`
 }
 
 type DuoDuoData struct {
@@ -117,7 +124,6 @@ func GetMemNumberLinks(links []string, key string) []ExcelData {
 	result := []ExcelData{}
 	for _, l := range links {
 		cel, err := GetNameMemberByLink(l, key)
-		fmt.Printf("%#V", cel)
 		if err != nil {
 			continue
 		}

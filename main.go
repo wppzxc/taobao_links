@@ -5,7 +5,7 @@ import (
 	. "github.com/lxn/walk/declarative"
 	"github.com/wpp/taobao_links/pkg/dataoke"
 	"github.com/wpp/taobao_links/pkg/duoduojinbao"
-	haodanku "github.com/wpp/taobao_links/pkg/haodanku"
+	"github.com/wpp/taobao_links/pkg/haodanku"
 	"github.com/wpp/taobao_links/pkg/taokeyi"
 )
 
@@ -21,8 +21,9 @@ func main() {
 	if _, err := (MainWindow{
 		Title: "商品链接获取工具",
 		//Icon: "./assets/img/icon.ico",
-		Size:   Size{350, 600},
-		Layout: VBox{},
+		Size:    Size{350, 600},
+		MaxSize: Size{350, 600},
+		Layout:  VBox{},
 		Children: []Widget{
 			TabWidget{
 				Pages: []TabPage{

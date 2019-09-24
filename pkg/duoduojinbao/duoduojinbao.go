@@ -56,6 +56,8 @@ type Duoduojinbao struct {
 	AK          string
 	PDDAK       string
 	Excel       []app.ExcelData
+	RangeFrom   string
+	RangeTo     string
 }
 
 type LeiMu struct {
@@ -148,13 +150,34 @@ func GetDuoduojinbaoPage() *Duoduojinbao {
 						Value:         Bind("XiaoLiang"),
 						BindingMember: "Id",
 						DisplayMember: "Name",
-						Model:         []LeiMu{{Name: "降序", Id: 5}, {Name: "升序", Id: 6}},
+						Model:         []LeiMu{{Name: "降序", Id: 6}, {Name: "升序", Id: 5}},
 					},
 					CheckBox{
 						Text:           "      优惠券",
 						Checked:        Bind("Quan"),
 						TextOnLeftSide: true,
 					},
+					TextLabel{
+						Text: "价格（元）",
+					},
+					LineEdit{
+						MinSize: Size{60, 0},
+						Text: Bind("RangeFrom"),
+					},
+					TextLabel{
+						Text: "~",
+					},
+					LineEdit{
+						MinSize: Size{60, 0},
+						Text: Bind("RangeTo"),
+					},
+				},
+			},
+			Composite{
+				Layout:  HBox{},
+				MaxSize: Size{0, 200},
+				Children: []Widget{
+					HSpacer{},
 					PushButton{
 						Text:      "拉取",
 						AssignTo:  &duoduojinbao.GetBtn,
@@ -213,6 +236,17 @@ func (d *Duoduojinbao) GetPDDLinks() {
 		PageSize:   60,
 		WithCoupon: 0,
 		SortType:   d.XiaoLiang,
+		RangeList: []app.Range{},
+	}
+	rngF, _ := strconv.ParseInt(d.RangeFrom, 10, 64)
+	rngT, _ := strconv.ParseInt(d.RangeTo, 10, 64)
+	rng := app.Range{
+		RangeFrom: rngF * 100,
+		RangeId: 1,
+		RangeTo: rngT * 100,
+	}
+	if rng.RangeFrom > 0 && rng.RangeTo > 0 {
+		upData.RangeList = append(upData.RangeList, rng)
 	}
 	if d.Quan {
 		upData.WithCoupon = 1
@@ -225,11 +259,9 @@ func (d *Duoduojinbao) GetPDDLinks() {
 	if startPage > endPage {
 		endPage = startPage
 	}
-	fmt.Printf("start page is %d, end page is %d", startPage, endPage)
 	fmt.Printf("updata is %#v", upData)
 	go func() {
 		text := d.GetMutiPageLinks(upData, startPage, endPage)
-		fmt.Println(text)
 		d.UpdateLinks(text)
 	}()
 }
