@@ -142,7 +142,7 @@ func GetDuoduojinbaoPage() *Duoduojinbao {
 						Model:         GetLeiMus(),
 					},
 					Label{
-						Text: "价格排序",
+						Text: "销量排序",
 					},
 					ComboBox{
 						Value:         Bind("XiaoLiang"),
@@ -151,7 +151,7 @@ func GetDuoduojinbaoPage() *Duoduojinbao {
 						Model:         []LeiMu{{Name: "降序", Id: 5}, {Name: "升序", Id: 6}},
 					},
 					CheckBox{
-						Text:           "优惠券",
+						Text:           "      优惠券",
 						Checked:        Bind("Quan"),
 						TextOnLeftSide: true,
 					},
