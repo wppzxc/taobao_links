@@ -80,10 +80,10 @@ func GetDataokePage() *Dataoke {
 			Composite{
 				Layout: HBox{Margins: Margins{}},
 				Children: []Widget{
-					HSpacer{},TextLabel{
+					HSpacer{},
+					TextLabel{
 						Text: "起始页：",
 					},
-					
 					LineEdit{
 						AssignTo: &dataoke.StartPage,
 						MaxSize: Size{20, 0},

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	. "github.com/lxn/walk/declarative"
 	"github.com/wpp/taobao_links/pkg/dataoke"
+	"github.com/wpp/taobao_links/pkg/duoduojinbao"
 	haodanku "github.com/wpp/taobao_links/pkg/haodanku"
 	"github.com/wpp/taobao_links/pkg/taokeyi"
 )
@@ -13,18 +14,21 @@ func main() {
 	dtk := dataoke.GetDataokePage()
 	// init haodanku
 	hdk := haodanku.GetHaodankuPage()
+	// init duoduojinbao
+	ddjb := duoduojinbao.GetDuoduojinbaoPage()
 	// init taokeyi
 	tky := taokeyi.GetTaokeyiPage()
 	if _, err := (MainWindow{
-		Title: "淘宝链接获取工具",
+		Title: "商品链接获取工具",
 		//Icon: "./assets/img/icon.ico",
-		Size:   Size{400, 600},
+		Size:   Size{350, 600},
 		Layout: VBox{},
 		Children: []Widget{
 			TabWidget{
 				Pages: []TabPage{
 					*dtk.MainPage,
 					*hdk.MainPage,
+					*ddjb.MainPage,
 					*tky.MainPage,
 				},
 			},
