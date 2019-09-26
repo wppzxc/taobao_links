@@ -17,18 +17,18 @@ const (
 )
 
 type UpData struct {
-	CategoryId int `json:"categoryId"`
-	PageNumber int `json:"pageNumber"`
-	PageSize   int `json:"pageSize"`
-	WithCoupon int `json:"withCoupon"`
-	SortType   int `json:"sortType"`
+	CategoryId int     `json:"categoryId"`
+	PageNumber int     `json:"pageNumber"`
+	PageSize   int     `json:"pageSize"`
+	WithCoupon int     `json:"withCoupon"`
+	SortType   int     `json:"sortType"`
 	RangeList  []Range `json:"rangeList"`
 }
 
 type Range struct {
 	RangeFrom int64 `json:"rangeFrom"`
-	RangeId int `json:"rangeId"`
-	RangeTo int64 `json:"rangeTo"`
+	RangeId   int   `json:"rangeId"`
+	RangeTo   int64 `json:"rangeTo"`
 }
 
 type DuoDuoData struct {
@@ -44,9 +44,21 @@ type Result struct {
 }
 
 type Item struct {
-	MallName  string `json:"mallName"`
-	GoodsId   int64  `json:"goodsId"`
-	GoodsName string `json:"goodsName"`
+	MallName string `json:"mallName"`
+	// 类目
+	CategoryName string `json:"categoryName"`
+	// 折扣，需要除100
+	CouponDiscount int64 `json:"couponDiscount"`
+	// 优惠券剩余
+	CouponRemainQuantity int64 `json:"couponRemainQuantity"`
+	// 原价，需要除1000
+	MinGroupPrice int64 `json:"minGroupPrice"`
+	// 销量
+	SalesTip string `json:"salesTip"`
+	// 佣金比率
+	PromotionRate int64  `json:"promotionRate"`
+	GoodsId       int64  `json:"goodsId"`
+	GoodsName     string `json:"goodsName"`
 }
 
 type RawData struct {
@@ -84,10 +96,26 @@ type ExcelData struct {
 	LocalGroupTotal int
 	GoodsLink       string
 	GoodsName       string
+	MallName        string `json:"mallName"`
+	// 类目
+	CategoryName string `json:"categoryName"`
+	// 折扣，需要除100
+	CouponDiscount int64 `json:"couponDiscount"`
+	// 优惠券剩余
+	CouponRemainQuantity int64 `json:"couponRemainQuantity"`
+	// 券后价（等于原价减去折扣）
+	MinGroupPrice string `json:"minGroupPrice"`
+	// 销量
+	SalesTip string `json:"salesTip"`
+	// 佣金比率
+	PromotionRate string `json:"promotionRate"`
+	// 佣金
+	Promotion string `json:"PromotionRate"`
 }
 
-func GetOnePageLinks(upData UpData, key string) []string {
+func GetOnePageLinks(upData UpData, key string) []ExcelData {
 	reqBody, _ := json.Marshal(upData)
+	fmt.Print(reqBody)
 	client := &http.Client{}
 	req, _ := http.NewRequest(http.MethodPost, getDuoDataUrl, strings.NewReader(string(reqBody)))
 	cookie := &http.Cookie{Name: getDuoDataCookieKey, Value: key, HttpOnly: false}
@@ -105,11 +133,21 @@ func GetOnePageLinks(upData UpData, key string) []string {
 		fmt.Println(err)
 		return nil
 	}
-	links := []string{}
+	cels := []ExcelData{}
 	for _, i := range d.Result.GoodsList {
-		links = append(links, fmt.Sprintf(getPDDLinksPrefix, i.GoodsId))
+		cels = append(cels, ExcelData{
+			GoodsLink:            fmt.Sprintf(getPDDLinksPrefix, i.GoodsId),
+			MallName:             i.MallName,
+			CategoryName:         i.CategoryName,
+			CouponDiscount:       i.CouponDiscount / 1000,
+			CouponRemainQuantity: i.CouponRemainQuantity,
+			MinGroupPrice:        fmt.Sprintf("%.2f", float32(i.MinGroupPrice)/1000-float32(i.CouponDiscount)/1000),
+			SalesTip:             i.SalesTip,
+			PromotionRate:        fmt.Sprintf("%d%%", i.PromotionRate/10),
+			Promotion:            fmt.Sprintf("%.2f", (float32(i.MinGroupPrice)/1000-float32(i.CouponDiscount)/1000)*(float32(i.PromotionRate)/1000)),
+		})
 	}
-	return links
+	return cels
 }
 
 func GetTextFromLinks(cels []ExcelData) string {
@@ -120,10 +158,27 @@ func GetTextFromLinks(cels []ExcelData) string {
 	return text
 }
 
+func GetMemNumberCels(cels []ExcelData, key string) []ExcelData {
+	result := []ExcelData{}
+	for _, c := range cels {
+		rawData, err := GetRawDataByCel(c, key)
+		if err != nil {
+			continue
+		}
+		c.LocalGroupTotal = rawData.Store.InitDataObj.Goods.NeighborGroup.NeighborData.LocalGroup.LocalGroupTotal
+		c.GoodsName = rawData.Store.InitDataObj.Goods.GoodsName
+		result = append(result, c)
+	}
+	return result
+}
+
 func GetMemNumberLinks(links []string, key string) []ExcelData {
 	result := []ExcelData{}
 	for _, l := range links {
-		cel, err := GetNameMemberByLink(l, key)
+		c := ExcelData{
+			GoodsLink: l,
+		}
+		cel, err := GetRawDataByCel(c, key)
 		if err != nil {
 			continue
 		}
@@ -136,9 +191,9 @@ func GetMemNumberLinks(links []string, key string) []ExcelData {
 	return result
 }
 
-func GetNameMemberByLink(link string, key string) (*RawData, error) {
+func GetRawDataByCel(cel ExcelData, key string) (*RawData, error) {
 	client := &http.Client{}
-	req, _ := http.NewRequest(http.MethodGet, link, nil)
+	req, _ := http.NewRequest(http.MethodGet, cel.GoodsLink, nil)
 	cookie := &http.Cookie{Name: "PDDAccessToken", Value: key}
 	req.AddCookie(cookie)
 	resp, err := client.Do(req)
@@ -161,10 +216,10 @@ func GetNameMemberByLink(link string, key string) (*RawData, error) {
 	})
 	data = strings.TrimFunc(data, unicode.IsSpace)
 	data = data[:len(data)-1]
-	cel := &RawData{}
-	if err := json.Unmarshal([]byte(data), cel); err != nil {
+	rd := &RawData{}
+	if err := json.Unmarshal([]byte(data), rd); err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
-	return cel, nil
+	return rd, nil
 }

@@ -1,6 +1,7 @@
 package duoduojinbao
 
 import (
+	"fmt"
 	"github.com/zserge/lorca"
 	"testing"
 )
@@ -13,13 +14,14 @@ func TestGetMutiPageLinks(t *testing.T) {
 	//	WithCoupon: 0,
 	//}
 	duo := Duoduojinbao{
-		AK:"ee60c4580b7fa330f42ec18dcf711d2f",
-		PDDAK: "7JRUYPDYSMRNH24TX4N73UQMKQFUA533LO5IARUSQD7A65NQ76HQ11132a5",
-		RangeFrom: "10",
-		RangeTo: "20",
+		AK:"cd09bebca57d546bb92a194cd95a6b1d",
+		PDDAK: "K2WQME43FUPO3ELUPDJWIAO7QKTVQBNFPY5R7UMZMCEMWC5QHRHQ11132a5",
+		//RangeFrom: "10",
+		//RangeTo: "20",
 		LeiMu: -1,
 	}
-	duo.GetPDDLinks()
+	text := duo.GetPDDLinksTest()
+	fmt.Println(text)
 }
 
 func TestChrome(t *testing.T) {

@@ -162,14 +162,14 @@ func GetDuoduojinbaoPage() *Duoduojinbao {
 					},
 					LineEdit{
 						MinSize: Size{60, 0},
-						Text: Bind("RangeFrom"),
+						Text:    Bind("RangeFrom"),
 					},
 					TextLabel{
 						Text: "~",
 					},
 					LineEdit{
 						MinSize: Size{60, 0},
-						Text: Bind("RangeTo"),
+						Text:    Bind("RangeTo"),
 					},
 				},
 			},
@@ -236,14 +236,14 @@ func (d *Duoduojinbao) GetPDDLinks() {
 		PageSize:   60,
 		WithCoupon: 0,
 		SortType:   d.XiaoLiang,
-		RangeList: []app.Range{},
+		RangeList:  []app.Range{},
 	}
 	rngF, _ := strconv.ParseInt(d.RangeFrom, 10, 64)
 	rngT, _ := strconv.ParseInt(d.RangeTo, 10, 64)
 	rng := app.Range{
 		RangeFrom: rngF * 100,
-		RangeId: 1,
-		RangeTo: rngT * 100,
+		RangeId:   1,
+		RangeTo:   rngT * 100,
 	}
 	if rng.RangeFrom > 0 && rng.RangeTo > 0 {
 		upData.RangeList = append(upData.RangeList, rng)
@@ -266,6 +266,41 @@ func (d *Duoduojinbao) GetPDDLinks() {
 	}()
 }
 
+//func (d *Duoduojinbao) GetPDDLinksTest() string {
+//	upData := app.UpData{
+//		CategoryId: d.LeiMu,
+//		PageSize:   60,
+//		WithCoupon: 0,
+//		SortType:   d.XiaoLiang,
+//		RangeList:  []app.Range{},
+//	}
+//	rngF, _ := strconv.ParseInt(d.RangeFrom, 10, 64)
+//	rngT, _ := strconv.ParseInt(d.RangeTo, 10, 64)
+//	rng := app.Range{
+//		RangeFrom: rngF * 100,
+//		RangeId:   1,
+//		RangeTo:   rngT * 100,
+//	}
+//	if rng.RangeFrom > 0 && rng.RangeTo > 0 {
+//		upData.RangeList = append(upData.RangeList, rng)
+//	}
+//	if d.Quan {
+//		upData.WithCoupon = 1
+//	}
+//	startPage, _ := strconv.Atoi(d.StartPage)
+//	endPage, _ := strconv.Atoi(d.EndPage)
+//	if startPage <= 0 {
+//		startPage = 1
+//	}
+//	if startPage > endPage {
+//		endPage = startPage
+//	}
+//	fmt.Printf("updata is %#v", upData)
+//	text := d.GetMutiPageLinks(upData, startPage, endPage)
+//	d.SaveXLSX()
+//	return text
+//}
+
 func (d *Duoduojinbao) SetUIEnable(enable bool) {
 	d.GetBtn.SetEnabled(enable)
 	d.Links.SetEnabled(enable)
@@ -273,13 +308,13 @@ func (d *Duoduojinbao) SetUIEnable(enable bool) {
 }
 
 func (d *Duoduojinbao) GetMutiPageLinks(upData app.UpData, startPage int, endPage int) string {
-	links := []string{}
+	cels := []app.ExcelData{}
 	for i := startPage; i <= endPage; i++ {
 		upData.PageNumber = i
-		tmpLinks := app.GetOnePageLinks(upData, d.AK)
-		links = append(links, tmpLinks...)
+		tmpCels := app.GetOnePageLinks(upData, d.AK)
+		cels = append(cels, tmpCels...)
 	}
-	cels := app.GetMemNumberLinks(links, d.PDDAK)
+	cels = app.GetMemNumberCels(cels, d.PDDAK)
 	d.Excel = cels
 	text := app.GetTextFromLinks(cels)
 	return text
@@ -298,12 +333,12 @@ func (d *Duoduojinbao) DownLoadXLSX() {
 }
 
 func (d *Duoduojinbao) SaveXLSX() {
+	defer d.SetUIEnable(true)
 	if len(d.Excel) == 0 {
 		return
 	}
 	timestamp := time.Now().Unix()
 	filename := strconv.FormatInt(timestamp, 10) + ".xlsx"
-	defer d.SetUIEnable(true)
 	var file *xlsx.File
 	var sheet *xlsx.Sheet
 	var row *xlsx.Row
@@ -313,19 +348,62 @@ func (d *Duoduojinbao) SaveXLSX() {
 	sheet, _ = file.AddSheet("商品信息")
 	row = sheet.AddRow()
 	cell = row.AddCell()
+	cell.Value = "商品名称"
+	cell = row.AddCell()
+	cell.Value = "类目"
+	cell = row.AddCell()
 	cell.Value = "在线拼单人数"
+	cell = row.AddCell()
+	cell.Value = "折扣"
+	cell = row.AddCell()
+	cell.Value = "券后价格"
+	cell = row.AddCell()
+	cell.Value = "佣金"
+	cell = row.AddCell()
+	cell.Value = "佣金率"
+	cell = row.AddCell()
+	cell.Value = "销量"
+	cell = row.AddCell()
+	cell.Value = "优惠券剩余"
 	cell = row.AddCell()
 	cell.Value = "商品链接"
 	cell = row.AddCell()
-	cell.Value = "商品名称"
+	cell.Value = "店铺名称"
 	for _, r := range d.Excel {
 		row = sheet.AddRow()
-		cell = row.AddCell()
-		cell.Value = fmt.Sprintf("%d", r.LocalGroupTotal)
-		cell = row.AddCell()
-		cell.Value = r.GoodsLink
+		// 商品名称
 		cell = row.AddCell()
 		cell.Value = r.GoodsName
+		// 类目
+		cell = row.AddCell()
+		cell.Value = r.CategoryName
+		// 在线拼单人数
+		cell = row.AddCell()
+		cell.Value = fmt.Sprintf("%d", r.LocalGroupTotal)
+		// 折扣
+		cell = row.AddCell()
+		cell.Value = fmt.Sprintf("%d", r.CouponDiscount)
+		// 券后价格
+		cell = row.AddCell()
+		cell.Value = r.MinGroupPrice
+		// 佣金
+		cell = row.AddCell()
+		cell.Value = r.Promotion
+		// 佣金率
+		cell = row.AddCell()
+		cell.Value = r.PromotionRate
+		// 销量
+		cell = row.AddCell()
+		cell.Value = r.SalesTip
+		// 优惠券剩余
+		cell = row.AddCell()
+		cell.Value = fmt.Sprintf("%d", r.CouponRemainQuantity)
+		// 商品链接
+		cell = row.AddCell()
+		cell.Value = r.GoodsLink
+		// 店铺名称
+		cell = row.AddCell()
+		cell.Value = r.MallName
 	}
 	err = file.Save(filename)
 	if err != nil {
