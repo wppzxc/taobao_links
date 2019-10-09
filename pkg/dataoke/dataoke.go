@@ -18,9 +18,34 @@ type Dataoke struct {
 	MainPage  *TabPage
 	SubUrl    string
 	GetBtn    *walk.PushButton
+	LeiMu     int
 	Links     *walk.TextEdit
 	StartPage *walk.LineEdit
 	EndPage   *walk.LineEdit
+}
+
+type LeiMu struct {
+	Id   int
+	Name string
+}
+
+func GetLeiMus() []LeiMu {
+	return []LeiMu{
+		{Name: "居家日用", Id: 4},
+		{Name: "美食", Id: 6},
+		{Name: "母婴", Id: 2},
+		{Name: "美妆", Id: 3},
+		{Name: "女装", Id: 1},
+		{Name: "数码家电", Id: 8},
+		{Name: "文娱车品", Id: 7},
+		{Name: "内衣", Id: 10},
+		{Name: "家装家纺", Id: 14},
+		{Name: "鞋品", Id: 5},
+		{Name: "男装", Id: 9},
+		{Name: "配饰", Id: 12},
+		{Name: "户外运动", Id: 13},
+		{Name: "箱包", Id: 11},
+	}
 }
 
 func GetDataokePage() *Dataoke {
@@ -34,8 +59,8 @@ func GetDataokePage() *Dataoke {
 		Title:  "大淘客",
 		Layout: VBox{},
 		DataBinder: DataBinder{
-			DataSource: dataoke,
-			AutoSubmit: true,
+			DataSource:  dataoke,
+			AutoSubmit:  true,
 			OnSubmitted: dataoke.ResetPage,
 		},
 		Children: []Widget{
@@ -44,27 +69,37 @@ func GetDataokePage() *Dataoke {
 				Layout:  HBox{},
 				Children: []Widget{
 					HSpacer{},
+					Label{
+						Text: "类目",
+					},
+					ComboBox{
+						Value:         Bind("LeiMu"),
+						BindingMember: "Id",
+						DisplayMember: "Name",
+						Model:         GetLeiMus(),
+						Enabled:       Bind("Quan.Checked"),
+					},
 					RadioButtonGroup{
 						DataMember: "SubUrl",
 						Buttons: []RadioButton{{
-							Name: "Quan",
+							Name:  "Quan",
 							Text:  "领券直播",
 							Value: "quan",
 						}, {
-							Name: "Top",
+							Name:  "Top",
 							Text:  "实时榜单",
 							Value: "top",
 						}},
 					},
 					PushButton{
-						AssignTo: &dataoke.GetBtn,
+						AssignTo:  &dataoke.GetBtn,
 						Text:      "拉取",
 						OnClicked: dataoke.GetLinks,
 					},
 				},
 			},
 			Composite{
-				Layout:             VBox{},
+				Layout: VBox{},
 				Children: []Widget{
 					HSpacer{},
 					TextLabel{
@@ -73,7 +108,7 @@ func GetDataokePage() *Dataoke {
 					TextEdit{
 						ReadOnly: true,
 						AssignTo: &dataoke.Links,
-						VScroll: true,
+						VScroll:  true,
 					},
 				},
 			},
@@ -86,18 +121,18 @@ func GetDataokePage() *Dataoke {
 					},
 					LineEdit{
 						AssignTo: &dataoke.StartPage,
-						MaxSize: Size{20, 0},
-						Text: "1",
-						Enabled: Bind("Quan.Checked"),
+						MaxSize:  Size{20, 0},
+						Text:     "1",
+						Enabled:  Bind("Quan.Checked"),
 					},
 					TextLabel{
 						Text: "结束页：",
 					},
 					LineEdit{
 						AssignTo: &dataoke.EndPage,
-						MaxSize: Size{20, 0},
-						Text: "1",
-						Enabled: Bind("Quan.Checked"),
+						MaxSize:  Size{20, 0},
+						Text:     "1",
+						Enabled:  Bind("Quan.Checked"),
 					},
 				},
 			},
@@ -142,8 +177,16 @@ func (d *Dataoke) GetQuanLinks(start int, end int) {
 
 func (d *Dataoke) GetMutiPagesQuanLinks(start int, end int) string {
 	text := ""
+	lm := ""
+	lmUrl := ""
+	if d.LeiMu > 0 {
+		lm = strconv.Itoa(d.LeiMu)
+	}
+	if len(lm) > 0 {
+		lmUrl = "&cid=" + lm
+	}
 	for i := start; i <= end; i++ {
-		url := dataokeHost + quanUrl + strconv.Itoa(i)
+		url := dataokeHost + quanUrl + strconv.Itoa(i) + lmUrl
 		fmt.Println(url)
 		tmp := d.GetLinksText(url)
 		text = text + "\n" + tmp

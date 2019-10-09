@@ -19,7 +19,7 @@ func main() {
 	// init taokeyi
 	tky := taokeyi.GetTaokeyiPage()
 	if _, err := (MainWindow{
-		Title: "商品链接获取工具",
+		Title: "商品链接获取工具 v0.0.1",
 		//Icon: "./assets/img/icon.ico",
 		Size:    Size{350, 600},
 		MaxSize: Size{350, 600},
