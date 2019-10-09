@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/dataoke/dataoke.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/dataoke/dataoke.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taobao_links.exe" beforeDir="false" afterPath="$PROJECT_DIR$/taobao_links.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao_links.exe" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +21,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pkg/dataoke/dataoke.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="140">
-              <caret line="187" column="35" selection-start-line="187" selection-start-column="35" selection-end-line="187" selection-end-column="35" />
+              <caret line="184" column="20" lean-forward="true" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
               <folding>
                 <element signature="e#17#152#0" expanded="true" />
               </folding>
@@ -35,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+            <state relative-caret-position="40">
+              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -110,7 +108,6 @@
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/webview.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/rawData.json" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/test_app.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/links.txt" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/test.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/test/links.txt" />
@@ -120,6 +117,7 @@
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/app.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" />
         <option value="$PROJECT_DIR$/pkg/dataoke/dataoke.go" />
+        <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
   </component>
@@ -295,12 +293,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2980333" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2980333" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49924356" visible="true" weight="0.2590164" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" sideWeight="0.49924356" visible="true" weight="0.2590164" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.3880484" side_tool="true" weight="0.39836067" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.3295082" />
@@ -671,20 +668,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/dataoke/dataoke.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="187" column="35" selection-start-line="187" selection-start-column="35" selection-end-line="187" selection-end-column="35" />
-          <folding>
-            <element signature="e#17#152#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="40">
+          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://$PROJECT_DIR$/pkg/dataoke/dataoke.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        <state relative-caret-position="140">
+          <caret line="184" column="20" lean-forward="true" selection-start-line="184" selection-start-column="20" selection-end-line="184" selection-end-column="20" />
+          <folding>
+            <element signature="e#17#152#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
