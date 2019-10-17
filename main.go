@@ -22,7 +22,7 @@ func main() {
 	// init goodsSearch
 	gs := goodsSearch.GetGoodsSearchPage()
 	if _, err := (MainWindow{
-		Title: "商品链接获取工具 v0.0.3",
+		Title: "商品链接获取工具 v0.0.4",
 		AssignTo: &gs.ParentWindow,
 		//Icon: "./assets/img/icon.ico",
 		Size:    Size{350, 600},

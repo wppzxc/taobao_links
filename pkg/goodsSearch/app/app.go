@@ -14,6 +14,10 @@ import (
 
 const (
 	taofenbaUrl = "https://www.taofen8.com/search/s"
+	taobao = "taobao"
+	tmall = "tmall"
+	taobaoPrefix = "https://item.taobao.com/item.htm?id="
+	tmallPrefix = "https://detail.tmall.com/item.htm?id="
 )
 
 func SearchAndSave(titles []string) error {
@@ -31,14 +35,20 @@ func SearchAndSave(titles []string) error {
 		cel := new(types.CelData)
 		cel.Title = title
 		if len(result.GoodsList) == 100 {
-			cel.Number = "大于100"
+			cel.GoodsNumber = "100"
 		} else {
-			cel.Number = strconv.Itoa(len(result.GoodsList))
+			cel.GoodsNumber = strconv.Itoa(len(result.GoodsList))
 		}
-		m := getMaxSaleNumber(result.GoodsList)
+		m, num := getMaxSaleAndTaobaoNumber(result.GoodsList)
 		if m != nil {
 			cel.MaxSaleNumber = m.SaleAmount
 			cel.GoodsId = m.GoodsId
+			cel.TaobaoNumber = num
+			if m.Refer == taobao {
+				cel.Url = fmt.Sprint(taobaoPrefix, m.GoodsId)
+			} else if m.Refer == tmall {
+				cel.Url = fmt.Sprint(tmallPrefix, m.GoodsId)
+			}
 		}
 		cels = append(cels, *cel)
 	}
@@ -53,20 +63,24 @@ func SearchAndSave(titles []string) error {
 	return nil
 }
 
-func getMaxSaleNumber(goods []types.GoodsInfo) *types.GoodsInfo {
+func getMaxSaleAndTaobaoNumber(goods []types.GoodsInfo) (*types.GoodsInfo, string) {
 	if len(goods) == 0 {
-		return nil
+		return nil, "0"
 	}
 	index := 0
+	taobaoNum := 0
 	var lastNum int64 = 0
 	for i, g := range goods {
+		if g.Refer == taobao {
+			taobaoNum ++
+		}
 		n64, _ := strconv.ParseInt(g.SaleAmount, 10, 64)
 		if n64 >= lastNum {
 			lastNum = n64
 			index = i
 		}
 	}
-	return &goods[index]
+	return &goods[index], fmt.Sprintf("%d", taobaoNum)
 }
 
 func saveExcel(cels []types.CelData) {
@@ -84,6 +98,8 @@ func saveExcel(cels []types.CelData) {
 	cell = row.AddCell()
 	cell.Value = "在线商品数量"
 	cell = row.AddCell()
+	cell.Value = "淘宝店铺数量"
+	cell = row.AddCell()
 	cell.Value = "最高销量"
 	cell = row.AddCell()
 	cell.Value = "商品ID"
@@ -94,7 +110,9 @@ func saveExcel(cels []types.CelData) {
 		cell = row.AddCell()
 		cell.Value = c.Title
 		cell = row.AddCell()
-		cell.Value = c.Number
+		cell.Value = c.GoodsNumber
+		cell = row.AddCell()
+		cell.Value = c.TaobaoNumber
 		cell = row.AddCell()
 		cell.Value = c.MaxSaleNumber
 		cell = row.AddCell()
