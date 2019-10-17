@@ -36,11 +36,16 @@ func SearchAndSave(titles []string) error {
 			cel.Number = strconv.Itoa(len(result.GoodsList))
 		}
 		m := getMaxSaleNumber(result.GoodsList)
-		cel.MaxSaleNumber = m.SaleAmount
-		cel.GoodsId = m.GoodsId
+		if m != nil {
+			cel.MaxSaleNumber = m.SaleAmount
+			cel.GoodsId = m.GoodsId
+		}
 		cels = append(cels, *cel)
 	}
 	for _, t := range titles {
+		if len(t) == 0 {
+			continue
+		}
 		get(t)
 	}
 	saveExcel(cels)
@@ -48,7 +53,10 @@ func SearchAndSave(titles []string) error {
 	return nil
 }
 
-func getMaxSaleNumber(goods []types.GoodsInfo) types.GoodsInfo {
+func getMaxSaleNumber(goods []types.GoodsInfo) *types.GoodsInfo {
+	if len(goods) == 0 {
+		return nil
+	}
 	index := 0
 	var lastNum int64 = 0
 	for i, g := range goods {
@@ -58,7 +66,7 @@ func getMaxSaleNumber(goods []types.GoodsInfo) types.GoodsInfo {
 			index = i
 		}
 	}
-	return goods[index]
+	return &goods[index]
 }
 
 func saveExcel(cels []types.CelData) {
