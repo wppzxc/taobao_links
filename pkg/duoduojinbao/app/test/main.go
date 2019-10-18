@@ -20,14 +20,14 @@ func main() {
 	flag.StringVar(&key, "key", "", "拼多多key")
 	flag.Parse()
 	if len(key) == 0 {
-		fmt.Print("请输入key!")
+		fmt.Println("请输入key!")
 		os.Exit(0)
 	}
 	linksFile := "links.txt"
 	//linksFile := "D:\\project\\go\\src\\github.com\\wpp\\taobao_links\\pkg\\duoduojinbao\\app\\test\\links.txt"
 	file, err := os.Open(linksFile)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 	defer file.Close()
@@ -38,11 +38,11 @@ func main() {
 		index ++
 		line, err := rd.ReadString('\n')
 		if io.EOF == err {
-			fmt.Print("读取数据结束")
+			fmt.Println("读取数据结束")
 			links = append(links, line)
 			break
 		} else if err != nil {
-			fmt.Printf("读取第%d行数据失败", index)
+			fmt.Printf("读取第%d行数据失败\n", index)
 			continue
 		}
 		if len(line) == 0 {
@@ -58,7 +58,7 @@ func main() {
 	}
 	
 	if len(finalLinks) == 0 {
-		fmt.Print("读取文件失败！")
+		fmt.Println("读取文件失败！")
 		os.Exit(1)
 	}
 	cels := app.GetMemNumberLinks(finalLinks, key)
@@ -90,7 +90,7 @@ func main() {
 	}
 	err = excelFile.Save(filename)
 	if err != nil {
-		fmt.Printf("保存excel失败：%s", err.Error())
+		fmt.Printf("保存excel失败：%s\n", err.Error())
 		os.Exit(1)
 	}
 }

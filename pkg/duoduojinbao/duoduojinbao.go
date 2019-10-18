@@ -266,41 +266,6 @@ func (d *Duoduojinbao) GetPDDLinks() {
 	}()
 }
 
-//func (d *Duoduojinbao) GetPDDLinksTest() string {
-//	upData := app.UpData{
-//		CategoryId: d.LeiMu,
-//		PageSize:   60,
-//		WithCoupon: 0,
-//		SortType:   d.XiaoLiang,
-//		RangeList:  []app.Range{},
-//	}
-//	rngF, _ := strconv.ParseInt(d.RangeFrom, 10, 64)
-//	rngT, _ := strconv.ParseInt(d.RangeTo, 10, 64)
-//	rng := app.Range{
-//		RangeFrom: rngF * 100,
-//		RangeId:   1,
-//		RangeTo:   rngT * 100,
-//	}
-//	if rng.RangeFrom > 0 && rng.RangeTo > 0 {
-//		upData.RangeList = append(upData.RangeList, rng)
-//	}
-//	if d.Quan {
-//		upData.WithCoupon = 1
-//	}
-//	startPage, _ := strconv.Atoi(d.StartPage)
-//	endPage, _ := strconv.Atoi(d.EndPage)
-//	if startPage <= 0 {
-//		startPage = 1
-//	}
-//	if startPage > endPage {
-//		endPage = startPage
-//	}
-//	fmt.Printf("updata is %#v", upData)
-//	text := d.GetMutiPageLinks(upData, startPage, endPage)
-//	d.SaveXLSX()
-//	return text
-//}
-
 func (d *Duoduojinbao) SetUIEnable(enable bool) {
 	d.GetBtn.SetEnabled(enable)
 	d.Links.SetEnabled(enable)

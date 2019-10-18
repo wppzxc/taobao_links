@@ -122,6 +122,6 @@ func saveExcel(cels []types.CelData) {
 	}
 	err := excelFile.Save(filename)
 	if err != nil {
-		fmt.Printf("Error in save excel file : %s", err)
+		fmt.Printf("Error in save excel file : %s\n", err)
 	}
 }

@@ -2,15 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/wpp/taobao_links/pkg/dataoke"
 	"github.com/wpp/taobao_links/pkg/duoduojinbao"
 	"github.com/wpp/taobao_links/pkg/goodsSearch"
 	"github.com/wpp/taobao_links/pkg/haodanku"
 	"github.com/wpp/taobao_links/pkg/taokeyi"
+	"github.com/wpp/taobao_links/pkg/yituike"
 )
 
 func main() {
+	mw := &walk.MainWindow{}
+	
 	// init dataoke
 	dtk := dataoke.GetDataokePage()
 	// init haodanku
@@ -21,9 +25,19 @@ func main() {
 	tky := taokeyi.GetTaokeyiPage()
 	// init goodsSearch
 	gs := goodsSearch.GetGoodsSearchPage()
+	// init yituike
+	ytk := yituike.GetYituikePage()
+	if ok := ytk.LoadConfig(); ok {
+		fmt.Println("load config from localFile config.yaml")
+	}
+	
+	// bind mainWindow
+	gs.ParentWindow = mw
+	ytk.ParentWindow = mw
+	
 	if _, err := (MainWindow{
-		Title: "商品链接获取工具 v0.0.4",
-		AssignTo: &gs.ParentWindow,
+		Title:    "淘宝客工具 v1.0.0",
+		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
 		Size:    Size{350, 600},
 		MaxSize: Size{350, 600},
@@ -36,6 +50,7 @@ func main() {
 					*ddjb.MainPage,
 					*tky.MainPage,
 					*gs.MainPage,
+					*ytk.MainPage,
 				},
 			},
 		},

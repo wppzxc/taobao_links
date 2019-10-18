@@ -67,7 +67,7 @@ func (g *GoodsSearch) ChooseFile() {
 	dlg.Filter = "文本文档 (*.txt)"
 	dlg.Title = "选择文件"
 	if ok, err := dlg.ShowOpen(g.ParentWindow); err != nil {
-		fmt.Printf("Error in open file : %s", err)
+		fmt.Printf("Error in open file : %s\n", err)
 	} else if !ok {
 		return
 	}
@@ -90,7 +90,7 @@ func (g *GoodsSearch) SearchGoods() {
 	for {
 		line, err := rd.ReadString('\n')
 		if io.EOF == err {
-			fmt.Print("加载文件完毕")
+			fmt.Println("加载文件完毕")
 			titles = append(titles, line)
 			break
 		}
@@ -106,7 +106,7 @@ func (g *GoodsSearch) SearchGoods() {
 	}
 	go func() {
 		if err := app.SearchAndSave(finalTitles); err != nil {
-			fmt.Printf("Error in search goods : %s", err)
+			fmt.Printf("Error in search goods : %s\n", err)
 		}
 		g.SetUIEnable(true)
 	}()

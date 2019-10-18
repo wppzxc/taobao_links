@@ -115,7 +115,7 @@ type ExcelData struct {
 
 func GetOnePageLinks(upData UpData, key string) []ExcelData {
 	reqBody, _ := json.Marshal(upData)
-	fmt.Print(reqBody)
+	fmt.Println(reqBody)
 	client := &http.Client{}
 	req, _ := http.NewRequest(http.MethodPost, getDuoDataUrl, strings.NewReader(string(reqBody)))
 	cookie := &http.Cookie{Name: getDuoDataCookieKey, Value: key, HttpOnly: false}
@@ -198,12 +198,12 @@ func GetRawDataByCel(cel ExcelData, key string) (*RawData, error) {
 	req.AddCookie(cookie)
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return nil, err
 	}
 	dom, err := goquery.NewDocumentFromResponse(resp)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		return nil, err
 	}
 	data := ""

@@ -65,7 +65,7 @@ func eventHandler(w webview.WebView, data string) {
 func (app *Application) RestAK() {
 	app.WebApp.Dispatch(func() {
 		if err := app.WebApp.Eval(javascripts.ResetAKJS); err != nil {
-			fmt.Printf("Error : %s",err)
+			fmt.Printf("Error : %s\n",err)
 		}
 		fmt.Println("初始化AK成功!")
 	})
@@ -75,7 +75,7 @@ func (app *Application) Login() {
 	time.Sleep(1 * time.Second)
 	app.WebApp.Dispatch(func() {
 		if err := app.WebApp.Eval(javascripts.LoginJS); err != nil {
-			fmt.Printf("Error : %s",err)
+			fmt.Printf("Error : %s\n",err)
 		}
 	})
 }
@@ -83,7 +83,7 @@ func (app *Application) Login() {
 func (app *Application) CloseLoginPage() {
 	app.WebApp.Dispatch(func() {
 		if err := app.WebApp.Eval(javascripts.CloseLoginPage); err != nil {
-			fmt.Printf("Error : %s",err)
+			fmt.Printf("Error : %s\n",err)
 		}
 		fmt.Println("登录成功!")
 	})
