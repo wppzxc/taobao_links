@@ -303,7 +303,7 @@ func (d *Duoduojinbao) SaveXLSX() {
 		return
 	}
 	timestamp := time.Now().Unix()
-	filename := strconv.FormatInt(timestamp, 10) + ".xlsx"
+	filename := "DuoDuojinbao" + strconv.FormatInt(timestamp, 10) + ".xlsx"
 	var file *xlsx.File
 	var sheet *xlsx.Sheet
 	var row *xlsx.Row

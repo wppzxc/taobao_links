@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
+	"github.com/wpp/taobao_links/pkg/PDDUserNumber"
 	"github.com/wpp/taobao_links/pkg/dataoke"
 	"github.com/wpp/taobao_links/pkg/duoduojinbao"
 	"github.com/wpp/taobao_links/pkg/goodsSearch"
@@ -30,17 +31,20 @@ func main() {
 	if ok := ytk.LoadConfig(); ok {
 		fmt.Println("load config from localFile config.yaml")
 	}
+	// init pddUserNumber
+	pdun := PDDUserNumber.GetPDDUserNumberPage()
 	
 	// bind mainWindow
 	gs.ParentWindow = mw
 	ytk.ParentWindow = mw
+	pdun.ParentWindow = mw
 	
 	if _, err := (MainWindow{
-		Title:    "淘宝客工具 v1.0.0",
+		Title:    "淘宝客工具 v1.0.1",
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
-		Size:    Size{350, 600},
-		MaxSize: Size{350, 600},
+		Size:    Size{400, 600},
+		MaxSize: Size{400, 600},
 		Layout:  VBox{},
 		Children: []Widget{
 			TabWidget{
@@ -51,6 +55,7 @@ func main() {
 					*tky.MainPage,
 					*gs.MainPage,
 					*ytk.MainPage,
+					*pdun.MainPage,
 				},
 			},
 		},

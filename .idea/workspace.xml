@@ -2,21 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/PDDUserNumber/PDDUserNumber.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/PDDUserNumber/app/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/PDDUserNumber/types/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/duoduojinbao/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/app_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/duoduojinbao/app/app_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/webview.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/duoduojinbao/webview.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/test/links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/test/test.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/filter/filter_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/filter/filter_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/history/history.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/history/history.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/process/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/process/process.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/utils/fanli.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/utils/fanli.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/utils/send.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/utils/send.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/yituike.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/yituike.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taobao.rar" beforeDir="false" afterPath="$PROJECT_DIR$/taobao.rar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,113 +22,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/yituike.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="259" column="40" selection-start-line="259" selection-start-column="40" selection-end-line="259" selection-end-column="40" />
-              <folding>
-                <element signature="e#17#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/app/app.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-              <folding>
-                <element signature="e#20#133#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/send.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="40" column="82" selection-start-line="40" selection-start-column="82" selection-end-line="40" selection-end-column="82" />
-              <folding>
-                <element signature="e#15#239#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/fanli.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
-              <folding>
-                <element signature="e#15#134#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/process/process.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-              <folding>
-                <element signature="e#17#190#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/PDDUserNumber/app/app.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="138" selection-start-line="138" selection-end-line="138" />
+              <folding>
+                <element signature="e#13#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/PDDUserNumber/types/types.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-140">
+              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/app.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="63" selection-start-line="63" selection-end-line="92" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="100">
-                <caret line="5" column="35" selection-start-line="5" selection-end-line="5" selection-end-column="35" />
+              <first_editor relative-caret-position="60">
+                <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
               </first_editor>
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/util.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-              <folding>
-                <element signature="e#15#100#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/yituike/types/types.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -148,7 +84,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>starttime</find>
       <find>qq</find>
       <find>goquery</find>
       <find>dom.Find</find>
@@ -170,7 +105,6 @@
       <find>diffItems[0]</find>
       <find>fmt</find>
       <find>yaml</find>
-      <find>klog</find>
       <find>Bind(</find>
       <find>Password</find>
       <find>fmt.Print(</find>
@@ -178,6 +112,8 @@
       <find>fmt.Printf(</find>
       <find>%s&quot;</find>
       <find>Printf(</find>
+      <find>filename</find>
+      <find>klog</find>
     </findStrings>
     <replaceStrings>
       <replace>fmt.Println(</replace>
@@ -192,7 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/examples/tabview/tableview.go" />
         <option value="$PROJECT_DIR$/mutiplewindow.go" />
         <option value="$PROJECT_DIR$/pkg/dataoke/app/app.go" />
         <option value="$PROJECT_DIR$/pkg/dataoke/top/app.go" />
@@ -202,7 +137,6 @@
         <option value="$PROJECT_DIR$/pkg/taokeyi/app/app.go" />
         <option value="$PROJECT_DIR$/pkg/haodanku/haodanku.go" />
         <option value="$PROJECT_DIR$/pkg/taokeyi/taokeyi.go" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/javascripts/loginJS.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/utils/util.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/webview.go" />
@@ -220,7 +154,6 @@
         <option value="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch_tet.go" />
         <option value="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch_test.go" />
         <option value="$PROJECT_DIR$/pkg/goodsSearch/app/types/types.go" />
-        <option value="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/wait/wait.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/app/app.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/history/history_test.go" />
@@ -230,17 +163,22 @@
         <option value="$PROJECT_DIR$/pkg/yituike/types/types.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/utils/util.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/yituike.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/utils/send.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/app_test.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/filter/filter_test.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/utils/fanli.go" />
-        <option value="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/process/process.go" />
         <option value="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" />
-        <option value="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go" />
         <option value="$PROJECT_DIR$/pkg/duoduojinbao/webview.go" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go" />
+        <option value="$PROJECT_DIR$/pkg/PDDUserNumber/PDDUserNumber.go" />
+        <option value="$PROJECT_DIR$/pkg/PDDUserNumber/types/types.go" />
+        <option value="$PROJECT_DIR$/pkg/PDDUserNumber/app/app.go" />
+        <option value="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" />
+        <option value="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" />
       </list>
     </option>
   </component>
@@ -262,6 +200,49 @@
             <path>
               <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
               <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="duoduojinbao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="goodsSearch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="PDDUserNumber" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="PDDUserNumber" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="PDDUserNumber" type="462c0819:PsiDirectoryNode" />
+              <item name="types" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
+              <item name="taobao_links" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="yituike" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="taobao_links" type="b2602c69:ProjectViewProjectNode" />
@@ -419,13 +400,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.1633888" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.16490166" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.5612708" visible="true" weight="0.33934426" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" sideWeight="0.5605144" visible="true" weight="0.33770493" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.4387292" side_tool="true" weight="0.2590164" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.43948564" side_tool="true" weight="0.33770493" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.3295082" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -459,11 +441,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go</url>
-          <line>101</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go</url>
           <line>90</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
@@ -471,27 +448,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/software/sdk/go/src/net/http/request.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="404" selection-start-line="404" selection-end-line="404" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/software/sdk/go/src/os/file_windows.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="175" selection-start-line="175" selection-end-line="175" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/app_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/software/sdk/go/src/testing/testing.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="113">
@@ -523,13 +479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/goodsFilter/goodsFilter.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/haodanku/haodanku.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
@@ -558,51 +507,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/rawData.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="509" column="28" selection-start-line="509" selection-start-column="28" selection-end-line="509" selection-end-column="28" />
-          <folding>
-            <element signature="e#1327#2787#0" />
-            <element signature="e#2814#4054#0" />
-            <element signature="e#4081#7435#0" />
-            <element signature="e#7461#7753#0" />
-            <element signature="e#7871#8389#0" />
-            <element signature="e#8407#13107#0" />
-            <element signature="e#14447#14472#0" />
-            <element signature="e#14534#14753#0" />
-            <element signature="e#14809#14855#0" />
-            <element signature="e#14963#15428#0" />
-            <element signature="e#15570#15657#0" />
-            <element signature="e#16327#17756#0" />
-            <element signature="e#17808#19079#0" />
-            <element signature="e#19271#19698#0" />
-            <element signature="e#20077#27720#0" />
-            <element signature="e#27768#27929#0" />
-            <element signature="e#28091#28169#0" />
-            <element signature="e#28199#28347#0" />
-            <element signature="e#28431#32821#0" />
-            <element signature="n#!!block;n#mall#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
-            <element signature="n#!!block;n#reviews#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
-            <element signature="n#!!block;n#lisbonInfo#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
-            <element signature="n#!!block;n#queries#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
-            <element signature="n#!!block;n#guideConfig#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
-            <element signature="n#!!block;n#dialogStatus#0;n#!!block;n#store#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/test/links.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/app.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="193" column="5" selection-start-line="193" selection-start-column="5" selection-end-line="193" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -615,13 +523,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/100.txt" />
     <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/101.txt" />
-    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="63" column="26" selection-start-line="63" selection-start-column="26" selection-end-line="63" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/app/app_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -636,13 +537,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/app/app.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="121" column="5" selection-start-line="121" selection-start-column="5" selection-end-line="121" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -654,24 +548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-80">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="123" column="26" selection-start-line="123" selection-start-column="26" selection-end-line="123" selection-end-column="26" />
-          <folding>
-            <element signature="e#198#561#0" />
-            <element signature="e#1129#1655#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -784,47 +660,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/yituike/types/types.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/util.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-          <folding>
-            <element signature="e#15#100#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/yituike/yituike.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="259" column="40" selection-start-line="259" selection-start-column="40" selection-end-line="259" selection-end-column="40" />
-          <folding>
-            <element signature="e#17#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/config.yaml" />
     <entry file="file://$PROJECT_DIR$/pkg/yituike/app/app.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -832,9 +668,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/send.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
+        <state relative-caret-position="800">
           <caret line="40" column="82" selection-start-line="40" selection-start-column="82" selection-end-line="40" selection-end-column="82" />
           <folding>
             <element signature="e#15#239#0" expanded="true" />
@@ -842,29 +685,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/yituike/process/process.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-          <folding>
-            <element signature="e#17#190#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-          <folding>
-            <element signature="e#20#133#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/fanli.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
+        <state relative-caret-position="920">
           <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
             <element signature="e#15#134#0" expanded="true" />
@@ -872,13 +695,155 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/yituike/process/process.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/yituike/utils/util.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/yituike/types/types.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/goodsFilter/goodsFilter.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/yituike/yituike.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="41" column="24" lean-forward="true" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/app.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="63" selection-start-line="63" selection-end-line="92" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/PDDUserNumber/types/types.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-140">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="94" column="5" selection-start-line="65" selection-start-column="4" selection-end-line="94" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/app/app.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-380">
+          <caret line="86" column="34" lean-forward="true" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/PDDUserNumber/PDDUserNumber.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="101" column="14" selection-start-line="101" selection-start-column="14" selection-end-line="101" selection-end-column="14" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/PDDUserNumber/app/app.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
+          <folding>
+            <element signature="e#13#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="54" column="34" lean-forward="true" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/rawData.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="938">
+          <caret line="509" column="28" selection-start-line="509" selection-start-column="28" selection-end-line="509" selection-end-column="28" />
+          <folding>
+            <element signature="e#1327#2787#0" />
+            <element signature="e#2814#4054#0" />
+            <element signature="e#4081#7435#0" />
+            <element signature="e#7461#7753#0" />
+            <element signature="e#7871#8389#0" />
+            <element signature="e#8407#13107#0" />
+            <element signature="e#14447#14472#0" />
+            <element signature="e#14534#14753#0" />
+            <element signature="e#14809#14855#0" />
+            <element signature="e#14963#15428#0" />
+            <element signature="e#15570#15657#0" />
+            <element signature="e#16327#17756#0" />
+            <element signature="e#17808#19079#0" />
+            <element signature="e#19271#19698#0" />
+            <element signature="e#20077#27720#0" />
+            <element signature="e#27768#27929#0" />
+            <element signature="e#28091#28169#0" />
+            <element signature="e#28199#28347#0" />
+            <element signature="e#28431#32821#0" />
+            <element signature="n#!!block;n#mall#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
+            <element signature="n#!!block;n#reviews#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
+            <element signature="n#!!block;n#lisbonInfo#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
+            <element signature="n#!!block;n#queries#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
+            <element signature="n#!!block;n#guideConfig#0;n#!!block;n#initDataObj#0;n#!!block;n#store#0;n#!!top" />
+            <element signature="n#!!block;n#dialogStatus#0;n#!!block;n#store#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="100">
-            <caret line="5" column="35" selection-start-line="5" selection-end-line="5" selection-end-column="35" />
+          <first_editor relative-caret-position="60">
+            <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="309" column="23" lean-forward="true" selection-start-line="309" selection-start-column="23" selection-end-line="309" selection-end-column="23" />
+          <folding>
+            <element signature="e#198#561#0" />
+            <element signature="e#1129#1655#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="100" column="5" lean-forward="true" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
         </state>
       </provider>
     </entry>

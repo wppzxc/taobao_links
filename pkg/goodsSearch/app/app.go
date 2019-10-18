@@ -85,7 +85,7 @@ func getMaxSaleAndTaobaoNumber(goods []types.GoodsInfo) (*types.GoodsInfo, strin
 
 func saveExcel(cels []types.CelData) {
 	timestamp := time.Now().Unix()
-	filename := strconv.FormatInt(timestamp, 10) + ".xlsx"
+	filename := "TBGoodsSearch" + strconv.FormatInt(timestamp, 10) + ".xlsx"
 	var excelFile *xlsx.File
 	var sheet *xlsx.Sheet
 	var row *xlsx.Row
