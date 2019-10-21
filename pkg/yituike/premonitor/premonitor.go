@@ -24,7 +24,7 @@ func (p *Premonitor) StartPremonitor() {
 	defer func() {
 		history.UpdateHistoryItems(historyItems)
 		if err := history.WriteHistoryItems(historyItems, preItemsFile); err != nil {
-			fmt.Println("Error in update history localfile %s\n", err)
+			fmt.Printf("Error in update history localfile %s\n", err)
 		}
 	}()
 	
@@ -56,6 +56,8 @@ func (p *Premonitor) StartPremonitor() {
 			fmt.Println("no item found after filter")
 			return
 		}
+
+		fmt.Printf("get send item %#v \n", sendItem)
 		
 		tmpfile, err := utils.SaveImage(sendItem.GoodsImageUrl)
 		if err != nil {

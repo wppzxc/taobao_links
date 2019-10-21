@@ -24,7 +24,7 @@ func (p *Processer) StartProcess() {
 	defer func() {
 		history.UpdateHistoryItems(historyItems)
 		if err := history.WriteHistoryItems(historyItems, proItemsFile); err != nil {
-			fmt.Println("Error in update history localfile %s\n", err)
+			fmt.Printf("Error in update history localfile %s \n", err)
 		}
 	}()
 	
@@ -55,6 +55,8 @@ func (p *Processer) StartProcess() {
 			fmt.Println("no item found after filter")
 			return
 		}
+
+		fmt.Printf("get send item %#v \n", sendItem)
 	
 		tmpfile, err := utils.SaveImage(sendItem.GoodsImageUrl)
 		if err != nil {

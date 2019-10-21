@@ -22,15 +22,16 @@ const (
 )
 
 type Yituike struct {
-	ParentWindow      *walk.MainWindow
-	MainPage          *TabPage
-	RunBtn            *walk.PushButton
-	Config            *types.Config
-	RefreshInterval   string
-	SendInterval      string
-	StopCh            chan struct{}
-	FilterQuanNum     string
-	UIFileName        *walk.LineEdit
+	ParentWindow    *walk.MainWindow
+	MainPage        *TabPage
+	RunBtn          *walk.PushButton
+	Config          *types.Config
+	RefreshInterval string
+	SendInterval    string
+	StopCh          chan struct{}
+	FilterQuanNum   string
+	UIFileName      *walk.LineEdit
+	Running         bool
 }
 
 func GetYituikePage() *Yituike {
@@ -227,7 +228,7 @@ func (y *Yituike) ChooseFile() {
 	} else if !ok {
 		return
 	}
-	
+
 	y.Config.ReceiversFile = dlg.FilePath
 	y.UIFileName.SetText(y.Config.ReceiversFile)
 	fmt.Println(y.Config.ReceiversFile)
@@ -241,11 +242,11 @@ func (y *Yituike) Run() {
 		fmt.Println(err)
 		return
 	}
-	y.Config.Receivers = append(y.Config.Receivers, conf.Receivers...)
-	
+	y.Config.Receivers = conf.Receivers
+
 	// get auth
 	y.Config.Auth.Url = types.AuthUrl
-	
+
 	// get fanli
 	filterQuanNum, _ := strconv.Atoi(y.FilterQuanNum)
 	y.Config.Fanli.FilterQuanNum = filterQuanNum
@@ -264,6 +265,7 @@ func (y *Yituike) Run() {
 	}
 	y.SaveConfig()
 	fmt.Println("save config ok !")
+	y.Running = true
 	y.Start()
 	fmt.Printf("config is %#v", y.Config)
 }
@@ -290,9 +292,10 @@ func (y *Yituike) Start() {
 }
 
 func (y *Yituike) Stop() {
-	if y.StopCh == nil {
+	if y.Running == false {
 		return
 	}
+	y.Running = false
 	fmt.Println("stop !")
 	y.SetUIEnable(true)
 	close(y.StopCh)
