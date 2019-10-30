@@ -13,10 +13,12 @@ type GoodsInfo struct {
 }
 
 type CelData struct {
+	SearchStr     string `json:"searchStr"`
 	Title         string `json:"title"`
 	GoodsNumber   string `json:"goodsNumber"`
-	TaobaoNumber    string `json:"shopNumber"`
+	TaobaoNumber  string `json:"shopNumber"`
 	MaxSaleNumber string `json:"maxSaleNumber"`
 	GoodsId       string `json:"goodsId"`
 	Url           string `json:"url"`
+	IsTitleRight  string `json:"isTitleRight"`
 }

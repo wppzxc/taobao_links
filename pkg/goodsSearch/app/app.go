@@ -13,11 +13,16 @@ import (
 )
 
 const (
-	taofenbaUrl = "https://www.taofen8.com/search/s"
-	taobao = "taobao"
-	tmall = "tmall"
+	taofenbaUrl  = "https://www.taofen8.com/search/s"
+	taobao       = "taobao"
+	tmall        = "tmall"
 	taobaoPrefix = "https://item.taobao.com/item.htm?id="
-	tmallPrefix = "https://detail.tmall.com/item.htm?id="
+	tmallPrefix  = "https://detail.tmall.com/item.htm?id="
+)
+
+const (
+	right    = "是"
+	notRight = "否"
 )
 
 func SearchAndSave(titles []string) error {
@@ -33,7 +38,7 @@ func SearchAndSave(titles []string) error {
 		result := new(types.TaoFenBaResult)
 		json.Unmarshal(data, result)
 		cel := new(types.CelData)
-		cel.Title = title
+		cel.SearchStr = title
 		if len(result.GoodsList) == 100 {
 			cel.GoodsNumber = "100"
 		} else {
@@ -41,6 +46,7 @@ func SearchAndSave(titles []string) error {
 		}
 		m, num := getMaxSaleAndTaobaoNumber(result.GoodsList)
 		if m != nil {
+			cel.Title = m.Title
 			cel.MaxSaleNumber = m.SaleAmount
 			cel.GoodsId = m.GoodsId
 			cel.TaobaoNumber = num
@@ -48,6 +54,11 @@ func SearchAndSave(titles []string) error {
 				cel.Url = fmt.Sprint(taobaoPrefix, m.GoodsId)
 			} else if m.Refer == tmall {
 				cel.Url = fmt.Sprint(tmallPrefix, m.GoodsId)
+			}
+			if cel.Title == cel.SearchStr {
+				cel.IsTitleRight = right
+			} else {
+				cel.IsTitleRight = notRight
 			}
 		}
 		cels = append(cels, *cel)
@@ -72,7 +83,7 @@ func getMaxSaleAndTaobaoNumber(goods []types.GoodsInfo) (*types.GoodsInfo, strin
 	var lastNum int64 = 0
 	for i, g := range goods {
 		if g.Refer == taobao {
-			taobaoNum ++
+			taobaoNum++
 		}
 		n64, _ := strconv.ParseInt(g.SaleAmount, 10, 64)
 		if n64 >= lastNum {
@@ -94,7 +105,7 @@ func saveExcel(cels []types.CelData) {
 	sheet, _ = excelFile.AddSheet("商品信息")
 	row = sheet.AddRow()
 	cell = row.AddCell()
-	cell.Value = "商品标题"
+	cell.Value = "搜索的标题"
 	cell = row.AddCell()
 	cell.Value = "在线商品数量"
 	cell = row.AddCell()
@@ -105,10 +116,14 @@ func saveExcel(cels []types.CelData) {
 	cell.Value = "商品ID"
 	cell = row.AddCell()
 	cell.Value = "商品链接"
+	cell = row.AddCell()
+	cell.Value = "商品标题"
+	cell = row.AddCell()
+	cell.Value = "是否一致"
 	for _, c := range cels {
 		row = sheet.AddRow()
 		cell = row.AddCell()
-		cell.Value = c.Title
+		cell.Value = c.SearchStr
 		cell = row.AddCell()
 		cell.Value = c.GoodsNumber
 		cell = row.AddCell()
@@ -119,6 +134,10 @@ func saveExcel(cels []types.CelData) {
 		cell.Value = c.GoodsId
 		cell = row.AddCell()
 		cell.Value = c.Url
+		cell = row.AddCell()
+		cell.Value = c.Title
+		cell = row.AddCell()
+		cell.Value = c.IsTitleRight
 	}
 	err := excelFile.Save(filename)
 	if err != nil {

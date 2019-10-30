@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/process/process.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/process/process.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/yituike/yituike.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/yituike/yituike.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/goodsSearch/app/types/types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,7 +20,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="E:/sdk/go" />
+  <component name="GOROOT" path="D:/sdk/golang" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -32,8 +32,12 @@
     <property name="GO_FMT" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../zwei/app-agent" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -67,7 +71,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestFilterByQuan in github.com/wpp/taobao_links/pkg/yituike/filter">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -158,21 +162,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go</url>
-          <line>85</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go</url>
-          <line>90</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

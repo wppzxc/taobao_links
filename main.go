@@ -40,7 +40,7 @@ func main() {
 	pdun.ParentWindow = mw
 	
 	if _, err := (MainWindow{
-		Title:    "淘宝客工具 v1.0.1",
+		Title:    "淘宝客工具 v1.0.2",
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
 		Size:    Size{400, 600},
