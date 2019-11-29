@@ -21,7 +21,9 @@ import (
 const numberEditWindowClass = `\o/ Walk_NumberEdit_Class \o/`
 
 func init() {
-	MustRegisterWindowClass(numberEditWindowClass)
+	AppendToWalkInit(func() {
+		MustRegisterWindowClass(numberEditWindowClass)
+	})
 }
 
 // NumberEdit is a widget that is suited to edit numeric values.
@@ -416,8 +418,8 @@ func (ne *NumberEdit) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 
 type numberEditLayoutItem struct {
 	LayoutItemBase
-	idealSize Size
-	minSize   Size
+	idealSize Size // in native pixels
+	minSize   Size // in native pixels
 }
 
 func (*numberEditLayoutItem) LayoutFlags() LayoutFlags {

@@ -8,7 +8,6 @@ package walk
 
 import (
 	"fmt"
-	"strconv"
 	"unsafe"
 
 	"github.com/lxn/win"
@@ -48,26 +47,9 @@ func (b *Button) init() {
 			return b.Image()
 		},
 		func(v interface{}) error {
-			var img Image
-
-			switch val := v.(type) {
-			case Image:
-				img = val
-
-			case int:
-				var err error
-				if img, err = Resources.Image(strconv.Itoa(val)); err != nil {
-					return err
-				}
-
-			case string:
-				var err error
-				if img, err = Resources.Image(val); err != nil {
-					return err
-				}
-
-			default:
-				return ErrInvalidType
+			img, err := ImageFrom(v)
+			if err != nil {
+				return err
 			}
 
 			b.SetImage(img)
@@ -97,17 +79,29 @@ func (b *Button) Image() Image {
 }
 
 func (b *Button) SetImage(image Image) error {
-	var handle uintptr
-	if image != nil {
+	var typ, handle uintptr
+	switch img := image.(type) {
+	case nil:
+
+	case *Bitmap:
+		typ = win.IMAGE_BITMAP
+		handle = uintptr(img.hBmp)
+
+	case *Icon:
+		typ = win.IMAGE_ICON
+		handle = uintptr(img.handleForDPI(b.DPI()))
+
+	default:
 		bmp, err := iconCache.Bitmap(image, b.DPI())
 		if err != nil {
 			return err
 		}
 
+		typ = win.IMAGE_BITMAP
 		handle = uintptr(bmp.hBmp)
 	}
 
-	b.SendMessage(win.BM_SETIMAGE, win.IMAGE_BITMAP, handle)
+	b.SendMessage(win.BM_SETIMAGE, typ, handle)
 
 	b.image = image
 
@@ -224,12 +218,13 @@ func (b *Button) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uint
 	return b.WidgetBase.WndProc(hwnd, msg, wParam, lParam)
 }
 
+// idealSize returns ideal button size in native pixels.
 func (b *Button) idealSize() Size {
 	var s win.SIZE
 
 	b.SendMessage(win.BCM_GETIDEALSIZE, 0, uintptr(unsafe.Pointer(&s)))
 
-	return maxSize(Size{int(s.CX), int(s.CY)}, b.dialogBaseUnitsToPixels(Size{50, 14}))
+	return maxSize(sizeFromSIZE(s), b.dialogBaseUnitsToPixels(Size{50, 14}))
 }
 
 func (b *Button) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
@@ -240,7 +235,7 @@ func (b *Button) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 
 type buttonLayoutItem struct {
 	LayoutItemBase
-	idealSize Size
+	idealSize Size // in native pixels
 }
 
 func (li *buttonLayoutItem) LayoutFlags() LayoutFlags {

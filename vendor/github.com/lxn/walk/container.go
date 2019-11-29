@@ -464,6 +464,12 @@ func firstFocusableDescendantCallback(hwnd win.HWND, lParam uintptr) uintptr {
 	}
 
 	if win.GetWindowLong(hwnd, win.GWL_STYLE)&win.WS_TABSTOP > 0 {
+		if rb, ok := windowFromHandle(hwnd).(radioButtonish); ok {
+			if !rb.radioButton().Checked() {
+				return 1
+			}
+		}
+
 		hwndPtr := (*win.HWND)(unsafe.Pointer(lParam))
 		*hwndPtr = hwnd
 		return 0
@@ -472,7 +478,13 @@ func firstFocusableDescendantCallback(hwnd win.HWND, lParam uintptr) uintptr {
 	return 1
 }
 
-var firstFocusableDescendantCallbackPtr = syscall.NewCallback(firstFocusableDescendantCallback)
+var firstFocusableDescendantCallbackPtr uintptr
+
+func init() {
+	AppendToWalkInit(func() {
+		firstFocusableDescendantCallbackPtr = syscall.NewCallback(firstFocusableDescendantCallback)
+	})
+}
 
 func firstFocusableDescendant(container Container) Window {
 	var hwnd win.HWND

@@ -171,6 +171,7 @@ func (tv *TreeView) SetModel(model TreeModel) error {
 
 		tv.itemInsertedEventHandlerHandle = model.ItemInserted().Attach(func(item TreeItem) {
 			tv.SetSuspended(true)
+			defer tv.SetSuspended(false)
 
 			var hInsertAfter win.HTREEITEM
 			parent := item.Parent()
@@ -187,8 +188,6 @@ func (tv *TreeView) SetModel(model TreeModel) error {
 			if _, err := tv.insertItemAfter(item, hInsertAfter); err != nil {
 				return
 			}
-
-			tv.SetSuspended(false)
 		})
 
 		tv.itemRemovedEventHandlerHandle = model.ItemRemoved().Attach(func(item TreeItem) {
@@ -253,8 +252,9 @@ func (tv *TreeView) handleForItem(item TreeItem) (win.HTREEITEM, error) {
 	return 0, newError("invalid item")
 }
 
+// ItemAt determines the location of the specified point in native pixels relative to the client area of a tree-view control.
 func (tv *TreeView) ItemAt(x, y int) TreeItem {
-	hti := win.TVHITTESTINFO{Pt: win.POINT{int32(x), int32(y)}}
+	hti := win.TVHITTESTINFO{Pt: Point{x, y}.toPOINT()}
 
 	tv.SendMessage(win.TVM_HITTEST, 0, uintptr(unsafe.Pointer(&hti)))
 
@@ -265,10 +265,12 @@ func (tv *TreeView) ItemAt(x, y int) TreeItem {
 	return nil
 }
 
+// ItemHeight returns the height of each item in native pixels.
 func (tv *TreeView) ItemHeight() int {
 	return int(tv.SendMessage(win.TVM_GETITEMHEIGHT, 0, 0))
 }
 
+// SetItemHeight sets the height of the tree-view items in native pixels.
 func (tv *TreeView) SetItemHeight(height int) {
 	tv.SendMessage(win.TVM_SETITEMHEIGHT, uintptr(height), 0)
 }
@@ -584,7 +586,15 @@ func (tv *TreeView) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 				(*buf)[max-1] = 0
 			}
 			if nmtvdi.Item.Mask&win.TVIF_CHILDREN != 0 {
-				nmtvdi.Item.CChildren = int32(item.ChildCount())
+				if hc, ok := item.(HasChilder); ok {
+					if hc.HasChild() {
+						nmtvdi.Item.CChildren = 1
+					} else {
+						nmtvdi.Item.CChildren = 0
+					}
+				} else {
+					nmtvdi.Item.CChildren = int32(item.ChildCount())
+				}
 			}
 
 		case win.TVN_ITEMEXPANDING:

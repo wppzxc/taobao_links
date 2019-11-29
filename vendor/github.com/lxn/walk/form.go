@@ -8,7 +8,7 @@ package walk
 
 import (
 	"fmt"
-	"strconv"
+	"math"
 	"sync"
 	"syscall"
 	"time"
@@ -30,48 +30,15 @@ var (
 		funcs []func()
 	}
 
-	syncMsgId                  uint32
-	taskbarButtonCreatedMsgId  uint32
-	syncApplyLayoutResultsArgs applyLayoutResultsArgs
+	syncMsgId                 uint32
+	taskbarButtonCreatedMsgId uint32
 )
 
 func init() {
-	syncMsgId = win.RegisterWindowMessage(syscall.StringToUTF16Ptr("WalkSync"))
-	taskbarButtonCreatedMsgId = win.RegisterWindowMessage(syscall.StringToUTF16Ptr("TaskbarButtonCreated"))
-}
-
-type applyLayoutResultsArgs struct {
-	results   []LayoutResult
-	stopwatch *stopwatch
-}
-
-func synchronizeApplyLayoutResults(results []LayoutResult, stopwatch *stopwatch) {
-	syncFuncs.m.Lock()
-	syncApplyLayoutResultsArgs = applyLayoutResultsArgs{results, stopwatch}
-	syncFuncs.m.Unlock()
-}
-
-func synchronize(f func()) {
-	syncFuncs.m.Lock()
-	syncFuncs.funcs = append(syncFuncs.funcs, f)
-	syncFuncs.m.Unlock()
-}
-
-func runSynchronized() {
-	// Clear the list of callbacks first to avoid deadlock
-	// if a callback itself calls Synchronize()...
-	syncFuncs.m.Lock()
-	alrArgs := syncApplyLayoutResultsArgs
-	syncApplyLayoutResultsArgs = applyLayoutResultsArgs{}
-	funcs := syncFuncs.funcs
-	syncFuncs.funcs = nil
-	syncFuncs.m.Unlock()
-	if len(alrArgs.results) > 0 {
-		applyLayoutResults(alrArgs.results, alrArgs.stopwatch)
-	}
-	for _, f := range funcs {
-		f()
-	}
+	AppendToWalkInit(func() {
+		syncMsgId = win.RegisterWindowMessage(syscall.StringToUTF16Ptr("WalkSync"))
+		taskbarButtonCreatedMsgId = win.RegisterWindowMessage(syscall.StringToUTF16Ptr("TaskbarButtonCreated"))
+	})
 }
 
 type Form interface {
@@ -124,7 +91,7 @@ type FormBase struct {
 	progressIndicator           *ProgressIndicator
 	icon                        Image
 	prevFocusHWnd               win.HWND
-	proposedSize                Size
+	proposedSize                Size // in native pixels
 	closeReason                 CloseReason
 	inSizingLoop                bool
 	startingLayoutViaSizingLoop bool
@@ -148,29 +115,17 @@ func (fb *FormBase) init(form Form) error {
 			return fb.Icon()
 		},
 		func(v interface{}) error {
-			var icon *Icon
-
-			switch val := v.(type) {
-			case *Icon:
-				icon = val
-
-			case int:
-				var err error
-				if icon, err = Resources.Icon(strconv.Itoa(val)); err != nil {
-					return err
-				}
-
-			case string:
-				var err error
-				if icon, err = Resources.Icon(val); err != nil {
-					return err
-				}
-
-			default:
-				return ErrInvalidType
+			icon, err := IconFrom(v, fb.DPI())
+			if err != nil {
+				return err
 			}
 
-			fb.SetIcon(icon)
+			var img Image
+			if icon != nil {
+				img = icon
+			}
+
+			fb.SetIcon(img)
 
 			return nil
 		},
@@ -330,6 +285,10 @@ func (fb *FormBase) SetContextMenu(contextMenu *Menu) {
 	fb.clientComposite.SetContextMenu(contextMenu)
 }
 
+func (fb *FormBase) ContextMenuLocation() Point {
+	return fb.clientComposite.ContextMenuLocation()
+}
+
 func (fb *FormBase) applyEnabled(enabled bool) {
 	fb.WindowBase.applyEnabled(enabled)
 
@@ -397,15 +356,13 @@ func (fb *FormBase) Run() int {
 		defer invalidateDescendentBorders()
 	}
 
-	fb.clientComposite.focusFirstCandidateDescendant()
-
 	fb.started = true
 	fb.startingPublisher.Publish()
 
 	fb.SetBoundsPixels(fb.BoundsPixels())
 
 	if fb.proposedSize == (Size{}) {
-		fb.proposedSize = maxSize(fb.minSize, fb.SizePixels())
+		fb.proposedSize = maxSize(SizeFrom96DPI(fb.minSize96dpi, fb.DPI()), fb.SizePixels())
 		if !fb.Suspended() {
 			fb.startLayout()
 		}
@@ -561,13 +518,19 @@ func (fb *FormBase) SetIcon(icon Image) error {
 	var hIconSmall, hIconBig uintptr
 
 	if icon != nil {
-		smallIcon, err := iconCache.Icon(icon, fb.DPI())
+		dpi := fb.DPI()
+		size96dpi := icon.Size()
+
+		smallHeight := int(win.GetSystemMetricsForDpi(win.SM_CYSMICON, uint32(dpi)))
+		smallDPI := int(math.Round(float64(smallHeight) / float64(size96dpi.Height) * 96.0))
+		smallIcon, err := iconCache.Icon(icon, smallDPI)
 		if err != nil {
 			return err
 		}
-		hIconSmall = uintptr(smallIcon.handleForDPI(fb.DPI()))
+		hIconSmall = uintptr(smallIcon.handleForDPI(smallDPI))
 
-		bigDPI := int(48.0 / float64(icon.Size().Width) * 96.0)
+		bigHeight := int(win.GetSystemMetricsForDpi(win.SM_CYICON, uint32(dpi)))
+		bigDPI := int(math.Round(float64(bigHeight) / float64(size96dpi.Height) * 96.0))
 		bigIcon, err := iconCache.Icon(icon, bigDPI)
 		if err != nil {
 			return err
@@ -594,9 +557,9 @@ func (fb *FormBase) Hide() {
 }
 
 func (fb *FormBase) Show() {
-	fb.proposedSize = maxSize(fb.minSize, fb.SizePixels())
+	fb.proposedSize = maxSize(SizeFrom96DPI(fb.minSize96dpi, fb.DPI()), fb.SizePixels())
 
-	if p, ok := fb.window.(Persistable); ok && p.Persistent() && appSingleton.settings != nil {
+	if p, ok := fb.window.(Persistable); ok && p.Persistent() && App().Settings() != nil {
 		p.RestoreState()
 	}
 
@@ -604,7 +567,7 @@ func (fb *FormBase) Show() {
 }
 
 func (fb *FormBase) close() error {
-	if p, ok := fb.window.(Persistable); ok && p.Persistent() && appSingleton.settings != nil {
+	if p, ok := fb.window.(Persistable); ok && p.Persistent() && App().Settings() != nil {
 		p.SaveState()
 	}
 
@@ -718,10 +681,17 @@ func (fb *FormBase) startLayout() bool {
 		return false
 	}
 
-	cb := fb.window.ClientBoundsPixels()
 	cs := fb.clientSizeFromSizePixels(fb.proposedSize)
+	min := CreateLayoutItemsForContainer(fb.clientComposite).MinSizeForSize(fb.proposedSize)
 
-	fb.clientComposite.SetBoundsPixels(Rectangle{cb.X, cb.Y, cs.Width, cs.Height})
+	if cs.Width < min.Width || cs.Height < min.Height {
+		cs = maxSize(cs, min)
+		size := fb.sizeFromClientSizePixels(cs)
+		fb.SetSizePixels(size)
+		fb.Invalidate()
+	}
+
+	fb.clientComposite.SetBoundsPixels(Rectangle{Width: cs.Width, Height: cs.Height})
 
 	cli := CreateLayoutItemsForContainer(fb)
 	cli.Geometry().ClientSize = cs
@@ -740,14 +710,14 @@ func (fb *FormBase) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 				win.SetFocus(fb.prevFocusHWnd)
 			}
 
-			appSingleton.activeForm = fb.window.(Form)
+			fb.group.SetActiveForm(fb.window.(Form))
 
 			fb.activatingPublisher.Publish()
 
 		case win.WA_INACTIVE:
 			fb.prevFocusHWnd = win.GetFocus()
 
-			appSingleton.activeForm = nil
+			fb.group.SetActiveForm(nil)
 
 			fb.deactivatingPublisher.Publish()
 		}
@@ -791,10 +761,12 @@ func (fb *FormBase) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 			}
 		}
 
-		mmi.PtMinTrackSize = win.POINT{
-			int32(maxi(min.Width, fb.minSize.Width)),
-			int32(maxi(min.Height, fb.minSize.Height)),
-		}
+		minSize := SizeFrom96DPI(fb.minSize96dpi, fb.DPI())
+
+		mmi.PtMinTrackSize = Point{
+			maxi(min.Width, minSize.Width),
+			maxi(min.Height, minSize.Height),
+		}.toPOINT()
 		return 0
 
 	case win.WM_NOTIFY:
@@ -873,7 +845,9 @@ func (fb *FormBase) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 		fb.SetSuspended(wasSuspended)
 
 		rc := (*win.RECT)(unsafe.Pointer(lParam))
-		fb.window.SetBoundsPixels(rectangleFromRECT(*rc))
+		bounds := rectangleFromRECT(*rc)
+		fb.proposedSize = bounds.Size()
+		fb.window.SetBoundsPixels(bounds)
 
 		fb.SetIcon(fb.icon)
 

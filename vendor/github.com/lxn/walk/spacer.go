@@ -9,19 +9,21 @@ package walk
 const spacerWindowClass = `\o/ Walk_Spacer_Class \o/`
 
 func init() {
-	MustRegisterWindowClass(spacerWindowClass)
+	AppendToWalkInit(func() {
+		MustRegisterWindowClass(spacerWindowClass)
+	})
 }
 
 type Spacer struct {
 	WidgetBase
-	sizeHint          Size
+	sizeHint96dpi     Size
 	layoutFlags       LayoutFlags
 	greedyLocallyOnly bool
 }
 
 type SpacerCfg struct {
 	LayoutFlags       LayoutFlags
-	SizeHint          Size
+	SizeHint          Size // in 1/96" units
 	GreedyLocallyOnly bool
 }
 
@@ -29,10 +31,10 @@ func NewSpacerWithCfg(parent Container, cfg *SpacerCfg) (*Spacer, error) {
 	return newSpacer(parent, cfg.LayoutFlags, cfg.SizeHint, cfg.GreedyLocallyOnly)
 }
 
-func newSpacer(parent Container, layoutFlags LayoutFlags, sizeHint Size, greedyLocallyOnly bool) (*Spacer, error) {
+func newSpacer(parent Container, layoutFlags LayoutFlags, sizeHint96dpi Size, greedyLocallyOnly bool) (*Spacer, error) {
 	s := &Spacer{
 		layoutFlags:       layoutFlags,
-		sizeHint:          sizeHint,
+		sizeHint96dpi:     sizeHint96dpi,
 		greedyLocallyOnly: greedyLocallyOnly,
 	}
 
@@ -66,7 +68,7 @@ func NewVSpacerFixed(parent Container, height int) (*Spacer, error) {
 
 func (s *Spacer) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 	return &spacerLayoutItem{
-		idealSize:         s.sizeHint,
+		idealSize96dpi:    s.sizeHint96dpi,
 		layoutFlags:       s.layoutFlags,
 		greedyLocallyOnly: s.greedyLocallyOnly,
 	}
@@ -74,7 +76,7 @@ func (s *Spacer) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 
 type spacerLayoutItem struct {
 	LayoutItemBase
-	idealSize         Size
+	idealSize96dpi    Size
 	layoutFlags       LayoutFlags
 	greedyLocallyOnly bool
 }
@@ -84,9 +86,9 @@ func (li *spacerLayoutItem) LayoutFlags() LayoutFlags {
 }
 
 func (li *spacerLayoutItem) IdealSize() Size {
-	return li.idealSize
+	return SizeFrom96DPI(li.idealSize96dpi, li.ctx.dpi)
 }
 
 func (li *spacerLayoutItem) MinSize() Size {
-	return li.idealSize
+	return SizeFrom96DPI(li.idealSize96dpi, li.ctx.dpi)
 }

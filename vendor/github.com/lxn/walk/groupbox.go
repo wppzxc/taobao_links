@@ -16,7 +16,9 @@ import (
 const groupBoxWindowClass = `\o/ Walk_GroupBox_Class \o/`
 
 func init() {
-	MustRegisterWindowClass(groupBoxWindowClass)
+	AppendToWalkInit(func() {
+		MustRegisterWindowClass(groupBoxWindowClass)
+	})
 }
 
 type GroupBox struct {
@@ -24,7 +26,7 @@ type GroupBox struct {
 	hWndGroupBox          win.HWND
 	checkBox              *CheckBox
 	composite             *Composite
-	headerHeight          int
+	headerHeight          int // in native pixels
 	titleChangedPublisher EventPublisher
 }
 
@@ -133,7 +135,8 @@ func (gb *GroupBox) ClientBoundsPixels() Rectangle {
 		cb.Height -= s.Height
 	}
 
-	return Rectangle{cb.X + 1, cb.Y + gb.headerHeight, cb.Width - 2, cb.Height - gb.headerHeight - 2}
+	padding := gb.IntFrom96DPI(1)
+	return Rectangle{cb.X + padding, cb.Y + gb.headerHeight, cb.Width - 2*padding, cb.Height - gb.headerHeight - 2*padding}
 }
 
 func (gb *GroupBox) updateHeaderHeight() {
@@ -354,7 +357,7 @@ func (gb *GroupBox) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 				s := createLayoutItemForWidget(gb.checkBox).(MinSizer).MinSize()
 				var x int
 				if l := gb.Layout(); l != nil {
-					x = l.Margins().HNear
+					x = gb.IntFrom96DPI(l.Margins().HNear)
 				} else {
 					x = gb.headerHeight * 2 / 3
 				}
@@ -371,7 +374,7 @@ func (gb *GroupBox) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 }
 
 func (gb *GroupBox) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
-	compositePos := Point{1, gb.headerHeight}
+	compositePos := Point{gb.IntFrom96DPI(1), gb.headerHeight}
 	if gb.Checkable() {
 		idealSize := gb.checkBox.idealSize()
 
@@ -393,7 +396,7 @@ func (gb *GroupBox) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 
 type groupBoxLayoutItem struct {
 	ContainerLayoutItemBase
-	compositePos Point
+	compositePos Point // in native pixels
 	title        string
 }
 

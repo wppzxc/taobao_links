@@ -1,0 +1,66 @@
+# github.com/PuerkitoBio/goquery v1.5.0
+github.com/PuerkitoBio/goquery
+# github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d
+github.com/StackExchange/wmi
+# github.com/andybalholm/cascadia v1.0.0
+github.com/andybalholm/cascadia
+# github.com/atotto/clipboard v0.1.2
+github.com/atotto/clipboard
+# github.com/go-ole/go-ole v1.2.4
+github.com/go-ole/go-ole
+github.com/go-ole/go-ole/oleutil
+# github.com/go-vgo/robotgo v0.0.0-20191128163956-6b94d024dc37
+github.com/go-vgo/robotgo
+github.com/go-vgo/robotgo/clipboard
+# github.com/lxn/walk v0.0.0-20191128110447-55ccb3a9f5c1
+github.com/lxn/walk
+github.com/lxn/walk/declarative
+# github.com/lxn/win v0.0.0-20191128105842-2da648fda5b4
+github.com/lxn/win
+# github.com/otiai10/gosseract v2.2.1+incompatible
+github.com/otiai10/gosseract
+# github.com/robotn/gohook v0.0.0-20191113163729-aaa2000ed97a
+github.com/robotn/gohook
+# github.com/robotn/xgb v0.0.0-20190912153532-2cb92d044934
+github.com/robotn/xgb
+github.com/robotn/xgb/shape
+github.com/robotn/xgb/xinerama
+github.com/robotn/xgb/xproto
+# github.com/robotn/xgbutil v0.0.0-20190912154524-c861d6f87770
+github.com/robotn/xgbutil
+github.com/robotn/xgbutil/ewmh
+github.com/robotn/xgbutil/xevent
+github.com/robotn/xgbutil/xprop
+# github.com/shirou/gopsutil v2.19.6+incompatible
+github.com/shirou/gopsutil/cpu
+github.com/shirou/gopsutil/internal/common
+github.com/shirou/gopsutil/mem
+github.com/shirou/gopsutil/net
+github.com/shirou/gopsutil/process
+# github.com/shirou/w32 v0.0.0-20160930032740-bb4de0191aa4
+github.com/shirou/w32
+# github.com/tealeg/xlsx v1.0.5
+github.com/tealeg/xlsx
+# github.com/vcaesar/gops v0.0.0-20190910162627-58ac09d12a53
+github.com/vcaesar/gops
+# github.com/vcaesar/imgo v0.0.0-20191008162304-a83ea7753bc8
+github.com/vcaesar/imgo
+# github.com/zserge/lorca v0.1.8
+github.com/zserge/lorca
+# github.com/zserge/webview v0.0.0-20191103184548-1a9ebffc2601
+github.com/zserge/webview
+# golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8
+golang.org/x/image/bmp
+# golang.org/x/net v0.0.0-20190724013045-ca1201d0de80
+golang.org/x/net/html
+golang.org/x/net/html/atom
+golang.org/x/net/websocket
+# golang.org/x/sys v0.0.0-20191029155521-f43be2a4598c
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# gopkg.in/Knetic/govaluate.v3 v3.0.0
+gopkg.in/Knetic/govaluate.v3
+# gopkg.in/yaml.v2 v2.2.7
+gopkg.in/yaml.v2
+# sigs.k8s.io/yaml v1.1.0
+sigs.k8s.io/yaml

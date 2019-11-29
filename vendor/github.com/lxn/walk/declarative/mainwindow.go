@@ -11,6 +11,7 @@ import "github.com/lxn/walk"
 type MainWindow struct {
 	// Window
 
+	Accessibility      Accessibility
 	Background         Brush
 	ContextMenuItems   []MenuItem
 	DoubleBuffering    bool
@@ -47,15 +48,15 @@ type MainWindow struct {
 
 	// MainWindow
 
-	AssignTo       **walk.MainWindow
-	Expressions    func() map[string]walk.Expression
-	Functions      map[string]func(args ...interface{}) (interface{}, error)
-	MenuItems      []MenuItem
-	OnDropFiles    walk.DropFilesEventHandler
-	StatusBarItems []StatusBarItem
+	AssignTo          **walk.MainWindow
+	Expressions       func() map[string]walk.Expression
+	Functions         map[string]func(args ...interface{}) (interface{}, error)
+	MenuItems         []MenuItem
+	OnDropFiles       walk.DropFilesEventHandler
+	StatusBarItems    []StatusBarItem
 	SuspendedUntilRun bool
-	ToolBar        ToolBar
-	ToolBarItems   []MenuItem // Deprecated: use ToolBar instead
+	ToolBar           ToolBar
+	ToolBarItems      []MenuItem // Deprecated: use ToolBar instead
 }
 
 func (mw MainWindow) Create() error {
@@ -88,6 +89,7 @@ func (mw MainWindow) Create() error {
 		OnSizeChanged:      mw.OnSizeChanged,
 		RightToLeftReading: mw.RightToLeftReading,
 		Visible:            mw.Visible,
+		Accessibility:      mw.Accessibility,
 
 		// Container
 		Children:   mw.Children,
@@ -152,12 +154,12 @@ func (mw MainWindow) Create() error {
 		}
 
 		if mw.Size.Width > 0 && mw.Size.Height > 0 {
-			if err := w.SetSizePixels(mw.Size.toW()); err != nil {
+			if err := w.SetSize(mw.Size.toW()); err != nil {
 				return err
 			}
 		}
 
-		imageList, err := walk.NewImageList(walk.Size{16, 16}, 0)
+		imageList, err := walk.NewImageListForDPI(walk.SizeFrom96DPI(walk.Size{16, 16}, builder.dpi), 0, builder.dpi)
 		if err != nil {
 			return err
 		}

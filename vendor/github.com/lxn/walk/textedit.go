@@ -20,7 +20,7 @@ type TextEdit struct {
 	textChangedPublisher     EventPublisher
 	textColor                Color
 	compactHeight            bool
-	margins                  Size
+	margins                  Size // in native pixels
 	lastHeight               int
 	origWordbreakProcPtr     uintptr
 }
@@ -94,7 +94,13 @@ func (te *TextEdit) updateMargins() {
 	te.margins.Height = defaultSize.Height - lineHeight
 }
 
-var drawTextCompatibleEditWordbreakProcPtr = syscall.NewCallback(drawTextCompatibleEditWordbreakProc)
+var drawTextCompatibleEditWordbreakProcPtr uintptr
+
+func init() {
+	AppendToWalkInit(func() {
+		drawTextCompatibleEditWordbreakProcPtr = syscall.NewCallback(drawTextCompatibleEditWordbreakProc)
+	})
+}
 
 func drawTextCompatibleEditWordbreakProc(lpch *uint16, ichCurrent, cch, code uintptr) uintptr {
 	switch code {
@@ -267,6 +273,19 @@ func (te *TextEdit) SetTextColor(c Color) {
 	te.Invalidate()
 }
 
+// ContextMenuLocation returns carret position in screen coordinates in native pixels.
+func (te *TextEdit) ContextMenuLocation() Point {
+	idx := int(te.SendMessage(win.EM_GETCARETINDEX, 0, 0))
+	if idx < 0 {
+		start, end := te.TextSelection()
+		idx = (start + end) / 2
+	}
+	res := uint32(te.SendMessage(win.EM_POSFROMCHAR, uintptr(idx), 0))
+	pt := win.POINT{int32(win.LOWORD(res)), int32(win.HIWORD(res))}
+	windowTrimToClientBounds(te.hWnd, &pt)
+	return pointPixelsFromPOINT(pt)
+}
+
 func (*TextEdit) NeedsWmSize() bool {
 	return true
 }
@@ -319,12 +338,12 @@ func (te *TextEdit) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 type textEditLayoutItem struct {
 	LayoutItemBase
 	mutex                   sync.Mutex
-	width2Height            map[int]int
-	nonCompactHeightMinSize Size
-	margins                 Size
+	width2Height            map[int]int // in native pixels
+	nonCompactHeightMinSize Size        // in native pixels
+	margins                 Size        // in native pixels
 	text                    string
 	font                    *Font
-	minWidth                int
+	minWidth                int // in native pixels
 	compactHeight           bool
 }
 
@@ -367,6 +386,7 @@ func (li *textEditLayoutItem) HeightForWidth(width int) int {
 
 	size := calculateTextSize(li.text, li.font, li.ctx.dpi, width-li.margins.Width, li.handle)
 	size.Height += li.margins.Height
+	size.Height = maxi(size.Height, li.nonCompactHeightMinSize.Height)
 
 	li.width2Height[width] = size.Height
 

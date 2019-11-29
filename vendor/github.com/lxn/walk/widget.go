@@ -62,7 +62,7 @@ type Widget interface {
 	// Widget wants to be treated by Layout implementations.
 	LayoutFlags() LayoutFlags
 
-	// MinSizeHint returns the minimum outer Size, including decorations, that
+	// MinSizeHint returns the minimum outer size in native pixels, including decorations, that
 	// makes sense for the respective type of Widget.
 	MinSizeHint() Size
 
@@ -83,7 +83,7 @@ type Widget interface {
 	// SetToolTipText sets the tool tip text of the Widget.
 	SetToolTipText(s string) error
 
-	// SizeHint returns the preferred Size for the respective type of Widget.
+	// SizeHint returns the preferred size in native pixels for the respective type of Widget.
 	SizeHint() Size
 
 	// ToolTipText returns the tool tip text of the Widget.
@@ -130,7 +130,11 @@ func InitWidget(widget Widget, parent Window, className string, style, exStyle u
 func (wb *WidgetBase) init(widget Widget) error {
 	wb.graphicsEffects = newWidgetGraphicsEffectList(wb)
 
-	if err := globalToolTip.AddTool(wb.window.(Widget)); err != nil {
+	tt, err := wb.group.CreateToolTip()
+	if err != nil {
+		return err
+	}
+	if err := tt.AddTool(wb.window.(Widget)); err != nil {
 		return err
 	}
 
@@ -158,7 +162,9 @@ func (wb *WidgetBase) Dispose() {
 		wb.SetParent(nil)
 	}
 
-	globalToolTip.RemoveTool(wb.window.(Widget))
+	if tt := wb.group.ToolTip(); tt != nil {
+		tt.RemoveTool(wb.window.(Widget))
+	}
 
 	wb.WindowBase.Dispose()
 }
@@ -168,7 +174,7 @@ func (wb *WidgetBase) AsWidgetBase() *WidgetBase {
 	return wb
 }
 
-// Bounds returns the outer bounding box Rectangle of the WidgetBase, including
+// Bounds returns the outer bounding box rectangle of the WidgetBase, including
 // decorations.
 //
 // The coordinates are relative to the parent of the Widget.
@@ -176,7 +182,7 @@ func (wb *WidgetBase) Bounds() Rectangle {
 	return wb.RectangleTo96DPI(wb.BoundsPixels())
 }
 
-// BoundsPixels returns the outer bounding box Rectangle of the WidgetBase, including
+// BoundsPixels returns the outer bounding box rectangle of the WidgetBase, including
 // decorations.
 //
 // The coordinates are relative to the parent of the Widget.
@@ -184,7 +190,7 @@ func (wb *WidgetBase) BoundsPixels() Rectangle {
 	b := wb.WindowBase.BoundsPixels()
 
 	if wb.parent != nil {
-		p := win.POINT{int32(b.X), int32(b.Y)}
+		p := b.Location().toPOINT()
 		if !win.ScreenToClient(wb.parent.Handle(), &p) {
 			newError("ScreenToClient failed")
 			return Rectangle{}
@@ -255,7 +261,7 @@ func (wb *WidgetBase) SetAlignment(alignment Alignment2D) error {
 	return nil
 }
 
-// SetMinMaxSize sets the minimum and maximum outer Size of the *WidgetBase,
+// SetMinMaxSize sets the minimum and maximum outer size of the *WidgetBase,
 // including decorations.
 //
 // Use walk.Size{} to make the respective limit be ignored.
@@ -389,13 +395,18 @@ func (wb *WidgetBase) ForEachAncestor(f func(window Window) bool) {
 
 // ToolTipText returns the tool tip text of the WidgetBase.
 func (wb *WidgetBase) ToolTipText() string {
-	return globalToolTip.Text(wb.window.(Widget))
+	if tt := wb.group.ToolTip(); tt != nil {
+		return tt.Text(wb.window.(Widget))
+	}
+	return ""
 }
 
 // SetToolTipText sets the tool tip text of the WidgetBase.
 func (wb *WidgetBase) SetToolTipText(s string) error {
-	if err := globalToolTip.SetText(wb.window.(Widget), s); err != nil {
-		return err
+	if tt := wb.group.ToolTip(); tt != nil {
+		if err := tt.SetText(wb.window.(Widget), s); err != nil {
+			return err
+		}
 	}
 
 	wb.toolTipTextChangedPublisher.Publish()

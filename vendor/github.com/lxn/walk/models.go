@@ -142,6 +142,10 @@ type TableModel interface {
 	// changed.
 	RowChanged() *IntEvent
 
+	// RowsChanged returns the event that the model should publish when a
+	// contiguous range of items was changed.
+	RowsChanged() *IntRangeEvent
+
 	// RowsInserted returns the event that the model should publish when a
 	// contiguous range of items was inserted. If the model supports sorting, it
 	// is assumed to be sorted before the model publishes the event.
@@ -157,6 +161,7 @@ type TableModel interface {
 type TableModelBase struct {
 	rowsResetPublisher    EventPublisher
 	rowChangedPublisher   IntEventPublisher
+	rowsChangedPublisher  IntRangeEventPublisher
 	rowsInsertedPublisher IntRangeEventPublisher
 	rowsRemovedPublisher  IntRangeEventPublisher
 }
@@ -167,6 +172,10 @@ func (tmb *TableModelBase) RowsReset() *Event {
 
 func (tmb *TableModelBase) RowChanged() *IntEvent {
 	return tmb.rowChangedPublisher.Event()
+}
+
+func (tmb *TableModelBase) RowsChanged() *IntRangeEvent {
+	return tmb.rowsChangedPublisher.Event()
 }
 
 func (tmb *TableModelBase) RowsInserted() *IntRangeEvent {
@@ -183,6 +192,10 @@ func (tmb *TableModelBase) PublishRowsReset() {
 
 func (tmb *TableModelBase) PublishRowChanged(row int) {
 	tmb.rowChangedPublisher.Publish(row)
+}
+
+func (tmb *TableModelBase) PublishRowsChanged(from, to int) {
+	tmb.rowsChangedPublisher.Publish(from, to)
 }
 
 func (tmb *TableModelBase) PublishRowsInserted(from, to int) {
@@ -206,6 +219,10 @@ type ReflectTableModel interface {
 	// RowChanged returns the event that the model should publish when an item
 	// was changed.
 	RowChanged() *IntEvent
+
+	// RowsChanged returns the event that the model should publish when a
+	// contiguous range of items was changed.
+	RowsChanged() *IntRangeEvent
 
 	// RowsInserted returns the event that the model should publish when a
 	// contiguous range of items was inserted. If the model supports sorting, it
@@ -301,7 +318,7 @@ type CellStyler interface {
 type CellStyle struct {
 	row             int
 	col             int
-	bounds          Rectangle
+	bounds          Rectangle // in native pixels
 	hdc             win.HDC
 	dpi             int
 	canvas          *Canvas
@@ -327,14 +344,22 @@ func (cs *CellStyle) Col() int {
 }
 
 func (cs *CellStyle) Bounds() Rectangle {
+	return RectangleTo96DPI(cs.bounds, cs.dpi)
+}
+
+func (cs *CellStyle) BoundsPixels() Rectangle {
 	return cs.bounds
 }
 
 func (cs *CellStyle) Canvas() *Canvas {
-	if cs.canvas == nil && cs.hdc != 0 {
+	if cs.canvas != nil {
+		cs.canvas.dpi = cs.dpi
+		return cs.canvas
+	}
+
+	if cs.hdc != 0 {
 		cs.canvas, _ = newCanvasFromHDC(cs.hdc)
-		cs.canvas.dpix = cs.dpi
-		cs.canvas.dpiy = cs.dpi
+		cs.canvas.dpi = cs.dpi
 	}
 
 	return cs.canvas
@@ -346,11 +371,12 @@ type ListItemStyler interface {
 	// ItemHeightDependsOnWidth returns whether item height depends on width.
 	ItemHeightDependsOnWidth() bool
 
-	// DefaultItemHeight returns the initial height for any item.
+	// DefaultItemHeight returns the initial height in native pixels for any item.
 	DefaultItemHeight() int
 
-	// ItemHeight is called for each item to retrieve the height of the item.
-	ItemHeight(index, width int) int
+	// ItemHeight is called for each item to retrieve the height of the item. width parameter and
+	// return value are specified in native pixels.
+	ItemHeight(index int, width int) int
 
 	// StyleItem is called for each item to pick up item style information.
 	StyleItem(style *ListItemStyle)
@@ -366,7 +392,7 @@ type ListItemStyle struct {
 	index              int
 	hoverIndex         int
 	rc                 win.RECT
-	bounds             Rectangle
+	bounds             Rectangle // in native pixels
 	state              uint32
 	hTheme             win.HTHEME
 	hwnd               win.HWND
@@ -381,14 +407,22 @@ func (lis *ListItemStyle) Index() int {
 }
 
 func (lis *ListItemStyle) Bounds() Rectangle {
+	return RectangleTo96DPI(lis.bounds, lis.dpi)
+}
+
+func (lis *ListItemStyle) BoundsPixels() Rectangle {
 	return lis.bounds
 }
 
 func (lis *ListItemStyle) Canvas() *Canvas {
-	if lis.canvas == nil && lis.hdc != 0 {
+	if lis.canvas != nil {
+		lis.canvas.dpi = lis.dpi
+		return lis.canvas
+	}
+
+	if lis.hdc != 0 {
 		lis.canvas, _ = newCanvasFromHDC(lis.hdc)
-		lis.canvas.dpix = lis.dpi
-		lis.canvas.dpiy = lis.dpi
+		lis.canvas.dpi = lis.dpi
 	}
 
 	return lis.canvas
@@ -413,7 +447,7 @@ func (lis *ListItemStyle) DrawBackground() error {
 		}
 		defer brush.Dispose()
 
-		if err := canvas.FillRectangle(brush, lis.bounds); err != nil {
+		if err := canvas.FillRectanglePixels(brush, lis.bounds); err != nil {
 			return err
 		}
 
@@ -424,7 +458,7 @@ func (lis *ListItemStyle) DrawBackground() error {
 			}
 			defer pen.Dispose()
 
-			if err := canvas.DrawRectangle(pen, lis.bounds); err != nil {
+			if err := canvas.DrawRectanglePixels(pen, lis.bounds); err != nil {
 				return err
 			}
 		}
@@ -433,20 +467,21 @@ func (lis *ListItemStyle) DrawBackground() error {
 	return nil
 }
 
+// DrawText draws text inside given bounds specified in native pixels.
 func (lis *ListItemStyle) DrawText(text string, bounds Rectangle, format DrawTextFormat) error {
 	if lis.hTheme != 0 {
 		if lis.Font != nil {
 			hFontOld := win.SelectObject(lis.hdc, win.HGDIOBJ(lis.Font.handleForDPI(lis.dpi)))
 			defer win.SelectObject(lis.hdc, hFontOld)
 		}
-		rc := RectangleFrom96DPI(bounds, lis.dpi).toRECT()
+		rc := bounds.toRECT()
 
 		if win.FAILED(win.DrawThemeTextEx(lis.hTheme, lis.hdc, win.LVP_LISTITEM, lis.stateID(), syscall.StringToUTF16Ptr(text), int32(len(([]rune)(text))), uint32(format), &rc, nil)) {
 			return newError("DrawThemeTextEx failed")
 		}
 	} else {
 		if canvas := lis.Canvas(); canvas != nil {
-			if err := canvas.DrawText(text, lis.Font, lis.TextColor, bounds, format); err != nil {
+			if err := canvas.DrawTextPixels(text, lis.Font, lis.TextColor, bounds, format); err != nil {
 				return err
 			}
 		}
@@ -577,6 +612,12 @@ type TreeItem interface {
 
 	// ChildAt returns the child at the specified index.
 	ChildAt(index int) TreeItem
+}
+
+// HasChilder enables widgets like TreeView to determine if an item has any
+// child, without enforcing to fully count all children.
+type HasChilder interface {
+	HasChild() bool
 }
 
 // TreeModel provides widgets like TreeView with item data.

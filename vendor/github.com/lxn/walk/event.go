@@ -6,26 +6,39 @@
 
 package walk
 
+type eventHandlerInfo struct {
+	handler EventHandler
+	once    bool
+}
+
 type EventHandler func()
 
 type Event struct {
-	handlers []EventHandler
+	handlers []eventHandlerInfo
 }
 
 func (e *Event) Attach(handler EventHandler) int {
+	handlerInfo := eventHandlerInfo{handler, false}
+
 	for i, h := range e.handlers {
-		if h == nil {
-			e.handlers[i] = handler
+		if h.handler == nil {
+			e.handlers[i] = handlerInfo
 			return i
 		}
 	}
 
-	e.handlers = append(e.handlers, handler)
+	e.handlers = append(e.handlers, handlerInfo)
+
 	return len(e.handlers) - 1
 }
 
 func (e *Event) Detach(handle int) {
-	e.handlers[handle] = nil
+	e.handlers[handle].handler = nil
+}
+
+func (e *Event) Once(handler EventHandler) {
+	i := e.Attach(handler)
+	e.handlers[i].once = true
 }
 
 type EventPublisher struct {
@@ -37,7 +50,11 @@ func (p *EventPublisher) Event() *Event {
 }
 
 func (p *EventPublisher) Publish() {
-	if form := appSingleton.activeForm; form != nil {
+	// This is a kludge to find the form that the event publisher is
+	// affiliated with. It's only necessary because the event publisher
+	// doesn't keep a pointer to the form on its own, and the call
+	// to Publish isn't providing it either.
+	if form := App().ActiveForm(); form != nil {
 		fb := form.AsFormBase()
 		fb.inProgressEventCount++
 		defer func() {
@@ -49,9 +66,13 @@ func (p *EventPublisher) Publish() {
 		}()
 	}
 
-	for _, handler := range p.event.handlers {
-		if handler != nil {
-			handler()
+	for i, h := range p.event.handlers {
+		if h.handler != nil {
+			h.handler()
+
+			if h.once {
+				p.event.Detach(i)
+			}
 		}
 	}
 }

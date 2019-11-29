@@ -31,7 +31,7 @@ type ComboBox struct {
 	itemChangedHandlerHandle     int
 	itemsInsertedHandlerHandle   int
 	itemsRemovedHandlerHandle    int
-	maxItemTextWidth             int
+	maxItemTextWidth             int // in native pixels
 	prevCurIndex                 int
 	selChangeIndex               int
 	maxLength                    int
@@ -43,7 +43,13 @@ type ComboBox struct {
 	persistent                   bool
 }
 
-var comboBoxEditWndProcPtr = syscall.NewCallback(comboBoxEditWndProc)
+var comboBoxEditWndProcPtr uintptr
+
+func init() {
+	AppendToWalkInit(func() {
+		comboBoxEditWndProcPtr = syscall.NewCallback(comboBoxEditWndProc)
+	})
+}
 
 func comboBoxEditWndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	cb := (*ComboBox)(unsafe.Pointer(win.GetWindowLongPtr(hwnd, win.GWLP_USERDATA)))
@@ -508,6 +514,7 @@ func (cb *ComboBox) SetMaxLength(value int) {
 	cb.maxLength = value
 }
 
+// calculateMaxItemTextWidth returns maximum item text width in native pixels.
 func (cb *ComboBox) calculateMaxItemTextWidth() int {
 	hdc := win.GetDC(cb.hWnd)
 	if hdc == 0 {
@@ -713,7 +720,7 @@ func (cb *ComboBox) CreateLayoutItem(ctx *LayoutContext) LayoutItem {
 type comboBoxLayoutItem struct {
 	LayoutItemBase
 	layoutFlags LayoutFlags
-	idealSize   Size
+	idealSize   Size // in native pixels
 }
 
 func (li *comboBoxLayoutItem) LayoutFlags() LayoutFlags {

@@ -9,9 +9,7 @@ package walk
 import (
 	"syscall"
 	"unsafe"
-)
 
-import (
 	"github.com/lxn/win"
 )
 
@@ -20,18 +18,9 @@ import (
 // 1024 instead.
 const maxToolTipTextLen = 1024 // including NUL terminator
 
-func init() {
-	var err error
-	if globalToolTip, err = NewToolTip(); err != nil {
-		panic(err)
-	}
-}
-
 type ToolTip struct {
 	WindowBase
 }
-
-var globalToolTip *ToolTip
 
 func NewToolTip() (*ToolTip, error) {
 	tt, err := newToolTip(0)
@@ -119,15 +108,13 @@ func (tt *ToolTip) track(tool Widget) error {
 	}
 	// HACK: We may have to delay this until the form is fully up to avoid glitches.
 	if !form.AsFormBase().started {
-		var handle int
-		handle = form.Starting().Attach(func() {
-			form.Starting().Detach(handle)
+		form.Starting().Once(func() {
 			tt.track(tool)
 		})
 		return nil
 	}
 
-	ti := tt.toolInfo(tool)
+	ti := tt.toolInfo(tool.Handle())
 	if ti == nil {
 		return newError("unknown tool")
 	}
@@ -136,7 +123,7 @@ func (tt *ToolTip) track(tool Widget) error {
 
 	b := tool.BoundsPixels()
 
-	p := win.POINT{X: 0, Y: int32(b.Y + b.Height)}
+	p := Point{0, b.Y + b.Height}.toPOINT()
 	if form.RightToLeftLayout() {
 		p.X = int32(b.X - b.Width/2)
 	} else {
@@ -159,7 +146,7 @@ func (tt *ToolTip) track(tool Widget) error {
 }
 
 func (tt *ToolTip) untrack(tool Widget) error {
-	ti := tt.toolInfo(tool)
+	ti := tt.toolInfo(tool.Handle())
 	if ti == nil {
 		return newError("unknown tool")
 	}
@@ -170,15 +157,17 @@ func (tt *ToolTip) untrack(tool Widget) error {
 }
 
 func (tt *ToolTip) AddTool(tool Widget) error {
-	return tt.addTool(tool, false)
+	return tt.addTool(tt.hwndForTool(tool), false)
 }
 
 func (tt *ToolTip) addTrackedTool(tool Widget) error {
-	return tt.addTool(tool, true)
+	return tt.addTool(tt.hwndForTool(tool), true)
 }
 
-func (tt *ToolTip) addTool(tool Widget, track bool) error {
-	hwnd := tool.Handle()
+func (tt *ToolTip) addTool(hwnd win.HWND, track bool) error {
+	if hwnd == 0 {
+		return nil
+	}
 
 	var ti win.TOOLINFO
 	ti.CbSize = uint32(unsafe.Sizeof(ti))
@@ -199,8 +188,10 @@ func (tt *ToolTip) addTool(tool Widget, track bool) error {
 }
 
 func (tt *ToolTip) RemoveTool(tool Widget) error {
-	hwnd := tool.Handle()
+	return tt.removeTool(tt.hwndForTool(tool))
+}
 
+func (tt *ToolTip) removeTool(hwnd win.HWND) error {
 	var ti win.TOOLINFO
 	ti.CbSize = uint32(unsafe.Sizeof(ti))
 	ti.Hwnd = hwnd
@@ -212,7 +203,11 @@ func (tt *ToolTip) RemoveTool(tool Widget) error {
 }
 
 func (tt *ToolTip) Text(tool Widget) string {
-	ti := tt.toolInfo(tool)
+	return tt.text(tt.hwndForTool(tool))
+}
+
+func (tt *ToolTip) text(hwnd win.HWND) string {
+	ti := tt.toolInfo(hwnd)
 	if ti == nil {
 		return ""
 	}
@@ -221,7 +216,11 @@ func (tt *ToolTip) Text(tool Widget) string {
 }
 
 func (tt *ToolTip) SetText(tool Widget, text string) error {
-	ti := tt.toolInfo(tool)
+	return tt.setText(tt.hwndForTool(tool), text)
+}
+
+func (tt *ToolTip) setText(hwnd win.HWND, text string) error {
+	ti := tt.toolInfo(hwnd)
 	if ti == nil {
 		return newError("unknown tool")
 	}
@@ -246,11 +245,9 @@ func (tt *ToolTip) SetText(tool Widget, text string) error {
 	return nil
 }
 
-func (tt *ToolTip) toolInfo(tool Widget) *win.TOOLINFO {
+func (tt *ToolTip) toolInfo(hwnd win.HWND) *win.TOOLINFO {
 	var ti win.TOOLINFO
 	var buf [maxToolTipTextLen]uint16
-
-	hwnd := tool.Handle()
 
 	ti.CbSize = uint32(unsafe.Sizeof(ti))
 	ti.Hwnd = hwnd
@@ -262,4 +259,12 @@ func (tt *ToolTip) toolInfo(tool Widget) *win.TOOLINFO {
 	}
 
 	return &ti
+}
+
+func (*ToolTip) hwndForTool(tool Widget) win.HWND {
+	if hftt, ok := tool.(interface{ handleForToolTip() win.HWND }); ok {
+		return hftt.handleForToolTip()
+	}
+
+	return tool.Handle()
 }

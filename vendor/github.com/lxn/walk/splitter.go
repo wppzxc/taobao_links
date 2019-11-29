@@ -21,16 +21,18 @@ const splitterWindowClass = `\o/ Walk_Splitter_Class \o/`
 var splitterHandleDraggingBrush *SolidColorBrush
 
 func init() {
-	MustRegisterWindowClass(splitterWindowClass)
+	AppendToWalkInit(func() {
+		MustRegisterWindowClass(splitterWindowClass)
 
-	splitterHandleDraggingBrush, _ = NewSolidColorBrush(Color(win.GetSysColor(win.COLOR_BTNSHADOW)))
-	splitterHandleDraggingBrush.wb2info = map[*WindowBase]*windowBrushInfo{nil: nil}
+		splitterHandleDraggingBrush, _ = NewSolidColorBrush(Color(win.GetSysColor(win.COLOR_BTNSHADOW)))
+		splitterHandleDraggingBrush.wb2info = map[*WindowBase]*windowBrushInfo{nil: nil}
+	})
 }
 
 type Splitter struct {
 	ContainerBase
 	handleWidth   int
-	mouseDownPos  Point
+	mouseDownPos  Point // in native pixels
 	draggedHandle *splitterHandle
 	persistent    bool
 	removing      bool
@@ -425,14 +427,17 @@ func (s *Splitter) onInsertedWidget(index int, widget Widget) (err error) {
 						bn := next.BoundsPixels()
 						msen := minSizeEffective(createLayoutItemForWidget(next))
 
+						dpi := s.draggedHandle.DPI()
+						handleWidth := IntFrom96DPI(s.handleWidth, dpi)
+
 						if s.Orientation() == Horizontal {
 							xh := s.draggedHandle.XPixels()
 
 							xnew := xh + x - s.mouseDownPos.X
 							if xnew < bp.X+msep.Width {
 								xnew = bp.X + msep.Width
-							} else if xnew >= bn.X+bn.Width-msen.Width-s.handleWidth {
-								xnew = bn.X + bn.Width - msen.Width - s.handleWidth
+							} else if xnew >= bn.X+bn.Width-msen.Width-handleWidth {
+								xnew = bn.X + bn.Width - msen.Width - handleWidth
 							}
 
 							if e := s.draggedHandle.SetXPixels(xnew); e != nil {
@@ -444,8 +449,8 @@ func (s *Splitter) onInsertedWidget(index int, widget Widget) (err error) {
 							ynew := yh + y - s.mouseDownPos.Y
 							if ynew < bp.Y+msep.Height {
 								ynew = bp.Y + msep.Height
-							} else if ynew >= bn.Y+bn.Height-msen.Height-s.handleWidth {
-								ynew = bn.Y + bn.Height - msen.Height - s.handleWidth
+							} else if ynew >= bn.Y+bn.Height-msen.Height-handleWidth {
+								ynew = bn.Y + bn.Height - msen.Height - handleWidth
 							}
 
 							if e := s.draggedHandle.SetYPixels(ynew); e != nil {
