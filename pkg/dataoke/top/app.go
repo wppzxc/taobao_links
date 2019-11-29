@@ -47,13 +47,16 @@ func GetTblinks(items []string) ([]string, error) {
 	return links, nil
 }
 
-func GetTbl (id string, timestamp string) (string, error) {
+func GetTbl(id string, timestamp string) (string, error) {
 	url := fmt.Sprintf(getTblUrl, id, timestamp)
 	dom, err := goquery.NewDocument(url)
 	if err != nil {
 		return "", err
 	}
 	a := dom.Find("a")
+	if len(a.Nodes) < 2 {
+		return "", nil
+	}
 	link := a.Nodes[1].Attr[1].Val
 	return link, nil
 }

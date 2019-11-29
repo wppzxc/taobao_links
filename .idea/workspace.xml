@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="" />
+    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/dataoke/top/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/dataoke/top/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao-v1.0.2.rar" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
