@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/taokouling/app/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/taokouling/app/app_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/taokouling/taokouling.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/dataoke/top/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/dataoke/top/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taobao-v1.0.2.rar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,17 +82,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <parameters value="--key XD5JQP7XUQ3FBKTCT2QD7MLTFZ5T3SYH57ZOAMQ3GHNR5JMWZ3YA11132a5" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/pkg/duoduojinbao/app/test/main.go" />
-      <package value="github.com/wpp/taobao_links" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Test.TestGetKouling in github.com/wpp/taobao_links/pkg/taokouling/app">
     <configuration name="TestFilterByQuan in github.com/wpp/taobao_links/pkg/yituike/filter" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/yituike/filter" />
@@ -99,6 +92,17 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestFilterByQuan$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGetKouling in github.com/wpp/taobao_links/pkg/taokouling/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/taokouling/app" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wpp/taobao_links/pkg/taokouling/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGetKouling$" />
       <method v="2" />
     </configuration>
     <configuration name="TestGetMutiPageLinks in github.com/wpp/taobao_links/pkg/duoduojinbao" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -135,19 +139,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.go build main.go" />
       <item itemvalue="Go Test.TestGetMutiPageLinks in github.com/wpp/taobao_links/pkg/duoduojinbao" />
       <item itemvalue="Go Test.TestSearchAndSave in github.com/wpp/taobao_links/pkg/goodsSearch/app" />
       <item itemvalue="Go Test.TestSearchGoods in github.com/wpp/taobao_links/pkg/goodsSearch" />
       <item itemvalue="Go Test.TestFilterByQuan in github.com/wpp/taobao_links/pkg/yituike/filter" />
+      <item itemvalue="Go Test.TestGetKouling in github.com/wpp/taobao_links/pkg/taokouling/app" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestGetKouling in github.com/wpp/taobao_links/pkg/taokouling/app" />
         <item itemvalue="Go Test.TestFilterByQuan in github.com/wpp/taobao_links/pkg/yituike/filter" />
         <item itemvalue="Go Test.TestSearchGoods in github.com/wpp/taobao_links/pkg/goodsSearch" />
         <item itemvalue="Go Test.TestSearchAndSave in github.com/wpp/taobao_links/pkg/goodsSearch/app" />
         <item itemvalue="Go Test.TestGetMutiPageLinks in github.com/wpp/taobao_links/pkg/duoduojinbao" />
-        <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
   </component>
@@ -169,9 +173,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="fix dataoke bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix dataoke bug" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/taokouling/app/app_test.go</url>
+          <line>9</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

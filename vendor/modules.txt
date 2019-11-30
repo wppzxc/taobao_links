@@ -17,6 +17,8 @@ github.com/lxn/walk
 github.com/lxn/walk/declarative
 # github.com/lxn/win v0.0.0-20191128105842-2da648fda5b4
 github.com/lxn/win
+# github.com/mvdan/xurls v1.1.0
+github.com/mvdan/xurls
 # github.com/otiai10/gosseract v2.2.1+incompatible
 github.com/otiai10/gosseract
 # github.com/robotn/gohook v0.0.0-20191113163729-aaa2000ed97a

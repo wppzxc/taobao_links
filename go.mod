@@ -8,6 +8,7 @@ require (
 	github.com/go-vgo/robotgo v0.0.0-20191128163956-6b94d024dc37
 	github.com/lxn/walk v0.0.0-20191128110447-55ccb3a9f5c1
 	github.com/lxn/win v0.0.0-20191128105842-2da648fda5b4
+	github.com/mvdan/xurls v1.1.0
 	github.com/tealeg/xlsx v1.0.5
 	github.com/zserge/lorca v0.1.8
 	github.com/zserge/webview v0.0.0-20191103184548-1a9ebffc2601
