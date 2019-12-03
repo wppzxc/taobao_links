@@ -3,7 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/wpp/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
 	"io/ioutil"
 	"net/http"
 	"net/url"

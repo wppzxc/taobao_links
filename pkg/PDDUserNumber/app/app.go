@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/tealeg/xlsx"
-	"github.com/wpp/taobao_links/pkg/PDDUserNumber/types"
+	"github.com/wppzxc/taobao_links/pkg/PDDUserNumber/types"
 	"io"
 	"net/http"
 	"os"

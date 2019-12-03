@@ -1,4 +1,4 @@
-module github.com/wpp/taobao_links
+module github.com/wppzxc/taobao_links
 
 go 1.13
 
@@ -11,8 +11,10 @@ require (
 	github.com/mvdan/xurls v1.1.0
 	github.com/tealeg/xlsx v1.0.5
 	github.com/zserge/lorca v0.1.8
-	github.com/zserge/webview v0.0.0-20191103184548-1a9ebffc2601
+	github.com/zserge/webview v0.0.0
 	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 	gopkg.in/yaml.v2 v2.2.7 // indirect
 	sigs.k8s.io/yaml v1.1.0
 )
+
+replace github.com/zserge/webview v0.0.0 => ./libs/webview

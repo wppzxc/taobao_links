@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
-	"github.com/wpp/taobao_links/pkg/PDDUserNumber"
-	"github.com/wpp/taobao_links/pkg/dataoke"
-	"github.com/wpp/taobao_links/pkg/duoduojinbao"
-	"github.com/wpp/taobao_links/pkg/goodsSearch"
-	"github.com/wpp/taobao_links/pkg/haodanku"
-	"github.com/wpp/taobao_links/pkg/taokeyi"
-	"github.com/wpp/taobao_links/pkg/taokouling"
-	"github.com/wpp/taobao_links/pkg/yituike"
+	"github.com/wppzxc/taobao_links/pkg/PDDUserNumber"
+	"github.com/wppzxc/taobao_links/pkg/dataoke"
+	"github.com/wppzxc/taobao_links/pkg/duoduojinbao"
+	"github.com/wppzxc/taobao_links/pkg/goodsSearch"
+	"github.com/wppzxc/taobao_links/pkg/haodanku"
+	"github.com/wppzxc/taobao_links/pkg/taokeyi"
+	"github.com/wppzxc/taobao_links/pkg/taokouling"
+	"github.com/wppzxc/taobao_links/pkg/yituike"
 )
 
 func main() {

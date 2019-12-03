@@ -1,6 +1,6 @@
 package filter
 
-import "github.com/wpp/taobao_links/pkg/yituike/types"
+import "github.com/wppzxc/taobao_links/pkg/yituike/types"
 
 
 // filter items by coupon_remain_quantity

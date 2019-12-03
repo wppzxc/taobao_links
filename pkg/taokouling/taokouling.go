@@ -5,7 +5,7 @@ import (
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/mvdan/xurls"
-	"github.com/wpp/taobao_links/pkg/taokouling/app"
+	"github.com/wppzxc/taobao_links/pkg/taokouling/app"
 	"strings"
 )
 

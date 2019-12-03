@@ -6,7 +6,7 @@ import (
 	"github.com/atotto/clipboard"
 	"github.com/go-vgo/robotgo"
 	"github.com/lxn/win"
-	"github.com/wpp/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
 	"io"
 	"io/ioutil"
 	"net/http"

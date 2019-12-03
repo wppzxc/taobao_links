@@ -3,7 +3,7 @@ package utils
 import (
 	"fmt"
 	"github.com/lxn/win"
-	"github.com/wpp/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
 	"strings"
 	"time"
 )

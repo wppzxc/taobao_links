@@ -2,8 +2,8 @@ package duoduojinbao
 
 import (
 	"fmt"
-	"github.com/wpp/taobao_links/pkg/duoduojinbao/javascripts"
-	"github.com/wpp/taobao_links/pkg/duoduojinbao/utils"
+	"github.com/wppzxc/taobao_links/pkg/duoduojinbao/javascripts"
+	"github.com/wppzxc/taobao_links/pkg/duoduojinbao/utils"
 	"github.com/zserge/webview"
 	"strings"
 	"time"

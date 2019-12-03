@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
-	"github.com/wpp/taobao_links/pkg/haodanku/app"
+	"github.com/wppzxc/taobao_links/pkg/haodanku/app"
 	"strconv"
 )
 

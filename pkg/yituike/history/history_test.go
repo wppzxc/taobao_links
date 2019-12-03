@@ -1,7 +1,7 @@
 package history
 
 import (
-	"github.com/wpp/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
 	"testing"
 )
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/tealeg/xlsx"
-	"github.com/wpp/taobao_links/pkg/goodsSearch/app/types"
+	"github.com/wppzxc/taobao_links/pkg/goodsSearch/app/types"
 	"io/ioutil"
 	"net/http"
 	"net/url"

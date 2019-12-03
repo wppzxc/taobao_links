@@ -2,9 +2,9 @@ package premonitor
 
 import (
 	"fmt"
-	"github.com/wpp/taobao_links/pkg/yituike/history"
-	"github.com/wpp/taobao_links/pkg/yituike/types"
-	"github.com/wpp/taobao_links/pkg/yituike/utils"
+	"github.com/wppzxc/taobao_links/pkg/yituike/history"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/utils"
 	"os"
 	"time"
 )

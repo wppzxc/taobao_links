@@ -5,7 +5,7 @@ import (
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/tealeg/xlsx"
-	"github.com/wpp/taobao_links/pkg/duoduojinbao/app"
+	"github.com/wppzxc/taobao_links/pkg/duoduojinbao/app"
 	"strconv"
 	"time"
 )

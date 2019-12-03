@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/wpp/taobao_links/pkg/yituike/types"
-	"github.com/wpp/taobao_links/pkg/yituike/wait"
+	"github.com/wppzxc/taobao_links/pkg/yituike/types"
+	"github.com/wppzxc/taobao_links/pkg/yituike/wait"
 	"time"
 )
 
