@@ -30,7 +30,11 @@ func CoolQMessageSend(msg types.Message, users []string) error {
 		}
 		defer os.Remove(tmpfile.Name())
 		errMsg := ""
+		// send image
 		for _, u := range users {
+			if len(u) == 0 {
+				continue
+			}
 			err := SendImage(tmpfile, u)
 			if err != nil {
 				errMsg = errMsg + " : " + err.Error()
@@ -42,7 +46,11 @@ func CoolQMessageSend(msg types.Message, users []string) error {
 		return fmt.Errorf("Error in send image to users : %s ", errMsg)
 	} else {
 		errMsg := ""
+		// send message
 		for _, u := range users {
+			if len(u) == 0 {
+				continue
+			}
 			if err := SendMessage(msg.Message, u); err != nil {
 				errMsg = errMsg + " : " + err.Error()
 			}

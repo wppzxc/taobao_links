@@ -1,5 +1,9 @@
 package types
 
+const (
+	DefaultWebSocketUrl = "ws://127.0.0.1:6700/event/"
+)
+
 type Message struct {
 	Anonymous   Anonymous `json:"anonymous"`
 	GroupId     int64     `json:"group_id"`

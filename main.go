@@ -17,7 +17,7 @@ import (
 
 func main() {
 	mw := &walk.MainWindow{}
-	
+
 	// init dataoke
 	dtk := dataoke.GetDataokePage()
 	// init haodanku
@@ -39,18 +39,19 @@ func main() {
 	tkl := taokouling.GetTaokoulingPage()
 	// init coolq
 	cq := coolq.GetCoolQPage()
-	
+
 	// bind mainWindow
 	gs.ParentWindow = mw
 	ytk.ParentWindow = mw
 	pdun.ParentWindow = mw
-	
+	cq.ParentWindow = mw
+
 	if _, err := (MainWindow{
-		Title:    "淘宝客工具 v1.1.1",
+		Title:    "淘宝客工具 v1.1.2",
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
-		Size:    Size{700, 700},
-		Layout:  VBox{},
+		Size:   Size{700, 700},
+		Layout: VBox{},
 		Children: []Widget{
 			TabWidget{
 				Pages: []TabPage{

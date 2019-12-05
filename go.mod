@@ -9,6 +9,7 @@ require (
 	github.com/lxn/walk v0.0.0-20191128110447-55ccb3a9f5c1
 	github.com/lxn/win v0.0.0-20191128105842-2da648fda5b4
 	github.com/mvdan/xurls v1.1.0
+	github.com/shirou/w32 v0.0.0-20160930032740-bb4de0191aa4
 	github.com/tealeg/xlsx v1.0.5
 	github.com/zserge/lorca v0.1.8
 	github.com/zserge/webview v0.0.0

@@ -12,12 +12,12 @@ func ConnectWebSocket(wsUrl string) (*websocket.Conn, error) {
 	return websocket.Dial(wsUrl, "", "http://api.wpp.pro/")
 }
 
-func Start(wsUrl string, groups []string, users []string, stopCh chan struct{}) {
+func Start(wsUrl string, groups []string, users []string, stopCh chan struct{}) error {
 	// start websocket client goroutine
 	msgs := make(chan types.Message, 4)
 	ws, err := ConnectWebSocket(wsUrl)
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("链接 websocket 失败 ： %s，请检查url是否正确！", err)
 	}
 	go func() {
 		defer ws.Close()
@@ -61,6 +61,7 @@ func Start(wsUrl string, groups []string, users []string, stopCh chan struct{}) 
 			}
 		}
 	}()
+	return nil
 }
 
 func checkSendGroups(msg *types.Message, groups []string) bool {

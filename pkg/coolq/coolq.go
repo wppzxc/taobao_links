@@ -5,10 +5,12 @@ import (
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/wppzxc/taobao_links/pkg/coolq/app"
+	"github.com/wppzxc/taobao_links/pkg/coolq/types"
 	"strings"
 )
 
 type CoolQ struct {
+	ParentWindow *walk.MainWindow
 	MainPage     *TabPage
 	WebSocketUrl *walk.LineEdit
 	Groups       *walk.TextEdit
@@ -106,6 +108,8 @@ func GetCoolQPage() *CoolQ {
 }
 
 func (c *CoolQ) AutoImportUsers() {
+	users := app.AutoImportUsers(true, true)
+	c.Users.SetText(users)
 	fmt.Println("auto import users")
 }
 
@@ -113,22 +117,29 @@ func (c *CoolQ) StartWork() {
 	fmt.Println("start coolq work!")
 	wsUrl := c.WebSocketUrl.Text()
 	if len(wsUrl) == 0 {
-		fmt.Println("Must provide websocket url!")
-		return
+		errMsg := "未指定 websocket url ,将使用本地url！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconWarning)
+		wsUrl = types.DefaultWebSocketUrl
+		c.WebSocketUrl.SetText(wsUrl)
 	}
 	groups := c.GetGroups()
-	if len(groups) == 0{
-		fmt.Println("Must provide groups!")
+	if len(groups) == 0 {
+		errMsg := "未指定QQ群ID！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
 		return
 	}
 	users := c.GetUsers()
 	if len(users) == 0 {
-		fmt.Println("Must provide user!")
+		errMsg := "未指定转发用户！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
 		return
 	}
 	c.StopCh = make(chan struct{})
 	c.SetUIEnable(false)
-	app.Start(wsUrl, groups, users, c.StopCh)
+	if err := app.Start(wsUrl, groups, users, c.StopCh); err != nil {
+		walk.MsgBox(c.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
+		c.SetUIEnable(true)
+	}
 	fmt.Println("coolq started!")
 }
 
