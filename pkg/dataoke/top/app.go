@@ -12,6 +12,7 @@ const (
 	goodsListId = ".goods-list"
 	topId       = "id"
 	getTblUrl   = "http://www.dataoke.com/gettpl?gid=%s&_=%s"
+	retrys      = 10
 )
 
 func GetTopItems(url string) ([]string, error) {
@@ -49,15 +50,21 @@ func GetTblinks(items []string) ([]string, error) {
 
 func GetTbl(id string, timestamp string) (string, error) {
 	url := fmt.Sprintf(getTblUrl, id, timestamp)
-	dom, err := goquery.NewDocument(url)
-	if err != nil {
-		return "", err
+	link := ""
+	for i := 0; i < retrys; i++ {
+		dom, err := goquery.NewDocument(url)
+		if err != nil {
+			return "", err
+		}
+		a := dom.Find("a")
+		if len(a.Nodes) < 2 {
+			fmt.Println("can't get tbl, retry : ", i+1)
+			link = ""
+			continue
+		}
+		link = a.Nodes[1].Attr[1].Val
+		return link, nil
 	}
-	a := dom.Find("a")
-	if len(a.Nodes) < 2 {
-		return "", nil
-	}
-	link := a.Nodes[1].Attr[1].Val
 	return link, nil
 }
 
