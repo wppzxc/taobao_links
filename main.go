@@ -5,6 +5,7 @@ import (
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/wppzxc/taobao_links/pkg/PDDUserNumber"
+	"github.com/wppzxc/taobao_links/pkg/coolq"
 	"github.com/wppzxc/taobao_links/pkg/dataoke"
 	"github.com/wppzxc/taobao_links/pkg/duoduojinbao"
 	"github.com/wppzxc/taobao_links/pkg/goodsSearch"
@@ -36,6 +37,8 @@ func main() {
 	pdun := PDDUserNumber.GetPDDUserNumberPage()
 	// init taokouling
 	tkl := taokouling.GetTaokoulingPage()
+	// init coolq
+	cq := coolq.GetCoolQPage()
 	
 	// bind mainWindow
 	gs.ParentWindow = mw
@@ -43,11 +46,10 @@ func main() {
 	pdun.ParentWindow = mw
 	
 	if _, err := (MainWindow{
-		Title:    "淘宝客工具 v1.0.3",
+		Title:    "淘宝客工具 v1.1.0",
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
-		Size:    Size{600, 700},
-		MaxSize: Size{700, 800},
+		Size:    Size{700, 700},
 		Layout:  VBox{},
 		Children: []Widget{
 			TabWidget{
@@ -60,6 +62,7 @@ func main() {
 					*ytk.MainPage,
 					*pdun.MainPage,
 					*tkl.MainPage,
+					*cq.MainPage,
 				},
 			},
 		},
