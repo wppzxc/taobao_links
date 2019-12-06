@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/test/users_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/sender.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/utils_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/coolq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/types/types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test">
+  <component name="RunManager" selected="Go Test.TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/coolq/app">
     <configuration name="TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
@@ -108,7 +103,7 @@
       <pattern value="^TestGetWXUsers$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
       <framework value="gotest" />
@@ -116,7 +111,7 @@
       <package value="github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestIsImage$" />
+      <pattern value="^TestMoveToLeftTop$" />
       <method v="2" />
     </configuration>
     <configuration name="TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -142,19 +137,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Test.TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <item itemvalue="Go Test.TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <item itemvalue="Go Test.TestGetWXUsers in github.com/wppzxc/taobao_links/pkg/test" />
       <item itemvalue="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Test.TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/coolq/app" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/coolq/app" />
         <item itemvalue="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test" />
         <item itemvalue="Go Test.TestGetWXUsers in github.com/wppzxc/taobao_links/pkg/test" />
         <item itemvalue="Go Test.TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
         <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-        <item itemvalue="Go Test.TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
       </list>
     </recent_temporary>
   </component>

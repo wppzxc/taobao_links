@@ -94,3 +94,29 @@ func importQQUsers() []string {
 func makeCallback(fn interface{}) uintptr {
 	return syscall.NewCallback(fn)
 }
+
+func MoveUserToLeftTop(user string) {
+	hwnd := getWindowHWND(user)
+	rect := getWindowRect(hwnd)
+	if rect == nil {
+		return
+	}
+	width := rect.Right - rect.Left
+	height := rect.Bottom - rect.Top
+	win.MoveWindow(hwnd, 0, 0, width, height, false)
+}
+
+func getWindowRect(h win.HWND) *win.RECT {
+	rect := &win.RECT{}
+	win.GetWindowRect(h, rect)
+	return rect
+}
+
+func getWindowHWND(name string) win.HWND {
+	p, err := syscall.UTF16PtrFromString(name)
+	if err != nil {
+		return 0
+	}
+	h := win.FindWindow(nil, p)
+	return h
+}
