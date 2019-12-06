@@ -26,3 +26,8 @@ func TestSaveImage(t *testing.T) {
 	}
 	fmt.Println(tmpFile.Name())
 }
+
+func TestMoveToLeftTop(t *testing.T) {
+	user := "bigben"
+	MoveUserToLeftTop(user)
+}

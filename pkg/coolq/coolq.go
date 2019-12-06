@@ -16,6 +16,7 @@ type CoolQ struct {
 	Groups       *walk.TextEdit
 	Users        *walk.TextEdit
 	AutoImport   *walk.PushButton
+	MoveTo       *walk.PushButton
 	Start        *walk.PushButton
 	Stop         *walk.PushButton
 	StopCh       chan struct{}
@@ -77,6 +78,11 @@ func GetCoolQPage() *CoolQ {
 								AssignTo:  &coolq.AutoImport,
 								OnClicked: coolq.AutoImportUsers,
 							},
+							PushButton{
+								Text:      "移到左上角",
+								AssignTo: &coolq.MoveTo,
+								OnClicked: coolq.MoveToLeftTop,
+							},
 						},
 					},
 					TextEdit{
@@ -113,12 +119,24 @@ func (c *CoolQ) AutoImportUsers() {
 	fmt.Println("auto import users")
 }
 
+func (c *CoolQ) MoveToLeftTop() {
+	users := c.GetUsers()
+	if len(users) == 0 {
+		errMsg := "未指定转发用户！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
+		return
+	}
+	for _, u := range users {
+		app.MoveUserToLeftTop(u)
+	}
+}
+
 func (c *CoolQ) StartWork() {
 	fmt.Println("start coolq work!")
 	wsUrl := c.WebSocketUrl.Text()
 	if len(wsUrl) == 0 {
 		errMsg := "未指定 websocket url ,将使用本地url！"
-		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconWarning)
+		walk.MsgBox(c.ParentWindow, "Warning", errMsg, walk.MsgBoxIconWarning)
 		wsUrl = types.DefaultWebSocketUrl
 		c.WebSocketUrl.SetText(wsUrl)
 	}

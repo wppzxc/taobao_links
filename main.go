@@ -47,7 +47,7 @@ func main() {
 	cq.ParentWindow = mw
 
 	if _, err := (MainWindow{
-		Title:    "淘宝客工具 v1.1.2",
+		Title:    "淘宝客工具 v1.1.3",
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
 		Size:   Size{700, 700},
