@@ -1,13 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
+      <change afterPath="$PROJECT_DIR$/license.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/license_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/test/websocket_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/version/version.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/app/utils_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coolq/coolq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/PDDUserNumber/PDDUserNumber.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/PDDUserNumber/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/PDDUserNumber/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/sender.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/app/utils_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/coolq.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coolq/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/dataoke/dataoke.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/dataoke/top/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/app/app_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/duoduojinbao_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/javascripts/loginJS.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/rawData.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/utils/util.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/duoduojinbao/webview.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsFilter/goodsFilter.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/app_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/app/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/goodsSearch/goodsSearch_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/haodanku/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/haodanku/app/app_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/haodanku/haodanku.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/taokeyi/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/taokeyi/taokeyi.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/taokouling/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/taokouling/app/app_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/taokouling/taokouling.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/test/users_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/test/users_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/app/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/filter/filter.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/filter/filter_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/history/history.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/history/history_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/premonitor/premonitor.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/process/process.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/signals/signal.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/signals/signal_posix.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/signals/signal_windows.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/types/types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/utils/fanli.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/utils/send.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/utils/util.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/wait/wait.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/yituike/yituike.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rsrc.syso" beforeDir="false" afterPath="$PROJECT_DIR$/rsrc.syso" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao-v1.1.3.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao_links.exe.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/taobao_links.exe.manifest" afterDir="false" />
     </list>
-    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,19 +136,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test">
-    <configuration name="TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGetImageUrl$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestGetWXUsers in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/test">
+    <configuration name="TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/test" />
       <framework value="gotest" />
@@ -101,10 +145,10 @@
       <package value="github.com/wppzxc/taobao_links/pkg/test" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGetWXUsers$" />
+      <pattern value="^TestCheckLicense$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
       <framework value="gotest" />
@@ -112,21 +156,10 @@
       <package value="github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestIsImage$" />
+      <pattern value="^TestExecuteMsg$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSaveImage$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestSplit in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestLicense in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/test" />
       <framework value="gotest" />
@@ -134,23 +167,45 @@
       <package value="github.com/wppzxc/taobao_links/pkg/test" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestSplit$" />
+      <pattern value="^TestLicense$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestRegExp in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/test" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wppzxc/taobao_links/pkg/test" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestRegExp$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestWebSocket in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/test" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wppzxc/taobao_links/pkg/test" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestWebSocket$" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Test.TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <item itemvalue="Go Test.TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <item itemvalue="Go Test.TestGetWXUsers in github.com/wppzxc/taobao_links/pkg/test" />
-      <item itemvalue="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Test.TestWebSocket in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Test.TestRegExp in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Test.TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" />
+      <item itemvalue="Go Test.TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestSplit in github.com/wppzxc/taobao_links/pkg/test" />
-        <item itemvalue="Go Test.TestGetWXUsers in github.com/wppzxc/taobao_links/pkg/test" />
-        <item itemvalue="Go Test.TestSaveImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-        <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-        <item itemvalue="Go Test.TestIsImage in github.com/wppzxc/taobao_links/pkg/coolq/app" />
+        <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/test" />
+        <item itemvalue="Go Test.TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" />
+        <item itemvalue="Go Test.TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" />
+        <item itemvalue="Go Test.TestRegExp in github.com/wppzxc/taobao_links/pkg/test" />
+        <item itemvalue="Go Test.TestWebSocket in github.com/wppzxc/taobao_links/pkg/test" />
       </list>
     </recent_temporary>
   </component>
@@ -185,6 +240,11 @@
           <url>file://$PROJECT_DIR$/pkg/taokouling/app/app_test.go</url>
           <line>9</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/license_test.go</url>
+          <line>10</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
