@@ -19,7 +19,7 @@ type PDDUserNumber struct {
 func GetPDDUserNumberPage() *PDDUserNumber {
 	pddUserNumber := &PDDUserNumber{}
 	pddUserNumber.MainPage = &TabPage{
-		Title:  "PDD在线拼团人数查询",
+		Title:  "拼多多拼团人数查询",
 		Layout: VBox{},
 		DataBinder: DataBinder{
 			DataSource: pddUserNumber,

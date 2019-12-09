@@ -31,3 +31,7 @@ func Get() Info {
 		Platform:  fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 	}
 }
+
+func MainVersion() string {
+	return version[:3] + "x"
+}

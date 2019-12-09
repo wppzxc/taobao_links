@@ -23,7 +23,7 @@ func GetTaokoulingPage() *taokouling {
 		Links:  &walk.TextEdit{},
 	}
 	taokouling.MainPage = &TabPage{
-		Title:  "淘口令",
+		Title:  "淘口令提取",
 		Layout: VBox{},
 		DataBinder: DataBinder{
 			DataSource: taokouling,

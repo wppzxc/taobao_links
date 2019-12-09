@@ -81,7 +81,7 @@ func importQQUsers() []string {
 			fmt.Println("Error in get class : ", err)
 		}
 		class := syscall.UTF16ToString(n)
-		if class == qqClass && len(name) != 0 && name != "QQ" && name != "TXMenuWindow" {
+		if class == qqClass && len(name) != 0 && name != "QQ" && name != "TXMenuWindow" && name != "TIM" {
 			users = append(users, name)
 		}
 		return 1

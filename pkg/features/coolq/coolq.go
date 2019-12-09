@@ -32,7 +32,7 @@ func GetCoolQPage() *CoolQ {
 		Stop:         &walk.PushButton{},
 	}
 	coolq.MainPage = &TabPage{
-		Title:  "QQ消息转发微信",
+		Title:  "酷Q消息转发",
 		Layout: VBox{},
 		DataBinder: DataBinder{
 			DataSource: coolq,

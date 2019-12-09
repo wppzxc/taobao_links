@@ -13,7 +13,10 @@ import (
 	"github.com/wppzxc/taobao_links/pkg/features/taokeyi"
 	"github.com/wppzxc/taobao_links/pkg/features/taokouling"
 	"github.com/wppzxc/taobao_links/pkg/features/yituike"
+	"github.com/wppzxc/taobao_links/pkg/license"
+	"github.com/wppzxc/taobao_links/pkg/types"
 	"github.com/wppzxc/taobao_links/pkg/version"
+	"os"
 	"time"
 )
 
@@ -23,51 +26,21 @@ type Feature interface {
 
 func main() {
 	mw := &walk.MainWindow{}
-	now := time.Now().Unix()
-	license := &License{}
-	for {
-		license = GetLocalLicense()
-		if license == nil {
-			fmt.Println("local license is invalid! ")
-			licenseDlg := &LicenseDialog{
-				MainWM: &walk.MainWindow{},
-				License: &walk.TextEdit{},
-				ActiveBtn: &walk.PushButton{},
-			}
-			if _, err := (MainWindow{
-				Title:    "激活",
-				Size:   Size{400, 200},
-				AssignTo: &licenseDlg.MainWM,
-				Layout:   VBox{},
-				Children: []Widget{
-					TextLabel{
-						Text: "激活码......",
-					},
-					TextEdit{
-						AssignTo: &licenseDlg.License,
-					},
-					PushButton{
-						Text: "激活",
-						AssignTo: &licenseDlg.ActiveBtn,
-						OnClicked: licenseDlg.Active,
-					},
-				},
-			}).Run(); err != nil {
-				fmt.Println(err)
-			}
-			continue
-		}
-		if license.ExpireTimestamp > now {
-			fmt.Println("local license ok !")
-			break
-		} else {
-			fmt.Println("local license is expired !")
-			if err := ResetLocalLicense(); err != nil {
-				fmt.Println("Error in reset local license !", err)
-			}
+	lic := &types.License{}
+	lic = license.GetLocalLicense()
+	if lic == nil {
+		fmt.Println("local license is invalid! ")
+		var err error
+		lic, err = ShowLicenseDialog()
+		if err != nil {
+			fmt.Println("Error in active license : ", err)
 		}
 	}
-
+	if err := license.CheckLicense(lic); err != nil {
+		fmt.Printf("check license error %s \n", err)
+		os.Exit(0)
+	}
+	fmt.Printf("license checked ok! : %#v \n", lic)
 
 	// init dataoke
 	dtk := dataoke.GetDataokePage()
@@ -99,27 +72,27 @@ func main() {
 
 	// all features
 	featureMap := map[string]Feature{
-		"dataoke": dtk,
-		"haodanku": hdk,
-		"duoduojinbao": ddjb,
-		"taokeyi": tky,
-		"goodSearch": gs,
-		"yituike": ytk,
+		"dataoke":       dtk,
+		"haodanku":      hdk,
+		"duoduojinbao":  ddjb,
+		"taokeyi":       tky,
+		"goodSearch":    gs,
+		"yituike":       ytk,
 		"pddUserNumber": pdun,
-		"taokouling": tkl,
-		"coolq": cq,
+		"taokouling":    tkl,
+		"coolq":         cq,
 	}
 
 	// user features
 	tabPages := []TabPage{}
-	for _, f := range license.Feature {
+	for _, f := range lic.Feature {
 		feature, ok := featureMap[f]
 		if ok {
 			tabPages = append(tabPages, *feature.GetMainPage())
 		}
 	}
 	timeLayout := "2006-01-02"
-	expireDate := time.Unix(license.ExpireTimestamp, 0).Format(timeLayout)
+	expireDate := time.Unix(lic.ExpireTimestamp, 0).Format(timeLayout)
 
 	if _, err := (MainWindow{
 		Title:    getMainTitle() + expireDate,
@@ -138,26 +111,59 @@ func main() {
 }
 
 type LicenseDialog struct {
-	MainWM    *walk.MainWindow
-	License   *walk.TextEdit
-	ActiveBtn *walk.PushButton
+	MainWM      *walk.MainWindow
+	LicenseEdit *walk.TextEdit
+	License     *types.License
+	ActiveBtn   *walk.PushButton
+}
+
+func ShowLicenseDialog() (*types.License, error) {
+	licenseDlg := &LicenseDialog{
+		MainWM:      &walk.MainWindow{},
+		License:     &types.License{},
+		LicenseEdit: &walk.TextEdit{},
+		ActiveBtn:   &walk.PushButton{},
+	}
+	if _, err := (MainWindow{
+		Title:    "激活",
+		Size:     Size{400, 200},
+		AssignTo: &licenseDlg.MainWM,
+		Layout:   VBox{},
+		Children: []Widget{
+			TextLabel{
+				Text: "请输入激活码：",
+			},
+			TextEdit{
+				AssignTo: &licenseDlg.LicenseEdit,
+			},
+			PushButton{
+				Text:      "激活",
+				AssignTo:  &licenseDlg.ActiveBtn,
+				OnClicked: licenseDlg.Active,
+			},
+		},
+	}).Run(); err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return licenseDlg.License, nil
 }
 
 func (l *LicenseDialog) Active() {
-	license := l.License.Text()
-	if len(license) == 0 {
+	lic := l.LicenseEdit.Text()
+	if len(lic) == 0 {
 		walk.MsgBox(l.MainWM, "Error", fmt.Errorf("请填写激活码！").Error(), walk.MsgBoxIconError)
 		return
 	}
-	if err := CheckLicense(license); err != nil {
+	lice, err := license.CheckEncodeLicense(lic)
+	if err != nil {
 		walk.MsgBox(l.MainWM, "Error", err.Error(), walk.MsgBoxIconError)
 		return
 	}
-	fmt.Printf("active success! : %s\n", license)
-	err := l.MainWM.Close()
-	if err != nil {
-		fmt.Println("close licenseDlg error : ", err)
-	}
+	l.License = lice
+	fmt.Printf("active success! : %s\n", lic)
+	l.MainWM.Close()
+	//l.MainWM.Closing()
 }
 
 func getMainTitle() string {

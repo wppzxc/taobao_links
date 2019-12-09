@@ -22,7 +22,7 @@ type GoodsSearch struct {
 var goodsSearch = &GoodsSearch{}
 func GetGoodsSearchPage() *GoodsSearch {
 	goodsSearch.MainPage = &TabPage{
-		Title: "TB商品销量搜索",
+		Title: "淘宝销量搜索",
 		Layout: VBox{},
 		DataBinder: DataBinder{
 			DataSource: goodsSearch,
