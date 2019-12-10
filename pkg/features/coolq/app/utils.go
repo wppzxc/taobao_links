@@ -46,7 +46,8 @@ func AutoImportUsers(weixin bool, qq bool) string {
 	for _, u := range users {
 		userStr = userStr + u + "/"
 	}
-	return userStr
+	// remove final '/'
+	return userStr[:len(userStr)-1]
 }
 
 func importWXUsers() []string {

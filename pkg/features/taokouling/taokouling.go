@@ -76,12 +76,12 @@ func GetTaokoulingPage() *taokouling {
 
 func (t *taokouling) GetLinks() {
 	inputs := t.Inputs.Text()
-	t.SetUIEnable(false)
 	fmt.Printf("input is '%s' ", inputs)
 	if len(inputs) == 0 {
 		fmt.Println("must provide inputs !")
 		return
 	}
+	t.SetUIEnable(false)
 	go func() {
 		links := t.ResolveInputs(inputs)
 		t.UpdateLinks(links)

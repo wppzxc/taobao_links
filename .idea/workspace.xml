@@ -2,53 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
-      <change afterPath="$PROJECT_DIR$/pkg/register/register.exe.manifest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/register/register.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/types/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/appveyor.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/chan/eb_chan.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/circle.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/event/dispatch_proc.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/event/goEvent.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/event/os.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/event/pub.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/extern.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/darwin/event_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/darwin/hook_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/darwin/input.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/darwin/input_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/darwin/properties_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/iohook.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/logger.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/logger_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/windows/event_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/windows/hook_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/windows/input.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/windows/input_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/windows/properties_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/x11/event_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/x11/hook_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/x11/input.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/x11/input_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/hook/x11/properties_c.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/gohook/tables.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/license.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/license/license.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/license.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/license_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/license/license_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/PDDUserNumber/PDDUserNumber.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/PDDUserNumber/PDDUserNumber.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/goodsSearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/goodsSearch.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/taokouling/taokouling.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/taokouling/taokouling.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/version/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/version/version.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taobao-v1.2.3.zip" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +52,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/register" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../newgit.op.ksyun.com/kce/app-agent" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />

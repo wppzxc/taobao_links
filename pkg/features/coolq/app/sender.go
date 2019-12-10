@@ -103,6 +103,7 @@ func send(user string) error {
 			break
 		}
 	}
+
 	if ok {
 		robotgo.KeyTap("v", "ctrl")
 		robotgo.KeyTap("enter")

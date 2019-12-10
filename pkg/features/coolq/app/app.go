@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/types"
 	"golang.org/x/net/websocket"
+	"net"
+	"os/exec"
 	"strconv"
+	"time"
 )
 
 func ConnectWebSocket(wsUrl string) (*websocket.Conn, error) {
@@ -72,4 +75,20 @@ func checkSendGroups(msg *types.Message, groups []string) bool {
 		}
 	}
 	return false
+}
+
+func StartLocalCoolQ() error {
+	cmd := "./coolq/CQA.exe"
+	if err := exec.Command(cmd).Start(); err != nil {
+		return fmt.Errorf("Error in start coolq : %s \n", err)
+	}
+	return nil
+}
+
+func CheckCoolqLogined() bool {
+	_, err := net.DialTimeout("tcp", "0.0.0.0:6700", 3 * time.Second)
+	if err != nil {
+		return false
+	}
+	return true
 }

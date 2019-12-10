@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
+	"github.com/lxn/win"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/app"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/types"
 	"strings"
@@ -15,6 +16,7 @@ type CoolQ struct {
 	WebSocketUrl *walk.LineEdit
 	Groups       *walk.TextEdit
 	Users        *walk.TextEdit
+	LoginBtn     *walk.PushButton
 	AutoImport   *walk.PushButton
 	MoveTo       *walk.PushButton
 	Start        *walk.PushButton
@@ -43,8 +45,22 @@ func GetCoolQPage() *CoolQ {
 				Layout: VBox{},
 				Children: []Widget{
 					HSpacer{},
-					TextLabel{
-						Text: "酷Q websocket 地址（默认使用本地）：",
+					Composite{
+						Layout: HBox{},
+						Children: []Widget{
+							TextLabel{
+								Text: "酷Q websocket 地址（默认使用本地）：",
+							},
+							PushButton{
+								AssignTo: &coolq.LoginBtn,
+								OnClicked: func() {
+									if err := app.StartLocalCoolQ(); err != nil {
+										walk.MsgBox(coolq.ParentWindow, "Warning", fmt.Sprintf("启动酷Q失败！%s \n", err), walk.MsgBoxIconWarning)
+									}
+								},
+								Text: "启动酷Q",
+							},
+						},
 					},
 					LineEdit{
 						AssignTo: &coolq.WebSocketUrl,
@@ -80,7 +96,7 @@ func GetCoolQPage() *CoolQ {
 							},
 							PushButton{
 								Text:      "移到左上角",
-								AssignTo: &coolq.MoveTo,
+								AssignTo:  &coolq.MoveTo,
 								OnClicked: coolq.MoveToLeftTop,
 							},
 						},
@@ -135,10 +151,28 @@ func (c *CoolQ) StartWork() {
 	fmt.Println("start coolq work!")
 	wsUrl := c.WebSocketUrl.Text()
 	if len(wsUrl) == 0 {
-		errMsg := "未指定 websocket url ,将使用本地url！"
-		walk.MsgBox(c.ParentWindow, "Warning", errMsg, walk.MsgBoxIconWarning)
-		wsUrl = types.DefaultWebSocketUrl
-		c.WebSocketUrl.SetText(wsUrl)
+	Login:
+		for {
+			errMsg := "未指定 websocket url, 是否已登录本地酷Q？ "
+			result := walk.MsgBox(c.ParentWindow, "Warning", errMsg, walk.MsgBoxOKCancel)
+			switch result {
+			case win.IDOK:
+				fmt.Println("click already login coolq")
+				if ok := app.CheckCoolqLogined(); !ok {
+					fmt.Println("coolq not logined, please retry! ")
+					continue
+				}
+				wsUrl = types.DefaultWebSocketUrl
+				c.WebSocketUrl.SetText(wsUrl)
+				break Login
+			case win.IDCANCEL:
+				fmt.Println("cancel login coolq")
+				return
+			default:
+				fmt.Println("close login coolq")
+				return
+			}
+		}
 	}
 	groups := c.GetGroups()
 	if len(groups) == 0 {
@@ -158,11 +192,11 @@ func (c *CoolQ) StartWork() {
 		walk.MsgBox(c.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
 		c.SetUIEnable(true)
 	}
-	fmt.Println("coolq started!")
+	fmt.Println("coolq trans work started!")
 }
 
 func (c *CoolQ) StopWork() {
-	fmt.Println("stop coolq work")
+	fmt.Println("stop coolq trans work")
 	close(c.StopCh)
 	c.SetUIEnable(true)
 }
