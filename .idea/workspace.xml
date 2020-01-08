@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/taokouling/taokouling.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/taokouling/taokouling.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taobao-v1.2.3.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/webview/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/libs/webview/go.mod" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +47,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../newgit.op.ksyun.com/kce/app-agent" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />

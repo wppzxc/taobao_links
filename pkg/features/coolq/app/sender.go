@@ -22,7 +22,7 @@ const (
 	fileFormat = "20060102150405"
 )
 
-func CoolQMessageSend(msg types.Message, users []string) error {
+func CoolQMessageSend(msg types.Message, users []string, interval int) error {
 	errMsg := ""
 	for _, u := range users {
 		msgs := executeMessage(msg.Message)
@@ -40,18 +40,22 @@ func CoolQMessageSend(msg types.Message, users []string) error {
 					errMsg = errMsg + " : " + fmt.Sprintf("Error in create tmp image file : %s ", err)
 					continue
 				}
-				if err := SendImage(tmpfile, u); err != nil {
-					errMsg = errMsg + " : " + err.Error()
-				}
+				func() {
+					defer tmpfile.Close()
+					defer os.Remove(tmpfile.Name())
+					if err := SendImage(tmpfile, u); err != nil {
+						errMsg = errMsg + " : " + err.Error()
+					}
+				}()
 			} else {
 				//send message to user
 				if err := SendMessage(m, u); err != nil {
 					errMsg = errMsg + " : " + err.Error()
 				}
 			}
-			time.Sleep(1 * time.Second)
+			time.Sleep(time.Duration(interval) * time.Millisecond)
 		}
-		time.Sleep(1 * time.Second)
+		time.Sleep(time.Duration(interval) * time.Millisecond)
 	}
 	if len(errMsg) == 0 {
 		return nil

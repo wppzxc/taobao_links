@@ -15,7 +15,7 @@ func ConnectWebSocket(wsUrl string) (*websocket.Conn, error) {
 	return websocket.Dial(wsUrl, "", "http://api.wpp.pro/")
 }
 
-func Start(wsUrl string, groups []string, users []string, stopCh chan struct{}) error {
+func Start(wsUrl string, groups []string, users []string, interval int, stopCh chan struct{}) error {
 	// start websocket client goroutine
 	msgs := make(chan types.Message, 4)
 	ws, err := ConnectWebSocket(wsUrl)
@@ -53,7 +53,7 @@ func Start(wsUrl string, groups []string, users []string, stopCh chan struct{}) 
 		for {
 			select {
 			case msg := <-msgs:
-				if err := CoolQMessageSend(msg, users); err != nil {
+				if err := CoolQMessageSend(msg, users, interval); err != nil {
 					fmt.Println("Error in send meg : ", err)
 				} else {
 					fmt.Printf("sender message : %#v \n", msg)

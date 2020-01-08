@@ -7,6 +7,7 @@ import (
 	"github.com/lxn/win"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/app"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/types"
+	"strconv"
 	"strings"
 )
 
@@ -21,6 +22,7 @@ type CoolQ struct {
 	MoveTo       *walk.PushButton
 	Start        *walk.PushButton
 	Stop         *walk.PushButton
+	SendInterval *walk.LineEdit
 	StopCh       chan struct{}
 }
 
@@ -32,6 +34,7 @@ func GetCoolQPage() *CoolQ {
 		AutoImport:   &walk.PushButton{},
 		Start:        &walk.PushButton{},
 		Stop:         &walk.PushButton{},
+		SendInterval: &walk.LineEdit{},
 	}
 	coolq.MainPage = &TabPage{
 		Title:  "酷Q消息转发",
@@ -71,8 +74,27 @@ func GetCoolQPage() *CoolQ {
 				Layout: VBox{},
 				Children: []Widget{
 					HSpacer{},
-					TextLabel{
-						Text: "接收群号（多个群组用 / 分隔）：",
+					Composite{
+						Layout: HBox{},
+						Children: []Widget{
+							TextLabel{
+								Text: "接收群号（多个群组用 / 分隔）：",
+							},
+							Composite{
+								Layout: HBox{Margins: Margins{}},
+								Children: []Widget{
+									HSpacer{},
+									TextLabel{
+										Text: "发送间隔（ms）：",
+									},
+									LineEdit{
+										AssignTo: &coolq.SendInterval,
+										MaxSize: Size{50, 0},
+										Text:    "1000",
+									},
+								},
+							},
+						},
 					},
 					TextEdit{
 						AssignTo: &coolq.Groups,
@@ -174,6 +196,14 @@ func (c *CoolQ) StartWork() {
 			}
 		}
 	}
+	intervalStr := c.SendInterval.Text()
+	interval, _ := strconv.Atoi(intervalStr)
+	if interval == 0 {
+		fmt.Println("sendInterval can't be 0, reset to 1000")
+		interval = 1000
+		c.SendInterval.SetText("1000")
+	}
+
 	groups := c.GetGroups()
 	if len(groups) == 0 {
 		errMsg := "未指定QQ群ID！"
@@ -188,7 +218,7 @@ func (c *CoolQ) StartWork() {
 	}
 	c.StopCh = make(chan struct{})
 	c.SetUIEnable(false)
-	if err := app.Start(wsUrl, groups, users, c.StopCh); err != nil {
+	if err := app.Start(wsUrl, groups, users, interval, c.StopCh); err != nil {
 		walk.MsgBox(c.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
 		c.SetUIEnable(true)
 	}
