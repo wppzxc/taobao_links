@@ -19,7 +19,8 @@ type CoolQ struct {
 	Users        *walk.TextEdit
 	LoginBtn     *walk.PushButton
 	AutoImport   *walk.PushButton
-	MoveTo       *walk.PushButton
+	MoveToLeft   *walk.PushButton
+	MoveToRight  *walk.PushButton
 	Start        *walk.PushButton
 	Stop         *walk.PushButton
 	SendInterval *walk.LineEdit
@@ -89,8 +90,8 @@ func GetCoolQPage() *CoolQ {
 									},
 									LineEdit{
 										AssignTo: &coolq.SendInterval,
-										MaxSize: Size{50, 0},
-										Text:    "1000",
+										MaxSize:  Size{50, 0},
+										Text:     "1000",
 									},
 								},
 							},
@@ -118,8 +119,13 @@ func GetCoolQPage() *CoolQ {
 							},
 							PushButton{
 								Text:      "移到左上角",
-								AssignTo:  &coolq.MoveTo,
+								AssignTo:  &coolq.MoveToLeft,
 								OnClicked: coolq.MoveToLeftTop,
+							},
+							PushButton{
+								Text:      "移到右上角",
+								AssignTo:  &coolq.MoveToRight,
+								OnClicked: coolq.MoveToRightTop,
 							},
 						},
 					},
@@ -166,6 +172,18 @@ func (c *CoolQ) MoveToLeftTop() {
 	}
 	for _, u := range users {
 		app.MoveUserToLeftTop(u)
+	}
+}
+
+func (c *CoolQ) MoveToRightTop() {
+	users := c.GetUsers()
+	if len(users) == 0 {
+		errMsg := "未指定转发用户！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
+		return
+	}
+	for _, u := range users {
+		app.MoveUserToRightTop(u)
 	}
 }
 

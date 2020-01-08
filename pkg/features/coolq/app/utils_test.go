@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/lxn/win"
 	"testing"
 )
 
@@ -29,7 +30,23 @@ func TestSaveImage(t *testing.T) {
 
 func TestMoveToLeftTop(t *testing.T) {
 	user := "bigben"
-	MoveUserToLeftTop(user)
+	desktopH := win.GetDesktopWindow()
+	desktopRect := getWindowRect(desktopH)
+	if desktopRect == nil {
+		fmt.Println("Error in get desktop rect")
+		return
+	}
+
+	hwnd := getWindowHWND(user)
+	rect := getWindowRect(hwnd)
+	if rect == nil {
+		return
+	}
+	width := rect.Right - rect.Left
+	height := rect.Bottom - rect.Top
+	moveRightX := desktopRect.Right - 1 - width
+	//MoveUserToLeftTop(user)
+	win.MoveWindow(hwnd, moveRightX, 0, width, height, false)
 }
 
 func TestExecuteMsg(t *testing.T) {

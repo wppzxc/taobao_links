@@ -107,6 +107,25 @@ func MoveUserToLeftTop(user string) {
 	win.MoveWindow(hwnd, 0, 0, width, height, false)
 }
 
+func MoveUserToRightTop(user string) {
+	desktopH := win.GetDesktopWindow()
+	desktopRect := getWindowRect(desktopH)
+	if desktopRect == nil {
+		fmt.Println("Error in get desktop rect")
+		return
+	}
+	hwnd := getWindowHWND(user)
+	rect := getWindowRect(hwnd)
+	if rect == nil {
+		return
+	}
+	width := rect.Right - rect.Left
+	height := rect.Bottom - rect.Top
+	moveRightX := desktopRect.Right - 1 - width
+	//MoveUserToLeftTop(user)
+	win.MoveWindow(hwnd, moveRightX, 0, width, height, false)
+}
+
 func getWindowRect(h win.HWND) *win.RECT {
 	rect := &win.RECT{}
 	win.GetWindowRect(h, rect)
