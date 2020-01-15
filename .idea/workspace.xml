@@ -2,9 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
+      <change afterPath="$PROJECT_DIR$/pkg/utils/runtime/panic.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/codec.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/generator.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/sql.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/github.com/satori/go.uuid/uuid.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/encodedword.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/pool.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/pool_go12.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/reader.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/alexcesaro/quotedprintable.v3/writer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/CONTRIBUTING.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/message.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/mime.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/mime_go14.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/send.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/smtp.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/gopkg.in/gomail.v2/writeto.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/webview/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/libs/webview/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +111,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/license">
+  <component name="RunManager" selected="Go Build.go build github.com/wppzxc/taobao_links">
+    <configuration name="go build github.com/wppzxc/taobao_links" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="github.com/wppzxc/taobao_links" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/test" />
@@ -90,17 +130,6 @@
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
       <pattern value="^TestCheckLicense$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/coolq/app" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/coolq/app" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestExecuteMsg$" />
       <method v="2" />
     </configuration>
     <configuration name="TestLicense in github.com/wppzxc/taobao_links/pkg/license" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -125,31 +154,31 @@
       <pattern value="^TestLicense$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestRegExp in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/features/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/test" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/coolq/app" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/test" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestRegExp$" />
+      <pattern value="^TestMoveToLeftTop$" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/test" />
-      <item itemvalue="Go Test.TestRegExp in github.com/wppzxc/taobao_links/pkg/test" />
-      <item itemvalue="Go Test.TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" />
       <item itemvalue="Go Test.TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" />
       <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/license" />
+      <item itemvalue="Go Test.TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+      <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
+        <item itemvalue="Go Test.TestMoveToLeftTop in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
         <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/license" />
         <item itemvalue="Go Test.TestLicense in github.com/wppzxc/taobao_links/pkg/test" />
         <item itemvalue="Go Test.TestCheckLicense in github.com/wppzxc/taobao_links/pkg/test" />
-        <item itemvalue="Go Test.TestExecuteMsg in github.com/wppzxc/taobao_links/pkg/coolq/app" />
-        <item itemvalue="Go Test.TestRegExp in github.com/wppzxc/taobao_links/pkg/test" />
       </list>
     </recent_temporary>
   </component>
@@ -184,6 +213,11 @@
           <url>file://$PROJECT_DIR$/pkg/taokouling/app/app_test.go</url>
           <line>9</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/features/coolq/app/utils_test.go</url>
+          <line>32</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

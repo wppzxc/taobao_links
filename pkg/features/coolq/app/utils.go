@@ -42,6 +42,9 @@ func AutoImportUsers(weixin bool, qq bool) string {
 		fmt.Println("qq users are : ", qqUsers)
 		users = append(users, qqUsers...)
 	}
+	if len(users) == 0 {
+		return ""
+	}
 	userStr := ""
 	for _, u := range users {
 		userStr = userStr + u + "/"

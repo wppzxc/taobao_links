@@ -15,6 +15,7 @@ import (
 	"github.com/wppzxc/taobao_links/pkg/features/yituike"
 	"github.com/wppzxc/taobao_links/pkg/license"
 	"github.com/wppzxc/taobao_links/pkg/types"
+	"github.com/wppzxc/taobao_links/pkg/utils/runtime"
 	"github.com/wppzxc/taobao_links/pkg/version"
 	"os"
 	"time"
@@ -26,6 +27,7 @@ type Feature interface {
 
 func main() {
 	mw := &walk.MainWindow{}
+	defer runtime.HandleCrash(mw)
 	lic := &types.License{}
 	lic = license.GetLocalLicense()
 	if lic == nil {
