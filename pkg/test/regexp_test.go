@@ -23,43 +23,35 @@ func TestRegExp(t *testing.T) {
 	fmt.Println("match is : ", result)
 }
 
-func TestTaoKouLing(t *testing.T) {
-	var text = `0.9！10支铅笔+5块橡皮
-+1(支水彩颜料)
-(yvyv12Ysdi6)`
-	reg := regexp.MustCompile(`[(][a-zA-Z0-9]{11}[)]`)
-	result := reg.FindString(text)
-	fmt.Println(result)
-
-}
-
 func TestChan(t *testing.T) {
-	start := time.Now()
-	c := make(chan interface{})
-	ch1 := make(chan int)
-	ch2 := make(chan int)
+	//var ch3 chan interface{}
+	var ch3 chan interface{}
+	var ch = make(chan interface{})
+	//var ch4 = make(chan interface{})
 
-	go func() {
-		time.Sleep(4 * time.Second)
-		close(c)
-	}()
-
-	go func() {
+	go func(ch chan<- interface{}) {
 		time.Sleep(3 * time.Second)
-		ch1 <- 3
-	}()
+		ch <- "test"
+	}(ch)
 
-		time.Sleep(2 * time.Second)
-		ch2 <- 5
-	fmt.Println("Blocking on read...")
-	select {
-	case <-c:
-		fmt.Printf("Unblocked %v later.\n", time.Since(start))
-	case <-ch1:
-		fmt.Printf("ch1 case...")
-	case <-ch2:
-		fmt.Printf("ch2 case...")
-		//default:
-		//	fmt.Printf("default go...")
+	readCh3 := func(ch chan interface{}) {
+		time.Sleep(3 * time.Second)
+		fmt.Println(<-ch)
+	}
+
+	for {
+		select {
+		case ch3 <- "test":
+			fmt.Println("ch3 case...")
+			return
+		case <-ch:
+			//ch3 = ch4
+			ch3 = make(chan interface{})
+			go readCh3(ch3)
+			fmt.Println("ch3 write")
+		case <-time.After(2 * time.Second):
+			fmt.Println("time out")
+			return
+		}
 	}
 }

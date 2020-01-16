@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/utils_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/utils_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/test/regexp_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/test/regexp_test.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -83,7 +80,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app">
+  <component name="RunManager" selected="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test">
     <configuration name="go build github.com/wppzxc/taobao_links" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$" />
@@ -91,6 +88,17 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="github.com/wppzxc/taobao_links" />
       <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestChan in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/test" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wppzxc/taobao_links/pkg/test" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestChan$" />
       <method v="2" />
     </configuration>
     <configuration name="TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -126,31 +134,20 @@
       <pattern value="^TestGenerateTaoKouLing$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestTaoKouLing in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/test" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/test" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestTaoKouLing$" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
-      <item itemvalue="Go Test.TestTaoKouLing in github.com/wppzxc/taobao_links/pkg/test" />
       <item itemvalue="Go Test.TestDecodeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
       <item itemvalue="Go Test.TestGenerateTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
       <item itemvalue="Go Test.TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+      <item itemvalue="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test" />
         <item itemvalue="Go Test.TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
         <item itemvalue="Go Test.TestGenerateTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
         <item itemvalue="Go Test.TestDecodeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
-        <item itemvalue="Go Test.TestTaoKouLing in github.com/wppzxc/taobao_links/pkg/test" />
       </list>
     </recent_temporary>
   </component>

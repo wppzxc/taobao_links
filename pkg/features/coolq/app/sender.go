@@ -29,14 +29,25 @@ const (
 )
 
 func CoolQMessageSend(msg types.Message, users []string, interval int, tklTitle string) error {
-	errMsg := ""
-	for _, u := range users {
-		msgs := executeMessage(msg.Message)
-		if len(msgs) == 0 {
-			return nil
+	var errMsg = ""
+	var sendMsgs []string
+	msgs := executeMessage(msg.Message)
+	if len(msgs) == 0 {
+		return nil
+	}
+	// change taokouling title
+	for _, m := range msgs {
+		isImage := isImageMessage(m)
+		if isImage {
+			sendMsgs = append(sendMsgs, m)
+			continue
 		}
+		newMsg := changeTaoKouLing(m, tklTitle)
+		sendMsgs = append(sendMsgs, newMsg)
+	}
 
-		for _, m := range msgs {
+	for _, u := range users {
+		for _, m := range sendMsgs {
 			isImage := isImageMessage(m)
 			// send image to user
 			if isImage {
@@ -54,10 +65,7 @@ func CoolQMessageSend(msg types.Message, users []string, interval int, tklTitle 
 					}
 				}()
 			} else {
-				// change title for taokouling, if error break
-				newMsg := changeTaoKouLing(m, tklTitle)
-				//send message to user
-				if err := SendMessage(newMsg, u); err != nil {
+				if err := SendMessage(m, u); err != nil {
 					errMsg = errMsg + " : " + err.Error()
 				}
 			}
