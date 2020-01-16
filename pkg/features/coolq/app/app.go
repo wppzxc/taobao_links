@@ -15,14 +15,14 @@ func ConnectWebSocket(wsUrl string) (*websocket.Conn, error) {
 	return websocket.Dial(wsUrl, "", "http://api.wpp.pro/")
 }
 
-func Start(wsUrl string, groups []string, users []string, interval int, stopCh chan struct{}) error {
+func Start(wsUrl string, groups []string, users []string, interval int, tklTitle string, stopCh chan struct{}) error {
 	// start websocket client goroutine
 	msgs := make(chan types.Message, 4)
 	ws, err := ConnectWebSocket(wsUrl)
 	if err != nil {
 		return fmt.Errorf("链接 websocket 失败 ： %s，请检查url是否正确！", err)
 	}
-	go func() {
+	go func(ws *websocket.Conn, msgs chan types.Message, stopCh chan struct{}) {
 		defer ws.Close()
 		for {
 			select {
@@ -46,14 +46,14 @@ func Start(wsUrl string, groups []string, users []string, interval int, stopCh c
 				}
 			}
 		}
-	}()
+	}(ws, msgs, stopCh)
 
 	// start sender goroutine
-	go func() {
+	go func(msgs chan types.Message, users []string, interval int, tklTitle string, stopCh chan struct{}) {
 		for {
 			select {
 			case msg := <-msgs:
-				if err := CoolQMessageSend(msg, users, interval); err != nil {
+				if err := CoolQMessageSend(msg, users, interval, tklTitle); err != nil {
 					fmt.Println("Error in send meg : ", err)
 				} else {
 					fmt.Printf("sender message : %#v \n", msg)
@@ -63,7 +63,7 @@ func Start(wsUrl string, groups []string, users []string, interval int, stopCh c
 				return
 			}
 		}
-	}()
+	}(msgs, users, interval, tklTitle, stopCh)
 	return nil
 }
 

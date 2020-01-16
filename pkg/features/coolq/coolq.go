@@ -12,30 +12,32 @@ import (
 )
 
 type CoolQ struct {
-	ParentWindow *walk.MainWindow
-	MainPage     *TabPage
-	WebSocketUrl *walk.LineEdit
-	Groups       *walk.TextEdit
-	Users        *walk.TextEdit
-	LoginBtn     *walk.PushButton
-	AutoImport   *walk.PushButton
-	MoveToLeft   *walk.PushButton
-	MoveToRight  *walk.PushButton
-	Start        *walk.PushButton
-	Stop         *walk.PushButton
-	SendInterval *walk.LineEdit
-	StopCh       chan struct{}
+	ParentWindow    *walk.MainWindow
+	MainPage        *TabPage
+	WebSocketUrl    *walk.LineEdit
+	TaoKouLingTitle *walk.LineEdit
+	Groups          *walk.TextEdit
+	Users           *walk.TextEdit
+	LoginBtn        *walk.PushButton
+	AutoImport      *walk.PushButton
+	MoveToLeft      *walk.PushButton
+	MoveToRight     *walk.PushButton
+	Start           *walk.PushButton
+	Stop            *walk.PushButton
+	SendInterval    *walk.LineEdit
+	StopCh          chan struct{}
 }
 
 func GetCoolQPage() *CoolQ {
 	coolq := &CoolQ{
-		WebSocketUrl: &walk.LineEdit{},
-		Groups:       &walk.TextEdit{},
-		Users:        &walk.TextEdit{},
-		AutoImport:   &walk.PushButton{},
-		Start:        &walk.PushButton{},
-		Stop:         &walk.PushButton{},
-		SendInterval: &walk.LineEdit{},
+		WebSocketUrl:    &walk.LineEdit{},
+		TaoKouLingTitle: &walk.LineEdit{},
+		Groups:          &walk.TextEdit{},
+		Users:           &walk.TextEdit{},
+		AutoImport:      &walk.PushButton{},
+		Start:           &walk.PushButton{},
+		Stop:            &walk.PushButton{},
+		SendInterval:    &walk.LineEdit{},
 	}
 	coolq.MainPage = &TabPage{
 		Title:  "酷Q消息转发",
@@ -68,6 +70,17 @@ func GetCoolQPage() *CoolQ {
 					},
 					LineEdit{
 						AssignTo: &coolq.WebSocketUrl,
+					},
+					Composite{
+						Layout: HBox{},
+						Children: []Widget{
+							TextLabel{
+								Text: "替换淘口令标题(不填写则不替换)：",
+							},
+							LineEdit{
+								AssignTo: &coolq.TaoKouLingTitle,
+							},
+						},
 					},
 				},
 			},
@@ -214,6 +227,8 @@ func (c *CoolQ) StartWork() {
 			}
 		}
 	}
+	tlkTitle := c.TaoKouLingTitle.Text()
+
 	intervalStr := c.SendInterval.Text()
 	interval, _ := strconv.Atoi(intervalStr)
 	if interval == 0 {
@@ -236,7 +251,7 @@ func (c *CoolQ) StartWork() {
 	}
 	c.StopCh = make(chan struct{})
 	c.SetUIEnable(false)
-	if err := app.Start(wsUrl, groups, users, interval, c.StopCh); err != nil {
+	if err := app.Start(wsUrl, groups, users, interval, tlkTitle, c.StopCh); err != nil {
 		walk.MsgBox(c.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
 		c.SetUIEnable(true)
 	}

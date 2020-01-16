@@ -2,6 +2,7 @@ package app
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"github.com/atotto/clipboard"
 	"github.com/go-vgo/robotgo"
@@ -22,7 +23,12 @@ const (
 	fileFormat = "20060102150405"
 )
 
-func CoolQMessageSend(msg types.Message, users []string, interval int) error {
+const (
+	NianchuApiDecodeTaoKouLing   = "http://admin.nianchu.net/api/5bc055393b4b1"
+	NianchuApiGenerateTaoKouLing = "http://admin.nianchu.net/api/5bc044955940d"
+)
+
+func CoolQMessageSend(msg types.Message, users []string, interval int, tklTitle string) error {
 	errMsg := ""
 	for _, u := range users {
 		msgs := executeMessage(msg.Message)
@@ -48,8 +54,10 @@ func CoolQMessageSend(msg types.Message, users []string, interval int) error {
 					}
 				}()
 			} else {
+				// change title for taokouling, if error break
+				newMsg := changeTaoKouLing(m, tklTitle)
 				//send message to user
-				if err := SendMessage(m, u); err != nil {
+				if err := SendMessage(newMsg, u); err != nil {
 					errMsg = errMsg + " : " + err.Error()
 				}
 			}
@@ -184,4 +192,93 @@ func executeMessage(msg string) []string {
 		msgs = append(msgs, tmpStrs[len(tmpStrs2)-1])
 	}
 	return msgs
+}
+
+func changeTaoKouLing(msg string, tklTitle string) string {
+	if len(tklTitle) == 0 {
+		return msg
+	}
+
+	reg := regexp.MustCompile(`[(][a-zA-Z0-9]{11}[)]`)
+	oldTkl := reg.FindString(msg)
+	if len(oldTkl) > 0 {
+		link := getTklLink(oldTkl)
+		if len(link) == 0 {
+			return msg
+		}
+
+		newTkl := generateTklByTitle(link, tklTitle)
+		newMsg := strings.Replace(msg, oldTkl, newTkl, 1)
+		return newMsg
+	}else {
+		return msg
+	}
+}
+
+type NianchuResp struct {
+	Code int    `json:"code"`
+	Msg  string `json:"Msg"`
+}
+
+type NianchuDecodeData struct {
+	Content string `json:"content"`
+	Url     string `json:"url"`
+}
+
+type NianchuDecodeResp struct {
+	NianchuResp
+	Data NianchuDecodeData `json:"data"`
+}
+
+type NianchuGenerateModelData struct {
+	Model string `json:"model"`
+}
+
+type NianchuGenerateData struct {
+	Data NianchuGenerateModelData `json:"data"`
+}
+
+type NianchuGenerateResp struct {
+	NianchuResp
+	Data NianchuGenerateData `json:"data"`
+}
+
+func getTklLink(tlk string) string {
+	resp, err := http.Post(NianchuApiDecodeTaoKouLing,
+		"application/x-www-form-urlencoded",
+		strings.NewReader(fmt.Sprintf("password_content=%s", tlk)))
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+	ncdresp := &NianchuDecodeResp{}
+	if err := json.Unmarshal(data, ncdresp); err != nil {
+		return ""
+	}
+	return ncdresp.Data.Url
+}
+
+func generateTklByTitle(url, title string) string {
+	resp, err := http.Post(NianchuApiGenerateTaoKouLing,
+		"application/x-www-form-urlencoded",
+		strings.NewReader(fmt.Sprintf("url=%s&text=%s", url, title)))
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+	ncdresp := &NianchuGenerateResp{}
+	if err := json.Unmarshal(data, ncdresp); err != nil {
+		return ""
+	}
+	tlk := strings.Replace(ncdresp.Data.Data.Model, "￥", "(", 1)
+	tlk = strings.Replace(tlk, "￥", ")", 1)
+	return tlk
 }
