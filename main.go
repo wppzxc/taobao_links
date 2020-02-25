@@ -12,6 +12,7 @@ import (
 	"github.com/wppzxc/taobao_links/pkg/features/haodanku"
 	"github.com/wppzxc/taobao_links/pkg/features/taokeyi"
 	"github.com/wppzxc/taobao_links/pkg/features/taokouling"
+	"github.com/wppzxc/taobao_links/pkg/features/wechat"
 	"github.com/wppzxc/taobao_links/pkg/features/yituike"
 	"github.com/wppzxc/taobao_links/pkg/license"
 	"github.com/wppzxc/taobao_links/pkg/types"
@@ -65,12 +66,15 @@ func main() {
 	tkl := taokouling.GetTaokoulingPage()
 	// init coolq
 	cq := coolq.GetCoolQPage()
+	// init wechat
+	we := wechat.GetWechatPage()
 
 	// bind mainWindow
 	gs.ParentWindow = mw
 	ytk.ParentWindow = mw
 	pdun.ParentWindow = mw
 	cq.ParentWindow = mw
+	we.ParentWindow = mw
 
 	// all features
 	featureMap := map[string]Feature{
@@ -83,6 +87,7 @@ func main() {
 		"pddUserNumber": pdun,
 		"taokouling":    tkl,
 		"coolq":         cq,
+		"wechat":            we,
 	}
 
 	// user features

@@ -28,6 +28,7 @@ type Selector struct {
 	PddUserNumber bool
 	Taokouling    bool
 	Coolq         bool
+	Wechat        bool
 }
 
 // go build -ldflags="-H windowsgui"
@@ -108,6 +109,15 @@ func main() {
 									},
 								},
 							},
+							Composite{
+								Layout: HBox{},
+								Children: []Widget{
+									CheckBox{
+										Text:    "微信转发",
+										Checked: Bind("Selector.Wechat"),
+									},
+								},
+							},
 						},
 					},
 					Composite{
@@ -177,8 +187,8 @@ func (r *register) Register() {
 	days, _ := strconv.Atoi(r.Days)
 	expireTimestamp := now.Add(time.Duration(days) * 24 * time.Hour).Unix()
 	lic := &types.License{
-		MainVersion: r.Version,
-		Feature: features,
+		MainVersion:     r.Version,
+		Feature:         features,
 		ExpireTimestamp: expireTimestamp,
 	}
 	data := license.EncodeLicense(lic)
@@ -213,6 +223,9 @@ func getFeatures(selector Selector) []string {
 	}
 	if selector.Coolq {
 		features = append(features, "coolq")
+	}
+	if selector.Wechat {
+		features = append(features, "wechat")
 	}
 	return features
 }

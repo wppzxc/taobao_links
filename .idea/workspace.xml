@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="fix dataoke bug">
+    <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/server/server_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/test/regexp_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/test/regexp_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/webview/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/libs/webview/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/register/register.exe" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/register/register.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/register/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/register/register.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,14 +33,6 @@
   <component name="GOROOT" path="D:/sdk/golang" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
-  </component>
-  <component name="GoLibraries">
-    <option name="urls">
-      <list>
-        <option value="file://$PROJECT_DIR$/../../../.." />
-      </list>
-    </option>
   </component>
   <component name="ProjectId" id="1SUxkG1ZXA3hw8tIuepCvzbthHY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -44,24 +47,22 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/features/wechat/app" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\project\go\src\github.com\wppzxc\taobao_links\pkg\register" />
-      <recent name="D:\project\go\src\github.com\wpp\taobao_links\libs\gohook" />
-      <recent name="D:\project\go\src\github.com\wpp\taobao_links\libs\webview" />
-      <recent name="D:\project\go\src\github.com\wpp\taobao_links" />
+      <recent name="D:\project\go_path\src\github.com\wpp\taobao_links\pkg\features\wechat\app" />
       <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\yituike\utils" />
+      <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\yituike\history" />
+      <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\yituike" />
+      <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\goodsSearch" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\project\go\src\github.com\wppzxc\taobao_links\pkg\license" />
       <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\goodsFilter" />
       <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\duoduojinbao\app\test" />
       <recent name="D:\project\go\src\github.com\wpp\taobao_links\pkg\duoduojinbao" />
@@ -80,7 +81,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test">
+  <component name="RunManager" selected="Go Build.go build github.com/wppzxc/taobao_links">
     <configuration name="go build github.com/wppzxc/taobao_links" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$" />
@@ -90,64 +91,62 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="TestChan in github.com/wppzxc/taobao_links/pkg/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/test" />
-      <framework value="gotest" />
+      <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/test" />
+      <filePath value="$PROJECT_DIR$/pkg/features/wechat/server/main.go" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestChan$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/features/coolq/app" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestChangeTaoKouLing$" />
+      <pattern value="^TestClient$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestDecodeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/features/coolq/app" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestDecodeTaoKouLing$" />
+      <pattern value="^TestClient$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGenerateTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/features/coolq/app" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGenerateTaoKouLing$" />
+      <pattern value="^TestClient2$" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
-      <item itemvalue="Go Test.TestDecodeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
-      <item itemvalue="Go Test.TestGenerateTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
-      <item itemvalue="Go Test.TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
-      <item itemvalue="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test" />
+      <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+      <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+      <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
+      <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestChan in github.com/wppzxc/taobao_links/pkg/test" />
-        <item itemvalue="Go Test.TestChangeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
-        <item itemvalue="Go Test.TestGenerateTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
-        <item itemvalue="Go Test.TestDecodeTaoKouLing in github.com/wppzxc/taobao_links/pkg/features/coolq/app" />
+        <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
+        <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
+        <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+        <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       </list>
     </recent_temporary>
   </component>
@@ -169,31 +168,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
-    <MESSAGE value="fix dataoke bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix dataoke bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/taokouling/app/app_test.go</url>
-          <line>9</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/features/coolq/app/utils_test.go</url>
-          <line>37</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/features/coolq/app/utils_test.go</url>
-          <line>116</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="DlvErrorBreakpoint" />
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
 </project>
