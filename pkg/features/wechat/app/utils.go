@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"github.com/lxn/win"
 	"github.com/shirou/w32"
+	"github.com/wppzxc/taobao_links/pkg/features/wechat/types"
 	"strings"
 	"syscall"
 )
 
 const (
-	imageMsgPrefix = "CQ:image"
+	imageMsgPrefix = "[图片="
 	wxClass        = "ChatWnd"
 	// qq must remove the "QQ"
 	qqClass = "TXGuiFoundation"
@@ -23,9 +24,11 @@ func isImageMessage(msg string) bool {
 }
 
 func getImageUrl(msg string) string {
-	strs := strings.Split(msg, "url=")
+	strs := strings.Split(msg, "\\")
 	if len(strs) >= 2 {
-		return strs[1][:len(strs[1])-1]
+		str := strs[len(strs)-1]
+		url := fmt.Sprintf("%s", str[:len(str)-1])
+		return "http://" + types.Host + "/static/Image/" + url
 	}
 	return ""
 }

@@ -6,6 +6,8 @@ import (
 	. "github.com/lxn/walk/declarative"
 	"github.com/lxn/win"
 	"github.com/wppzxc/taobao_links/pkg/features/wechat/app"
+	"github.com/wppzxc/taobao_links/pkg/features/wechat/types"
+	"net/url"
 	"strconv"
 	"strings"
 )
@@ -278,6 +280,16 @@ func (w *Wechat) StartWork() {
 			}
 		}
 	}
+
+	u, err := url.Parse(wsUrl)
+	if err != nil {
+		walk.MsgBox(w.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
+		return
+	}
+
+	types.Host = u.Host
+	types.Port = u.Port()
+
 	tlkTitle := w.TaoKouLingTitle.Text()
 	filterNo := strings.Split(w.FilterNo.Text(), "/")
 	filterYes := strings.Split(w.FilterYes.Text(), "/")

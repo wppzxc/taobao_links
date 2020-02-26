@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hpcloud/tail"
 	"golang.org/x/net/websocket"
+	"io"
 	"net/http"
 	"os"
 	"time"
@@ -47,6 +48,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.Handle("/wechat", websocket.Handler(upper))
 	http.HandleFunc("/", index)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../"))))
 
 	go readLogFile()
 
@@ -62,11 +64,9 @@ func readLogFile() {
 		filename := time.Now().Format("2006-01-02") + ".log"
 		cfg := tail.Config{
 			Follow: true,
-			Logger: tail.DiscardingLogger,
-			//Location: &tail.SeekInfo{
-			//	Offset: io.SeekEnd,
-			//	Whence: io.SeekEnd,
-			//},
+			Location: &tail.SeekInfo{
+				Whence: io.SeekEnd,
+			},
 		}
 		t, err := tail.TailFile(filename, cfg)
 		if err != nil {

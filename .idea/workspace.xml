@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/server/server_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/types/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/webview/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/libs/webview/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/register/register.exe" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/register/register.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/register/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/register/register.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,17 +94,6 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestClient$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
@@ -122,7 +105,7 @@
       <pattern value="^TestClient$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
       <framework value="gotest" />
@@ -133,20 +116,31 @@
       <pattern value="^TestClient2$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/app" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGetImageUrl$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+      <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
-      <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
-      <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
+      <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
-        <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
-        <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server (1)" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+        <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
         <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
+        <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       </list>
     </recent_temporary>
   </component>
@@ -175,6 +169,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
+          <line>97</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
+          <line>140</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
+          <line>52</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="DlvErrorBreakpoint" />
       </default-breakpoints>

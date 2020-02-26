@@ -52,6 +52,10 @@ func Start(wsUrl string, groups []string, users []string, interval int, tklTitle
 				if msg[len(msg)-1:] == "\r" {
 					tmpMessage = fmt.Sprintf("%s\n%s", tmpMessage, msg[:len(msg)-1])
 					message := newMessage(tmpMessage)
+					if message == nil {
+						tmpMessage = ""
+						continue
+					}
 					// 发送时间超过1分钟，则丢弃
 					sendTime, _ := time.ParseInLocation("2006-01-02 15:04:05", strings.Trim(message.SendTime, "\n"), time.Local)
 					if sendTime.Add(1 * time.Minute).After(time.Now()) {

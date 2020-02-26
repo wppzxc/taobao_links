@@ -47,27 +47,27 @@ func WechatMessageSend(msg Message, users []string, interval int, tklTitle strin
 
 	for _, u := range users {
 		//for _, m := range sendMsgs {
-		//isImage := isImageMessage(m)
+		isImage := isImageMessage(msg.Text)
 		// send image to user
-		//if isImage {
-		//	imageUrl := getImageUrl(m)
-		//	tmpfile, err := SaveImage(imageUrl)
-		//	if err != nil {
-		//		errMsg = errMsg + " : " + fmt.Sprintf("Error in create tmp image file : %s ", err)
-		//		continue
-		//	}
-		//	func() {
-		//		defer tmpfile.Close()
-		//		defer os.Remove(tmpfile.Name())
-		//		if err := SendImage(tmpfile, u); err != nil {
-		//			errMsg = errMsg + " : " + err.Error()
-		//		}
-		//	}()
-		//} else {
-		if err := SendMessage(msg.Text, u); err != nil {
-			errMsg = errMsg + " : " + err.Error()
+		if isImage {
+			imageUrl := getImageUrl(msg.Text)
+			tmpfile, err := SaveImage(imageUrl)
+			if err != nil {
+				fmt.Printf("Error in create tmp image file : %s \n", err)
+				break
+			}
+			func() {
+				defer tmpfile.Close()
+				defer os.Remove(tmpfile.Name())
+				if err := SendImage(tmpfile, u); err != nil {
+					errMsg = errMsg + " : " + err.Error()
+				}
+			}()
+		} else {
+			if err := SendMessage(msg.Text, u); err != nil {
+				errMsg = errMsg + " : " + err.Error()
+			}
 		}
-		//}
 		//time.Sleep(time.Duration(interval) * time.Millisecond)
 	}
 	time.Sleep(time.Duration(interval) * time.Millisecond)
@@ -143,7 +143,7 @@ func SaveImage(url string) (*os.File, error) {
 		return nil, fmt.Errorf("Error in download image, image is null ")
 	}
 
-	tmpfile, err := os.Create("./coolq_image_" + time.Now().Format(fileFormat) + ".png")
+	tmpfile, err := os.Create("./wechat_image_" + time.Now().Format(fileFormat) + ".jpg")
 	if err != nil {
 		return nil, fmt.Errorf("Error in create temp file %s ", err)
 	}
