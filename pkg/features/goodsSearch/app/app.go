@@ -50,6 +50,12 @@ func SearchAndSave(titles []string) error {
 			cel.MaxSaleNumber = m.SaleAmount
 			cel.GoodsId = m.GoodsId
 			cel.TaobaoNumber = num
+			cel.RebateAmount = m.RebateAmount
+			cel.HandPrice = m.HandPrice
+			rebateAmount, _ := strconv.ParseFloat(m.RebateAmount, 32)
+			handPrice, _ := strconv.ParseFloat(m.HandPrice, 32)
+			rate := (rebateAmount / (rebateAmount + handPrice)) * 2
+			cel.Rate = fmt.Sprintf("%f", rate)
 			if m.Refer == taobao {
 				cel.Url = fmt.Sprint(taobaoPrefix, m.GoodsId)
 			} else if m.Refer == tmall {
@@ -111,6 +117,12 @@ func saveExcel(cels []types.CelData) {
 	cell = row.AddCell()
 	cell.Value = "淘宝店铺数量"
 	cell = row.AddCell()
+	cell.Value = "优惠券金额"
+	cell = row.AddCell()
+	cell.Value = "到手价"
+	cell = row.AddCell()
+	cell.Value = "佣金比例"
+	cell = row.AddCell()
 	cell.Value = "最高销量"
 	cell = row.AddCell()
 	cell.Value = "商品ID"
@@ -128,6 +140,12 @@ func saveExcel(cels []types.CelData) {
 		cell.Value = c.GoodsNumber
 		cell = row.AddCell()
 		cell.Value = c.TaobaoNumber
+		cell = row.AddCell()
+		cell.Value = c.RebateAmount
+		cell = row.AddCell()
+		cell.Value = c.HandPrice
+		cell = row.AddCell()
+		cell.Value = c.Rate
 		cell = row.AddCell()
 		cell.Value = c.MaxSaleNumber
 		cell = row.AddCell()

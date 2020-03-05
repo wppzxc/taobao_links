@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/features/wechat/types/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/sender.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/app/utils_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/wechat/wechat.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
