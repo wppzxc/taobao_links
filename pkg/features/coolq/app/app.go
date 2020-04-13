@@ -96,7 +96,7 @@ func StartLocalCoolQ() error {
 }
 
 func CheckCoolqLogined() bool {
-	_, err := net.DialTimeout("tcp", "0.0.0.0:6700", 3 * time.Second)
+	_, err := net.DialTimeout("tcp", "0.0.0.0:6700", 3*time.Second)
 	if err != nil {
 		return false
 	}

@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -92,7 +92,7 @@ func GetCoolQPage() *CoolQ {
 						Layout: HBox{},
 						Children: []Widget{
 							CheckBox{
-								Text: "启用￥、$ 转( )",
+								Text:    "启用￥、$ 转( )",
 								Checked: Bind("TranMoneySep"),
 							},
 							HSpacer{},
@@ -114,14 +114,14 @@ func GetCoolQPage() *CoolQ {
 							},
 							LineEdit{
 								MinSize: Size{60, 0},
-								Text: Bind("StringReplaceFrom"),
+								Text:    Bind("StringReplaceFrom"),
 							},
 							TextLabel{
 								Text: "替换为",
 							},
 							LineEdit{
 								MinSize: Size{60, 0},
-								Text: Bind("StringReplaceFrom"),
+								Text:    Bind("StringReplaceTo"),
 							},
 						},
 					},
