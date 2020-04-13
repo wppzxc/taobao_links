@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/coolq/coolq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +72,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build github.com/wppzxc/taobao_links">
+  <component name="RunManager" selected="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao">
     <configuration name="go build github.com/wppzxc/taobao_links" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$" />
@@ -101,17 +102,6 @@
       <pattern value="^TestClient$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="taobao_links" />
-      <working_directory value="$PROJECT_DIR$/pkg/features/wechat/server" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestClient2$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$/pkg/features/wechat/app" />
@@ -123,20 +113,31 @@
       <pattern value="^TestGetImageUrl$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="taobao_links" />
+      <working_directory value="$PROJECT_DIR$/pkg/features/duoduojinbao" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/wppzxc/taobao_links/pkg/features/duoduojinbao" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestTranMoneySep$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
       <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
-      <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
+      <item itemvalue="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
         <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
         <item itemvalue="Go Test.TestClient in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
-        <item itemvalue="Go Test.TestClient2 in github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
       </list>
     </recent_temporary>
   </component>

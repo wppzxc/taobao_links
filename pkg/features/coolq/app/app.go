@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq/types"
+	"github.com/wppzxc/taobao_links/pkg/features/duoduojinbao/utils"
 	"golang.org/x/net/websocket"
 	"net"
 	"os/exec"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -15,7 +17,7 @@ func ConnectWebSocket(wsUrl string) (*websocket.Conn, error) {
 	return websocket.Dial(wsUrl, "", "http://api.wpp.pro/")
 }
 
-func Start(wsUrl string, groups []string, users []string, interval int, tklTitle string, stopCh chan struct{}) error {
+func Start(wsUrl string, groups []string, users []string, interval int, tklTitle string, tranMoneySep bool, stringReplaceFrom []string, stringReplaceTo []string, stopCh chan struct{}) error {
 	// start websocket client goroutine
 	msgs := make(chan types.Message, 4)
 	ws, err := ConnectWebSocket(wsUrl)
@@ -49,10 +51,18 @@ func Start(wsUrl string, groups []string, users []string, interval int, tklTitle
 	}(ws, msgs, stopCh)
 
 	// start sender goroutine
-	go func(msgs chan types.Message, users []string, interval int, tklTitle string, stopCh chan struct{}) {
+	go func(msgs chan types.Message, users []string, interval int, tklTitle string, tranMoneySep bool, stringReplaceFrom []string, stringReplaceTo []string, stopCh chan struct{}) {
 		for {
 			select {
 			case msg := <-msgs:
+				// 替换￥$ => ()
+				if tranMoneySep {
+					msg.Message = utils.TranMoneySep(msg.Message)
+				}
+				// 文案替换
+				for index, str := range stringReplaceFrom {
+					msg.Message = strings.Replace(msg.Message, str, stringReplaceTo[index], -1)
+				}
 				if err := CoolQMessageSend(msg, users, interval, tklTitle); err != nil {
 					fmt.Println("Error in send meg : ", err)
 				} else {
@@ -63,7 +73,7 @@ func Start(wsUrl string, groups []string, users []string, interval int, tklTitle
 				return
 			}
 		}
-	}(msgs, users, interval, tklTitle, stopCh)
+	}(msgs, users, interval, tklTitle, tranMoneySep, stringReplaceFrom, stringReplaceTo, stopCh)
 	return nil
 }
 

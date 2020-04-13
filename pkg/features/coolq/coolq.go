@@ -12,20 +12,23 @@ import (
 )
 
 type CoolQ struct {
-	ParentWindow    *walk.MainWindow
-	MainPage        *TabPage
-	WebSocketUrl    *walk.LineEdit
-	TaoKouLingTitle *walk.LineEdit
-	Groups          *walk.TextEdit
-	Users           *walk.TextEdit
-	LoginBtn        *walk.PushButton
-	AutoImport      *walk.PushButton
-	MoveToLeft      *walk.PushButton
-	MoveToRight     *walk.PushButton
-	Start           *walk.PushButton
-	Stop            *walk.PushButton
-	SendInterval    *walk.LineEdit
-	StopCh          chan struct{}
+	ParentWindow      *walk.MainWindow
+	MainPage          *TabPage
+	WebSocketUrl      *walk.LineEdit
+	TaoKouLingTitle   *walk.LineEdit
+	Groups            *walk.TextEdit
+	Users             *walk.TextEdit
+	LoginBtn          *walk.PushButton
+	AutoImport        *walk.PushButton
+	MoveToLeft        *walk.PushButton
+	MoveToRight       *walk.PushButton
+	Start             *walk.PushButton
+	Stop              *walk.PushButton
+	SendInterval      *walk.LineEdit
+	TranMoneySep      bool
+	StringReplaceFrom string
+	StringReplaceTo   string
+	StopCh            chan struct{}
 }
 
 func GetCoolQPage() *CoolQ {
@@ -45,6 +48,9 @@ func GetCoolQPage() *CoolQ {
 		DataBinder: DataBinder{
 			DataSource: coolq,
 			AutoSubmit: true,
+			OnSubmitted: func() {
+				fmt.Printf("%+v\n", coolq)
+			},
 		},
 		Children: []Widget{
 			Composite{
@@ -82,6 +88,43 @@ func GetCoolQPage() *CoolQ {
 							},
 						},
 					},
+					Composite{
+						Layout: HBox{},
+						Children: []Widget{
+							CheckBox{
+								Text: "启用￥、$ 转( )",
+								Checked: Bind("TranMoneySep"),
+							},
+							HSpacer{},
+							TextLabel{
+								Text: "发送间隔（ms）：",
+							},
+							LineEdit{
+								AssignTo: &coolq.SendInterval,
+								MaxSize:  Size{50, 0},
+								Text:     "1000",
+							},
+						},
+					},
+					Composite{
+						Layout: HBox{},
+						Children: []Widget{
+							TextLabel{
+								Text: "文案替换（多个使用 / 分隔）：",
+							},
+							LineEdit{
+								MinSize: Size{60, 0},
+								Text: Bind("StringReplaceFrom"),
+							},
+							TextLabel{
+								Text: "替换为",
+							},
+							LineEdit{
+								MinSize: Size{60, 0},
+								Text: Bind("StringReplaceFrom"),
+							},
+						},
+					},
 				},
 			},
 			Composite{
@@ -93,20 +136,6 @@ func GetCoolQPage() *CoolQ {
 						Children: []Widget{
 							TextLabel{
 								Text: "接收群号（多个群组用 / 分隔）：",
-							},
-							Composite{
-								Layout: HBox{Margins: Margins{}},
-								Children: []Widget{
-									HSpacer{},
-									TextLabel{
-										Text: "发送间隔（ms）：",
-									},
-									LineEdit{
-										AssignTo: &coolq.SendInterval,
-										MaxSize:  Size{50, 0},
-										Text:     "1000",
-									},
-								},
 							},
 						},
 					},
@@ -249,9 +278,18 @@ func (c *CoolQ) StartWork() {
 		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
 		return
 	}
+	stringReplaceFrom := strings.Split(c.StringReplaceFrom, "/")
+	stringReplaceTo := strings.Split(c.StringReplaceTo, "/")
+
+	if len(stringReplaceFrom) != len(stringReplaceTo) {
+		errMsg := "文案替换填写不正确，请检查后重试！"
+		walk.MsgBox(c.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
+		return
+	}
+
 	c.StopCh = make(chan struct{})
 	c.SetUIEnable(false)
-	if err := app.Start(wsUrl, groups, users, interval, tlkTitle, c.StopCh); err != nil {
+	if err := app.Start(wsUrl, groups, users, interval, tlkTitle, c.TranMoneySep, stringReplaceFrom, stringReplaceTo, c.StopCh); err != nil {
 		walk.MsgBox(c.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
 		c.SetUIEnable(true)
 	}
