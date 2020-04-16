@@ -25,6 +25,6 @@ func TranMoneySep(str string) string {
 	} else {
 		newStr = "(" + oldStr[1:len(oldStr)-1] + ")"
 	}
-	result := strings.Replace(str, oldStr, newStr, 1)
+	result := strings.Replace(str, oldStr, newStr, -1)
 	return result
 }
