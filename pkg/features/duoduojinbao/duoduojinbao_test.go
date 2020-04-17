@@ -33,7 +33,12 @@ func TestChrome(t *testing.T) {
 }
 
 func TestTranMoneySep(t *testing.T) {
-	str := "$123qwe456zx$"
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println(r)
+		}
+	}()
+	str := "123313212123123213"
 	fmt.Println(strings.Index(str, "￥"))
 	fmt.Println(len(str))
 	result := utils.TranMoneySep(str)

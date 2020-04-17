@@ -19,6 +19,9 @@ func ParseData(data string) map[string]string {
 func TranMoneySep(str string) string {
 	reg := regexp.MustCompile(`[￥$][a-zA-Z0-9]{11}[￥$]`)
 	oldStr := reg.FindString(str)
+	if len(oldStr) == 0 {
+		return str
+	}
 	var newStr string
 	if strings.Contains(oldStr, "￥") {
 		newStr = "(" + oldStr[3:len(oldStr)-3] + ")"
