@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/features/dataoke/types/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/duoduojinbao_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/duoduojinbao/utils/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/dataoke/dataoke.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/dataoke/dataoke.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/dataoke/top/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/dataoke/top/app.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +71,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao (1)">
+  <component name="RunManager" selected="Go Build.go build github.com/wppzxc/taobao_links">
     <configuration name="go build github.com/wppzxc/taobao_links" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="taobao_links" />
       <working_directory value="$PROJECT_DIR$" />
@@ -131,9 +132,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
         <item itemvalue="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao (1)" />
         <item itemvalue="Go Test.TestTranMoneySep in github.com/wppzxc/taobao_links/pkg/features/duoduojinbao" />
-        <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links" />
         <item itemvalue="Go Build.go build github.com/wppzxc/taobao_links/pkg/features/wechat/server" />
         <item itemvalue="Go Test.TestGetImageUrl in github.com/wppzxc/taobao_links/pkg/features/wechat/app" />
       </list>
@@ -164,23 +165,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
-          <line>97</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
-          <line>140</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/features/wechat/app/sender.go</url>
-          <line>52</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="DlvErrorBreakpoint" />
       </default-breakpoints>

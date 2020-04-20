@@ -160,50 +160,84 @@ func (d *Dataoke) GetLinks() {
 }
 
 func (d *Dataoke) GetTopLinks() {
-	url := dataokeHost + topUrl
-	fmt.Println(url)
 	go func() {
-		text := d.GetLinksText(url)
+		text := d.GetLinksTextByApi()
 		d.UpdateLinks(text)
 	}()
 }
 
 func (d *Dataoke) GetQuanLinks(start int, end int) {
 	go func() {
-		text := d.GetMutiPagesQuanLinks(start, end)
+		text := d.GetMutiPagesQuanLinksByApi(start, end)
 		d.UpdateLinks(text)
 	}()
 }
 
-func (d *Dataoke) GetMutiPagesQuanLinks(start int, end int) string {
+//func (d *Dataoke) GetMutiPagesQuanLinks(start int, end int) string {
+//	text := ""
+//	lm := ""
+//	lmUrl := ""
+//	if d.LeiMu > 0 {
+//		lm = strconv.Itoa(d.LeiMu)
+//	}
+//	if len(lm) > 0 {
+//		lmUrl = "&cid=" + lm
+//	}
+//	for i := start; i <= end; i++ {
+//		url := dataokeHost + quanUrl + strconv.Itoa(i) + lmUrl
+//		tmp := d.GetLinksText(url)
+//		text = text + "\n" + tmp
+//	}
+//	return text
+//}
+
+func (d *Dataoke) GetMutiPagesQuanLinksByApi(start int, end int) string {
 	text := ""
 	lm := ""
-	lmUrl := ""
 	if d.LeiMu > 0 {
 		lm = strconv.Itoa(d.LeiMu)
 	}
-	if len(lm) > 0 {
-		lmUrl = "&cid=" + lm
-	}
 	for i := start; i <= end; i++ {
-		url := dataokeHost + quanUrl + strconv.Itoa(i) + lmUrl
-		fmt.Println(url)
-		tmp := d.GetLinksText(url)
+		tmp := d.GetQuanLinksTextByApi(i, lm)
 		text = text + "\n" + tmp
 	}
 	return text
 }
 
-func (d *Dataoke) GetLinksText(url string) string {
-	items, err := top.GetTopItems(url)
+func (d *Dataoke) GetLinksTextByApi() string {
+	items, err := GetTopItemsByApi()
 	if err != nil {
 		fmt.Println("Error : ", err)
 	}
-	links, err := top.GetTblinks(items)
+	links := top.GetTblinksByApi(items)
+	return links
+}
+
+// 实时榜单
+func GetTopItemsByApi() ([]string, error) {
+	var items []string
+	goodsList, err := top.GetRankingListApi()
 	if err != nil {
-		fmt.Println("Error : ", err)
+		return nil, err
 	}
-	return top.GetTextFromStrings(links)
+	for _, item := range goodsList {
+		items = append(items, item.GoodsId)
+	}
+	return items, nil
+}
+
+// 领券直播
+func (d *Dataoke) GetQuanLinksTextByApi(page int, leimu string) string {
+	text := ""
+	pageId := strconv.Itoa(page)
+	data, err := top.GetGoodsListApi(pageId, leimu)
+	if err != nil {
+		return err.Error()
+	}
+	for _, item := range data.List {
+		text = text + "\n" + item.ItemLink
+	}
+	return text
 }
 
 func (d *Dataoke) UpdateLinks(text string) {
@@ -215,13 +249,13 @@ func (d *Dataoke) SetUIEnable(enable bool) {
 	d.GetBtn.SetEnabled(enable)
 	d.StartPage.SetEnabled(enable)
 	d.EndPage.SetEnabled(enable)
+	d.Links.SetEnabled(enable)
 }
 
 func (d *Dataoke) ResetPage() {
 	d.StartPage.SetText("1")
 	d.EndPage.SetText("1")
 }
-
 
 func (d *Dataoke) GetMainPage() *TabPage {
 	return d.MainPage

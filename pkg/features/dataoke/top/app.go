@@ -1,77 +1,122 @@
 package top
 
 import (
-	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"strconv"
-	"strings"
-	"time"
+	"crypto/md5"
+	"encoding/hex"
+	"encoding/json"
+	"github.com/wppzxc/taobao_links/pkg/features/dataoke/types"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 const (
-	goodsListId = ".goods-list"
-	topId       = "id"
-	getTblUrl   = "http://www.dataoke.com/gettpl?gid=%s&_=%s"
-	retrys      = 10
+	openapiGetGoodsListHost   = "https://openapi.dataoke.com/api/goods/get-goods-list"
+	openapiGetRankingListHost = "https://openapi.dataoke.com/api/goods/get-ranking-list"
+	openapiGetGoodsDetailHost = "https://openapi.dataoke.com/api/goods/get-goods-details"
+	appKey                    = "5e9d2dbadc286"
+	appSecret                 = "8f3c81484fdf7bd2695ddbbc6a128201"
+	apiVersion                = "v1.2.2"
 )
 
-func GetTopItems(url string) ([]string, error) {
-	var items []string
-	fmt.Println(url)
-	dom, err := goquery.NewDocument(url)
-	if err != nil {
-		return nil, fmt.Errorf("Error in get html : %s ", err)
-	}
-	dom.Find(goodsListId).Children().Each(func(index int, content *goquery.Selection) {
-		id, ok := content.Attr(topId)
-		if ok {
-			id = strings.Replace(id, "goods-items_", "", 1)
-			items = append(items, id)
-		}
-	})
-	return items, nil
-}
-
-func GetTblinks(items []string) ([]string, error) {
-	now := strconv.FormatInt(time.Now().Unix(), 10)
-	var links []string
-	for _, i := range items {
-		l, err := GetTbl(i, now)
+func GetTblinksByApi(goodsIds []string) string {
+	text := ""
+	for _, id := range goodsIds {
+		goods, err := GetGoodsDetailApi(id)
 		if err != nil {
 			continue
 		}
-		links = append(links, l)
-	}
-	if len(links) == 0 {
-		return nil, fmt.Errorf("Error : the links is null ")
-	}
-	return links, nil
-}
-
-func GetTbl(id string, timestamp string) (string, error) {
-	url := fmt.Sprintf(getTblUrl, id, timestamp)
-	link := ""
-	for i := 0; i < retrys; i++ {
-		dom, err := goquery.NewDocument(url)
-		if err != nil {
-			return "", err
-		}
-		a := dom.Find("a")
-		if len(a.Nodes) < 2 {
-			fmt.Println("can't get tbl, retry : ", i+1)
-			link = ""
-			continue
-		}
-		link = a.Nodes[1].Attr[1].Val
-		return link, nil
-	}
-	return link, nil
-}
-
-func GetTextFromStrings(links []string) string {
-	var text string
-	for _, s := range links {
-		text = text + "\n" + s
+		text = text + "\n" + goods.ItemLink
 	}
 	return text
+}
+
+func GetGoodsDetailApi(goodsId string) (*types.DataokeData, error) {
+	param := url.Values{
+		"appKey":   []string{appKey},
+		"version":  []string{apiVersion},
+		"goodsId": []string{goodsId},
+	}
+	sign := makeSign(param.Encode())
+	param["sign"] = []string{sign}
+	reqUrl := openapiGetGoodsDetailHost + "?" + param.Encode()
+	resp, err := http.Get(reqUrl)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	respData := new(types.DataokeGoodsDetailResponseData)
+	if err := json.Unmarshal(data, respData); err != nil {
+		return nil, err
+	}
+	return &respData.Data, nil
+}
+
+func GetRankingListApi() ([]types.DataokeData, error) {
+	param := url.Values{
+		"appKey":   []string{appKey},
+		"version":  []string{apiVersion},
+		"rankType": []string{"1"},
+	}
+	sign := makeSign(param.Encode())
+	param["sign"] = []string{sign}
+	reqUrl := openapiGetRankingListHost + "?" + param.Encode()
+	resp, err := http.Get(reqUrl)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	respData := new(types.DataokeTopApiResponseData)
+	if err := json.Unmarshal(data, respData); err != nil {
+		return nil, err
+	}
+	return respData.Data, nil
+}
+
+func GetGoodsListApi(page string, cid string) (*types.DataokeQuanDataList, error) {
+	param := url.Values{
+		"appKey":   []string{appKey},
+		"version":  []string{apiVersion},
+		"pageSize": []string{"100"},
+		"pageId":   []string{page},
+		"sort":     []string{"2"},
+	}
+	if len(cid) > 0 {
+		param["cids"] = []string{cid}
+	}
+	sign := makeSign(param.Encode())
+	param["sign"] = []string{sign}
+	reqUrl := openapiGetGoodsListHost + "?" + param.Encode()
+	resp, err := http.Get(reqUrl)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	respData := new(types.DataokeQuanApiResponseData)
+	if err := json.Unmarshal(data, respData); err != nil {
+		return nil, err
+	}
+	return &respData.Data, nil
+}
+
+func makeSign(param string) string {
+	str := param + "&key=" + appSecret
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }
