@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="203264a7-40fc-45e4-87d0-c90db9d6d1c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/features/dataoke/types/types.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/utils/dataokeapi/dataokeapi.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/features/dataoke/dataoke.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/dataoke/dataoke.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/features/dataoke/top/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/dataoke/top/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/app/types/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/features/goodsSearch/goodsSearch.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/features/goodsSearch/goodsSearch.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

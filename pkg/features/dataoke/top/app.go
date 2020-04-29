@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"github.com/wppzxc/taobao_links/pkg/features/dataoke/types"
+	"github.com/wppzxc/taobao_links/pkg/utils/dataokeapi"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -37,7 +38,7 @@ func GetGoodsDetailApi(goodsId string) (*types.DataokeData, error) {
 		"version":  []string{apiVersion},
 		"goodsId": []string{goodsId},
 	}
-	sign := makeSign(param.Encode())
+	sign := dataokeapi.MakeSign(param.Encode(), appSecret)
 	param["sign"] = []string{sign}
 	reqUrl := openapiGetGoodsDetailHost + "?" + param.Encode()
 	resp, err := http.Get(reqUrl)
@@ -63,7 +64,7 @@ func GetRankingListApi() ([]types.DataokeData, error) {
 		"version":  []string{apiVersion},
 		"rankType": []string{"1"},
 	}
-	sign := makeSign(param.Encode())
+	sign := dataokeapi.MakeSign(param.Encode(), appSecret)
 	param["sign"] = []string{sign}
 	reqUrl := openapiGetRankingListHost + "?" + param.Encode()
 	resp, err := http.Get(reqUrl)
@@ -94,7 +95,7 @@ func GetGoodsListApi(page string, cid string) (*types.DataokeQuanDataList, error
 	if len(cid) > 0 {
 		param["cids"] = []string{cid}
 	}
-	sign := makeSign(param.Encode())
+	sign := dataokeapi.MakeSign(param.Encode(), appSecret)
 	param["sign"] = []string{sign}
 	reqUrl := openapiGetGoodsListHost + "?" + param.Encode()
 	resp, err := http.Get(reqUrl)

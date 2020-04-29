@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/tealeg/xlsx"
 	"github.com/wppzxc/taobao_links/pkg/features/goodsSearch/app/types"
+	"github.com/wppzxc/taobao_links/pkg/utils/dataokeapi"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -13,11 +14,14 @@ import (
 )
 
 const (
-	taofenbaUrl  = "https://www.taofen8.com/search/s"
-	taobao       = "taobao"
-	tmall        = "tmall"
-	taobaoPrefix = "https://item.taobao.com/item.htm?id="
-	tmallPrefix  = "https://detail.tmall.com/item.htm?id="
+	openapiListSuperGoods = "https://openapi.dataoke.com/api/goods/list-super-goods"
+	appKey                = "5e9d2dbadc286"
+	appSecret             = "8f3c81484fdf7bd2695ddbbc6a128201"
+	apiVersion            = "v1.2.2"
+	searchType            = "0"
+	totalSalesDes         = "total_sales_des"
+	shopTypeTaobao        = 0
+	shopTypeTmall         = 1
 )
 
 const (
@@ -28,39 +32,54 @@ const (
 func SearchAndSave(titles []string) error {
 	cels := []types.CelData{}
 	get := func(title string) {
-		params := url.Values{}
-		params.Set("q", title)
-		sUrl, _ := url.Parse(taofenbaUrl)
-		sUrl.RawQuery = params.Encode()
-		resp, _ := http.Post(sUrl.String(), "application/json;charset=UTF-8", nil)
+		params := url.Values{
+			"version":  []string{apiVersion},
+			"type":     []string{searchType},
+			"pageId":   []string{"1"},
+			"pageSize": []string{"100"},
+			"sort":     []string{totalSalesDes},
+		}
+		tmpUrl := fmt.Sprintf("appKey=%s&keyWords=%s&%s", appKey, title, params.Encode())
+		sign := dataokeapi.MakeSign(tmpUrl, appSecret)
+		params["appKey"] = []string{appKey}
+		params["keyWords"] = []string{title}
+		params["sign"] = []string{sign}
+		reqUrl := fmt.Sprintf("%s?%s", openapiListSuperGoods, params.Encode())
+		resp, err := http.Get(reqUrl)
+		if err != nil {
+			fmt.Println("Error in get list super goods : ", err)
+			return
+		}
 		defer resp.Body.Close()
-		data, _ := ioutil.ReadAll(resp.Body)
-		result := new(types.TaoFenBaResult)
-		json.Unmarshal(data, result)
+		data, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return
+		}
+
+		result := new(types.DataokeListSuperGoodsResponseData)
+		if err := json.Unmarshal(data, result); err != nil {
+			fmt.Println("Error in decode data : ", err)
+			return
+		}
 		cel := new(types.CelData)
 		cel.SearchStr = title
-		if len(result.GoodsList) == 100 {
+		if len(result.Data.List) == 100 {
 			cel.GoodsNumber = "100"
 		} else {
-			cel.GoodsNumber = strconv.Itoa(len(result.GoodsList))
+			cel.GoodsNumber = strconv.Itoa(len(result.Data.List))
 		}
-		m, num := getMaxSaleAndTaobaoNumber(result.GoodsList)
+		m, num := getMaxSaleAndTaobaoNumber(result.Data.List)
 		if m != nil {
-			cel.Title = m.Title
-			cel.MaxSaleNumber = m.SaleAmount
-			cel.GoodsId = m.GoodsId
 			cel.TaobaoNumber = num
-			cel.RebateAmount = m.RebateAmount
-			cel.HandPrice = m.HandPrice
-			rebateAmount, _ := strconv.ParseFloat(m.RebateAmount, 32)
-			handPrice, _ := strconv.ParseFloat(m.HandPrice, 32)
-			rate := (rebateAmount / (rebateAmount + handPrice)) * 2
-			cel.Rate = fmt.Sprintf("%f", rate)
-			if m.Refer == taobao {
-				cel.Url = fmt.Sprint(taobaoPrefix, m.GoodsId)
-			} else if m.Refer == tmall {
-				cel.Url = fmt.Sprint(tmallPrefix, m.GoodsId)
-			}
+			cel.Title = m.Title
+			cel.ItemLink = m.ItemLink
+			cel.DailySales = m.DailySales
+			cel.TwoHoursSales = m.TwoHoursSales
+			cel.MonthSales = m.MonthSales
+			cel.CommissionRate = m.CommissionRate
+			cel.ActualPrice = m.ActualPrice
+			cel.CouponPrice = m.CouponPrice
+			cel.OriginalPrice = m.OriginalPrice
 			if cel.Title == cel.SearchStr {
 				cel.IsTitleRight = right
 			} else {
@@ -80,24 +99,23 @@ func SearchAndSave(titles []string) error {
 	return nil
 }
 
-func getMaxSaleAndTaobaoNumber(goods []types.GoodsInfo) (*types.GoodsInfo, string) {
+func getMaxSaleAndTaobaoNumber(goods []types.DataokeGoods) (*types.DataokeGoods, int64) {
 	if len(goods) == 0 {
-		return nil, "0"
+		return nil, 0
 	}
 	index := 0
-	taobaoNum := 0
+	var taobaoNum int64 = 0
 	var lastNum int64 = 0
 	for i, g := range goods {
-		if g.Refer == taobao {
+		if g.ShopType == shopTypeTaobao {
 			taobaoNum++
 		}
-		n64, _ := strconv.ParseInt(g.SaleAmount, 10, 64)
-		if n64 >= lastNum {
-			lastNum = n64
+		if g.MonthSales >= lastNum {
+			lastNum = g.MonthSales
 			index = i
 		}
 	}
-	return &goods[index], fmt.Sprintf("%d", taobaoNum)
+	return &goods[index], taobaoNum
 }
 
 func saveExcel(cels []types.CelData) {
@@ -117,15 +135,19 @@ func saveExcel(cels []types.CelData) {
 	cell = row.AddCell()
 	cell.Value = "淘宝店铺数量"
 	cell = row.AddCell()
+	cell.Value = "商品原价"
+	cell = row.AddCell()
 	cell.Value = "优惠券金额"
 	cell = row.AddCell()
-	cell.Value = "到手价"
+	cell.Value = "券后价"
 	cell = row.AddCell()
 	cell.Value = "佣金比例"
 	cell = row.AddCell()
-	cell.Value = "最高销量"
+	cell.Value = "30天销量"
 	cell = row.AddCell()
-	cell.Value = "商品ID"
+	cell.Value = "当天销量"
+	cell = row.AddCell()
+	cell.Value = "2小时销量"
 	cell = row.AddCell()
 	cell.Value = "商品链接"
 	cell = row.AddCell()
@@ -139,19 +161,23 @@ func saveExcel(cels []types.CelData) {
 		cell = row.AddCell()
 		cell.Value = c.GoodsNumber
 		cell = row.AddCell()
-		cell.Value = c.TaobaoNumber
+		cell.Value = fmt.Sprintf("%d", c.TaobaoNumber)
 		cell = row.AddCell()
-		cell.Value = c.RebateAmount
+		cell.Value = fmt.Sprintf("%f", c.OriginalPrice)
 		cell = row.AddCell()
-		cell.Value = c.HandPrice
+		cell.Value = fmt.Sprintf("%f", c.CouponPrice)
 		cell = row.AddCell()
-		cell.Value = c.Rate
+		cell.Value = fmt.Sprintf("%f", c.ActualPrice)
 		cell = row.AddCell()
-		cell.Value = c.MaxSaleNumber
+		cell.Value = fmt.Sprintf("%f", c.CommissionRate)
 		cell = row.AddCell()
-		cell.Value = c.GoodsId
+		cell.Value = fmt.Sprintf("%d", c.MonthSales)
 		cell = row.AddCell()
-		cell.Value = c.Url
+		cell.Value = fmt.Sprintf("%d", c.DailySales)
+		cell = row.AddCell()
+		cell.Value = fmt.Sprintf("%d", c.TwoHoursSales)
+		cell = row.AddCell()
+		cell.Value = c.ItemLink
 		cell = row.AddCell()
 		cell.Value = c.Title
 		cell = row.AddCell()

@@ -9,6 +9,7 @@ import (
 	"io"
 	"os"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -105,9 +106,11 @@ func (g *GoodsSearch) SearchGoods() {
 		finalTitles = append(finalTitles, tt)
 	}
 	go func() {
+		start := time.Now()
 		if err := app.SearchAndSave(finalTitles); err != nil {
 			fmt.Printf("Error in search goods : %s\n", err)
 		}
+		walk.MsgBox(g.ParentWindow, "Info", fmt.Sprintf("数据获取成功，共耗时%s", time.Since(start)), walk.MsgBoxIconInformation)
 		g.SetUIEnable(true)
 	}()
 }
