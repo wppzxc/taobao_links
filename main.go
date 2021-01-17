@@ -18,7 +18,7 @@ import (
 	"github.com/wppzxc/taobao_links/pkg/types"
 	"github.com/wppzxc/taobao_links/pkg/utils/runtime"
 	"github.com/wppzxc/taobao_links/pkg/version"
-	"os"
+	// "os"
 	"time"
 )
 
@@ -29,21 +29,21 @@ type Feature interface {
 func main() {
 	mw := &walk.MainWindow{}
 	defer runtime.HandleCrash(mw)
-	lic := &types.License{}
-	lic = license.GetLocalLicense()
-	if lic == nil {
-		fmt.Println("local license is invalid! ")
-		var err error
-		lic, err = ShowLicenseDialog()
-		if err != nil {
-			fmt.Println("Error in active license : ", err)
-		}
-	}
-	if err := license.CheckLicense(lic); err != nil {
-		fmt.Printf("check license error %s \n", err)
-		os.Exit(0)
-	}
-	fmt.Printf("license checked ok! : %#v \n", lic)
+	// lic := &types.License{}
+	// lic = license.GetLocalLicense()
+	// if lic == nil {
+	// 	fmt.Println("local license is invalid! ")
+	// 	var err error
+	// 	lic, err = ShowLicenseDialog()
+	// 	if err != nil {
+	// 		fmt.Println("Error in active license : ", err)
+	// 	}
+	// }
+	// if err := license.CheckLicense(lic); err != nil {
+	// 	fmt.Printf("check license error %s \n", err)
+	// 	os.Exit(0)
+	// }
+	// fmt.Printf("license checked ok! : %#v \n", lic)
 
 	// init dataoke
 	dtk := dataoke.GetDataokePage()
@@ -87,19 +87,22 @@ func main() {
 		"pddUserNumber": pdun,
 		"taokouling":    tkl,
 		"coolq":         cq,
-		"wechat":            we,
+		"wechat":        we,
 	}
 
 	// user features
 	tabPages := []TabPage{}
-	for _, f := range lic.Feature {
-		feature, ok := featureMap[f]
-		if ok {
-			tabPages = append(tabPages, *feature.GetMainPage())
-		}
+	// for _, f := range lic.Feature {
+	// 	feature, ok := featureMap[f]
+	// 	if ok {
+	// 		tabPages = append(tabPages, *feature.GetMainPage())
+	// 	}
+	// }
+	for _, f := range featureMap {
+		tabPages = append(tabPages, *f.GetMainPage())
 	}
 	timeLayout := "2006-01-02"
-	expireDate := time.Unix(lic.ExpireTimestamp, 0).Format(timeLayout)
+	expireDate := time.Now().Format(timeLayout)
 
 	if _, err := (MainWindow{
 		Title:    getMainTitle() + expireDate,

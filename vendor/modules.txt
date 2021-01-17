@@ -6,17 +6,37 @@ github.com/StackExchange/wmi
 github.com/andybalholm/cascadia
 # github.com/atotto/clipboard v0.1.2
 github.com/atotto/clipboard
+# github.com/dgrijalva/jwt-go v3.2.0+incompatible
+github.com/dgrijalva/jwt-go
 # github.com/go-ole/go-ole v1.2.4
 github.com/go-ole/go-ole
 github.com/go-ole/go-ole/oleutil
 # github.com/go-vgo/robotgo v0.0.0-20191128163956-6b94d024dc37
 github.com/go-vgo/robotgo
 github.com/go-vgo/robotgo/clipboard
-# github.com/lxn/walk v0.0.0-20191128110447-55ccb3a9f5c1
+# github.com/hpcloud/tail v1.0.0
+github.com/hpcloud/tail
+github.com/hpcloud/tail/ratelimiter
+github.com/hpcloud/tail/util
+github.com/hpcloud/tail/watch
+github.com/hpcloud/tail/winfile
+# github.com/labstack/echo/v4 v4.1.17
+github.com/labstack/echo/v4
+github.com/labstack/echo/v4/middleware
+# github.com/labstack/gommon v0.3.0
+github.com/labstack/gommon/bytes
+github.com/labstack/gommon/color
+github.com/labstack/gommon/log
+github.com/labstack/gommon/random
+# github.com/lxn/walk v0.0.0-20210112085537-c389da54e794
 github.com/lxn/walk
 github.com/lxn/walk/declarative
-# github.com/lxn/win v0.0.0-20191128105842-2da648fda5b4
+# github.com/lxn/win v0.0.0-20201111105847-2a20daff6a55
 github.com/lxn/win
+# github.com/mattn/go-colorable v0.1.7
+github.com/mattn/go-colorable
+# github.com/mattn/go-isatty v0.0.12
+github.com/mattn/go-isatty
 # github.com/mvdan/xurls v1.1.0
 github.com/mvdan/xurls
 # github.com/otiai10/gosseract v2.2.1+incompatible
@@ -45,6 +65,10 @@ github.com/shirou/gopsutil/process
 github.com/shirou/w32
 # github.com/tealeg/xlsx v1.0.5
 github.com/tealeg/xlsx
+# github.com/valyala/bytebufferpool v1.0.0
+github.com/valyala/bytebufferpool
+# github.com/valyala/fasttemplate v1.2.1
+github.com/valyala/fasttemplate
 # github.com/vcaesar/gops v0.0.0-20190910162627-58ac09d12a53
 github.com/vcaesar/gops
 # github.com/vcaesar/imgo v0.0.0-20191008162304-a83ea7753bc8
@@ -53,22 +77,42 @@ github.com/vcaesar/imgo
 github.com/zserge/lorca
 # github.com/zserge/webview v0.0.0 => ./libs/webview
 github.com/zserge/webview
+# golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
+golang.org/x/crypto/acme
+golang.org/x/crypto/acme/autocert
 # golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8
 golang.org/x/image/bmp
-# golang.org/x/net v0.0.0-20190724013045-ca1201d0de80
+# golang.org/x/net v0.0.0-20200822124328-c89045814202
 golang.org/x/net/html
 golang.org/x/net/html/atom
+golang.org/x/net/http/httpguts
+golang.org/x/net/http2
+golang.org/x/net/http2/h2c
+golang.org/x/net/http2/hpack
+golang.org/x/net/idna
 golang.org/x/net/websocket
-# golang.org/x/sys v0.0.0-20191029155521-f43be2a4598c
+# golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78
+golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
+# golang.org/x/text v0.3.3
+golang.org/x/text/secure/bidirule
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
 # gopkg.in/Knetic/govaluate.v3 v3.0.0
 gopkg.in/Knetic/govaluate.v3
 # gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
 gopkg.in/alexcesaro/quotedprintable.v3
+# gopkg.in/fsnotify.v1 v1.4.7
+gopkg.in/fsnotify.v1
 # gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 gopkg.in/gomail.v2
+# gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
+gopkg.in/tomb.v1
 # gopkg.in/yaml.v2 v2.2.7
 gopkg.in/yaml.v2
+# k8s.io/klog v1.0.0
+k8s.io/klog
 # sigs.k8s.io/yaml v1.1.0
 sigs.k8s.io/yaml

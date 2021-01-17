@@ -8,7 +8,7 @@ import (
 )
 
 func TestClient(t *testing.T) {
-	wsUrl := "ws://49.233.131.124:8080/wechat"
+	wsUrl := "ws://81.70.210.167:8080/listen/ww86f1fcc69789b25b"
 	ws, err := websocket.Dial(wsUrl, "", "http://api.wpp.pro1/")
 	if err != nil {
 		fmt.Println(err)
@@ -26,7 +26,7 @@ func TestClient(t *testing.T) {
 }
 
 func TestClient2(t *testing.T) {
-	wsUrl := "ws://127.0.0.1:8080/wechat"
+	wsUrl := "ws://127.0.0.1:8080/listen/wx5823bf96d3bd56c7a"
 	ws, err := websocket.Dial(wsUrl, "", "http://api.wpp.pro2/")
 	if err != nil {
 		fmt.Println(err)
