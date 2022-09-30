@@ -8,7 +8,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-vgo/robotgo v0.0.0-20191128163956-6b94d024dc37
 	github.com/hpcloud/tail v1.0.0
-	github.com/labstack/echo/v4 v4.1.17
+	github.com/labstack/echo/v4 v4.9.0
 	github.com/lxn/walk v0.0.0-20210112085537-c389da54e794
 	github.com/lxn/win v0.0.0-20201111105847-2a20daff6a55
 	github.com/mvdan/xurls v1.1.0
@@ -17,8 +17,7 @@ require (
 	github.com/tealeg/xlsx v1.0.5
 	github.com/zserge/lorca v0.1.8
 	github.com/zserge/webview v0.0.0
-	golang.org/x/net v0.0.0-20200822124328-c89045814202
-	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect
+	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
