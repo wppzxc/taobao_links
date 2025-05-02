@@ -5,7 +5,11 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"syscall"
+	"time"
+	"unsafe"
 
+	"github.com/go-vgo/robotgo"
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/lxn/win"
@@ -34,7 +38,75 @@ type QiWechat struct {
 	StopCh       chan struct{}
 }
 
+// listenF5Hotkey 监听 F5 点击事件
+func listenF5Hotkey() {
+	for {
+		// 监听 F5 被按下（true 表示按下，false 表示松开）
+		if robotgo.AddEvent("f6") {
+			fmt.Println("F6 detected, clicking 10000 times...")
+			click10000Times()
+		}
+		time.Sleep(10 * time.Second)
+	}
+}
+
+const (
+	INPUT_MOUSE          = 0
+	MOUSEEVENTF_LEFTDOWN = 0x0002
+	MOUSEEVENTF_LEFTUP   = 0x0004
+)
+
+type MOUSEINPUT struct {
+	dx, dy      int32
+	mouseData   uint32
+	dwFlags     uint32
+	time        uint32
+	dwExtraInfo uintptr
+}
+
+type INPUT struct {
+	Type uint32
+	Mi   MOUSEINPUT
+}
+
+var (
+	user32        = syscall.NewLazyDLL("user32.dll")
+	procSendInput = user32.NewProc("SendInput")
+)
+
+func sendMouseClick() {
+	var inputs [2]INPUT
+
+	inputs[0].Type = INPUT_MOUSE
+	inputs[0].Mi.dwFlags = MOUSEEVENTF_LEFTDOWN
+
+	inputs[1].Type = INPUT_MOUSE
+	inputs[1].Mi.dwFlags = MOUSEEVENTF_LEFTUP
+
+	ret, _, err := procSendInput.Call(
+		uintptr(len(inputs)),
+		uintptr(unsafe.Pointer(&inputs[0])),
+		unsafe.Sizeof(inputs[0]),
+	)
+	if ret == 0 {
+		fmt.Println("SendInput failed:", err)
+	}
+	fmt.Println("SendInput ok")
+}
+
+func click10000Times() {
+	start := time.Now()
+	for i := 0; i < 10000; i++ {
+		sendMouseClick()
+	}
+	elapsed := time.Since(start)
+	fmt.Printf("10000 clicks done in: %v\n", elapsed)
+}
+
 func GetWechatPage() *QiWechat {
+	// 监听 F5事件
+	go listenF5Hotkey()
+
 	qiWechat := &QiWechat{
 		WebSocketUrl:    &walk.LineEdit{},
 		TaoKouLingTitle: &walk.LineEdit{},
@@ -161,6 +233,9 @@ func GetWechatPage() *QiWechat {
 								AssignTo:  &qiWechat.MoveToRight,
 								OnClicked: qiWechat.MoveToRightTop,
 							},
+							TextLabel{
+								Text: "按 F5 自动点击 10000 次",
+							},
 						},
 					},
 					TextEdit{
@@ -193,7 +268,7 @@ func GetWechatPage() *QiWechat {
 }
 
 func (w *QiWechat) AutoImportUsers() {
-	users := app.AutoImportUsers(true, true)
+	users := app.AutoImportUsers(true, false)
 	w.Users.SetText(users)
 	fmt.Println("auto import users")
 }

@@ -76,12 +76,12 @@ func WechatMessageSend(msg Message, users []string, interval int, tklTitle strin
 	if len(errMsg) == 0 {
 		return nil
 	}
-	return fmt.Errorf("Error in send message to users : %s ", errMsg)
+	return fmt.Errorf("error in send message to users : %s ", errMsg)
 }
 
 func SendMessage(msg string, user string) error {
 	if err := clipboard.WriteAll(msg); err != nil {
-		return fmt.Errorf("Error on write to clipboard : %s ", err)
+		return fmt.Errorf("error on write to clipboard : %s ", err)
 	}
 
 	if err := send(user); err != nil {
@@ -93,12 +93,12 @@ func SendMessage(msg string, user string) error {
 
 func SendImage(img *os.File, user string) error {
 	if img == nil {
-		return fmt.Errorf("Warning in send image file : input image file is nil ")
+		return fmt.Errorf("warning in send image file : input image file is nil ")
 	}
 
 	_, err := exec.Command("file2clip", img.Name()).CombinedOutput()
 	if err != nil {
-		return fmt.Errorf("Error in save image to clipboard %s ", err)
+		return fmt.Errorf("error in save image to clipboard %s ", err)
 	}
 
 	if err := send(user); err != nil {
@@ -110,11 +110,11 @@ func SendImage(img *os.File, user string) error {
 func send(user string) error {
 	p, err := syscall.UTF16PtrFromString(user)
 	if err != nil {
-		return fmt.Errorf("Error in get user chat window : %s ", err)
+		return fmt.Errorf("error in get user chat window : %s ", err)
 	}
 	h2 := win.FindWindow(nil, p)
 	if h2 == 0 {
-		return fmt.Errorf("Error in get user %s, user not found ", user)
+		return fmt.Errorf("error in get user %s, user not found ", user)
 	}
 	var ok = false
 	for i := 0; i < 10; i++ {
@@ -129,7 +129,7 @@ func send(user string) error {
 		robotgo.KeyTap("enter")
 		//return nil
 	} else {
-		return fmt.Errorf("Error in set window foreground %s in 10 times ", user)
+		return fmt.Errorf("error in set window foreground %s in 10 times ", user)
 	}
 	return nil
 }
@@ -137,22 +137,22 @@ func send(user string) error {
 func SaveImage(url string) (*os.File, error) {
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil, fmt.Errorf("Error in download image %s ", err)
+		return nil, fmt.Errorf("error in download image %s ", err)
 	}
 	body, _ := ioutil.ReadAll(resp.Body)
 	if len(body) == 0 {
-		return nil, fmt.Errorf("Error in download image, image is null ")
+		return nil, fmt.Errorf("error in download image, image is null ")
 	}
 
 	tmpfile, err := os.Create("./wechat_image_" + time.Now().Format(fileFormat) + ".jpg")
 	if err != nil {
-		return nil, fmt.Errorf("Error in create temp file %s ", err)
+		return nil, fmt.Errorf("error in create temp file %s ", err)
 	}
 	defer tmpfile.Close()
 
 	_, err = io.Copy(tmpfile, bytes.NewReader(body))
 	if err != nil {
-		return nil, fmt.Errorf("Error in save image to tmpfile %s ", err)
+		return nil, fmt.Errorf("error in save image to tmpfile %s ", err)
 	}
 
 	return tmpfile, nil
@@ -202,26 +202,26 @@ func executeMessage(msg string) []string {
 	return msgs
 }
 
-func changeTaoKouLing(msg string, tklTitle string) string {
-	if len(tklTitle) == 0 {
-		return msg
-	}
+// func changeTaoKouLing(msg string, tklTitle string) string {
+// 	if len(tklTitle) == 0 {
+// 		return msg
+// 	}
 
-	reg := regexp.MustCompile(`[(][a-zA-Z0-9]{11}[)]`)
-	oldTkl := reg.FindString(msg)
-	if len(oldTkl) > 0 {
-		link := getTklLink(oldTkl)
-		if len(link) == 0 {
-			return msg
-		}
+// 	reg := regexp.MustCompile(`[(][a-zA-Z0-9]{11}[)]`)
+// 	oldTkl := reg.FindString(msg)
+// 	if len(oldTkl) > 0 {
+// 		link := getTklLink(oldTkl)
+// 		if len(link) == 0 {
+// 			return msg
+// 		}
 
-		newTkl := generateTklByTitle(link, tklTitle)
-		newMsg := strings.Replace(msg, oldTkl, newTkl, 1)
-		return newMsg
-	} else {
-		return msg
-	}
-}
+// 		newTkl := generateTklByTitle(link, tklTitle)
+// 		newMsg := strings.Replace(msg, oldTkl, newTkl, 1)
+// 		return newMsg
+// 	} else {
+// 		return msg
+// 	}
+// }
 
 type NianchuResp struct {
 	Code int    `json:"code"`

@@ -64,9 +64,9 @@ func Start(wsUrl string, groups []string, users []string, interval int, tklTitle
 					}
 
 					// 过滤系统消息
-					if message == nil {
-						continue
-					}
+					// if message == nil {
+					// 	continue
+					// }
 					// 屏蔽关键词
 					if skip := filterWechatMessage(message.Text, filterNo); skip {
 						tmpMessage = ""
@@ -118,7 +118,7 @@ func Start(wsUrl string, groups []string, users []string, interval int, tklTitle
 func checkSendGroups(sender string, groups []string) bool {
 	// groupId := strconv.FormatInt(msg.GroupId, 10)
 	for _, g := range groups {
-		if strings.Index(sender, g) >= 0 {
+		if strings.Contains(sender, g) {
 			return true
 		}
 	}
@@ -127,10 +127,7 @@ func checkSendGroups(sender string, groups []string) bool {
 
 func CheckCoolqLogined() bool {
 	_, err := net.DialTimeout("tcp", "0.0.0.0:6700", 3*time.Second)
-	if err != nil {
-		return false
-	}
-	return true
+	return err == nil
 }
 
 func newMessage(msg string) *Message {
@@ -159,7 +156,7 @@ func getMessageSenderAndText(str string) (string, string) {
 
 func filterWechatMessage(msg string, filters []string) bool {
 	for _, f := range filters {
-		if strings.Index(msg, f) >= 0 {
+		if strings.Contains(msg, f) {
 			return true
 		}
 	}
