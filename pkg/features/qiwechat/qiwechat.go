@@ -38,18 +38,6 @@ type QiWechat struct {
 	StopCh       chan struct{}
 }
 
-// listenF5Hotkey 监听 F5 点击事件
-func listenF5Hotkey() {
-	for {
-		// 监听 F5 被按下（true 表示按下，false 表示松开）
-		if robotgo.AddEvent("f6") {
-			fmt.Println("F6 detected, clicking 10000 times...")
-			click10000Times()
-		}
-		time.Sleep(10 * time.Second)
-	}
-}
-
 const (
 	INPUT_MOUSE          = 0
 	MOUSEEVENTF_LEFTDOWN = 0x0002
@@ -104,9 +92,6 @@ func click10000Times() {
 }
 
 func GetWechatPage() *QiWechat {
-	// 监听 F5事件
-	go listenF5Hotkey()
-
 	qiWechat := &QiWechat{
 		WebSocketUrl:    &walk.LineEdit{},
 		TaoKouLingTitle: &walk.LineEdit{},
@@ -234,7 +219,7 @@ func GetWechatPage() *QiWechat {
 								OnClicked: qiWechat.MoveToRightTop,
 							},
 							TextLabel{
-								Text: "按 F5 自动点击 10000 次",
+								Text: "按 F6 自动点击 10000 次",
 							},
 						},
 					},
@@ -264,7 +249,24 @@ func GetWechatPage() *QiWechat {
 			// },
 		},
 	}
+	// 监听 F6事件
+	go qiWechat.listenF6Hotkey()
 	return qiWechat
+}
+
+// listenF6Hotkey 监听 F6 点击事件
+func (w *QiWechat) listenF6Hotkey() {
+	for {
+		// 监听 F6 被按下（true 表示按下，false 表示松开）
+		if robotgo.AddEvent("f6") {
+			fmt.Println("F6 detected, clicking 10000 times...")
+			start := time.Now()
+			click10000Times()
+			elapsed := time.Since(start)
+			walk.MsgBox(w.ParentWindow, "成功", fmt.Sprintf("已完成10000次点击, 耗时: %s", elapsed.String()), walk.MsgBoxIconInformation)
+		}
+		time.Sleep(10 * time.Second)
+	}
 }
 
 func (w *QiWechat) AutoImportUsers() {
