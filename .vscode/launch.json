@@ -10,7 +10,8 @@
             "request": "launch",
             "mode": "debug",
             "program": "${file}",
-            "buildFlags": "-buildmode=exe'"
+            "buildFlags": "-ldflags='-H windowsgui -buildmode=exe'",
+            "output": "${workspaceFolder}/taobao_links.exe"
         }
     ]
 }

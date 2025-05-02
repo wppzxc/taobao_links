@@ -178,7 +178,7 @@ func main() {
 			},
 			TableView{
 				AssignTo:              &tv,
-				AlternatingRowBGColor: walk.RGB(239, 239, 239),
+				// AlternatingRowBGColor: walk.RGB(239, 239, 239),
 				CheckBoxes:            true,
 				ColumnsOrderable:      true,
 				MultiSelection:        true,
