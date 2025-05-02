@@ -2,14 +2,18 @@ package main
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
+
 	"github.com/wppzxc/taobao_links/pkg/features/PDDUserNumber"
 	"github.com/wppzxc/taobao_links/pkg/features/coolq"
 	"github.com/wppzxc/taobao_links/pkg/features/dataoke"
 	"github.com/wppzxc/taobao_links/pkg/features/duoduojinbao"
 	"github.com/wppzxc/taobao_links/pkg/features/goodsSearch"
 	"github.com/wppzxc/taobao_links/pkg/features/haodanku"
+	"github.com/wppzxc/taobao_links/pkg/features/qiwechat"
 	"github.com/wppzxc/taobao_links/pkg/features/taokeyi"
 	"github.com/wppzxc/taobao_links/pkg/features/taokouling"
 	"github.com/wppzxc/taobao_links/pkg/features/wechat"
@@ -18,8 +22,6 @@ import (
 	"github.com/wppzxc/taobao_links/pkg/types"
 	"github.com/wppzxc/taobao_links/pkg/utils/runtime"
 	"github.com/wppzxc/taobao_links/pkg/version"
-	// "os"
-	"time"
 )
 
 type Feature interface {
@@ -68,6 +70,8 @@ func main() {
 	cq := coolq.GetCoolQPage()
 	// init wechat
 	we := wechat.GetWechatPage()
+	// init qiwechat
+	qw := qiwechat.GetWechatPage()
 
 	// bind mainWindow
 	gs.ParentWindow = mw
@@ -75,6 +79,7 @@ func main() {
 	pdun.ParentWindow = mw
 	cq.ParentWindow = mw
 	we.ParentWindow = mw
+	qw.ParentWindow = mw
 
 	// all features
 	featureMap := map[string]Feature{
@@ -88,6 +93,7 @@ func main() {
 		"taokouling":    tkl,
 		"coolq":         cq,
 		"wechat":        we,
+		"qiwechat":      qw,
 	}
 
 	// user features
@@ -108,7 +114,7 @@ func main() {
 		Title:    getMainTitle() + expireDate,
 		AssignTo: &mw,
 		//Icon: "./assets/img/icon.ico",
-		Size:   Size{700, 700},
+		Size:   Size{Width: 700, Height: 700},
 		Layout: VBox{},
 		Children: []Widget{
 			TabWidget{
@@ -136,7 +142,7 @@ func ShowLicenseDialog() (*types.License, error) {
 	}
 	if _, err := (MainWindow{
 		Title:    "激活",
-		Size:     Size{400, 200},
+		Size:     Size{Width: 400, Height: 200},
 		AssignTo: &licenseDlg.MainWM,
 		Layout:   VBox{},
 		Children: []Widget{
@@ -178,5 +184,6 @@ func (l *LicenseDialog) Active() {
 
 func getMainTitle() string {
 	v := version.Get().String()
-	return "淘宝客工具 " + v + " - license有效期至："
+	// return "淘宝客工具 " + v + " - license有效期至："
+	return "淘宝客工具 " + v
 }
