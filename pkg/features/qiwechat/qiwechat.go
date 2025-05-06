@@ -194,7 +194,7 @@ func GetWechatPage() *QiWechat {
 								Text: "坐标列表（多个用 / 分隔）：",
 							},
 							TextLabel{
-								Text: "按 F5 添加坐标",
+								Text: "按 鼠标中键 添加坐标",
 							},
 							PushButton{
 								Text:      "全部清除",
@@ -282,7 +282,7 @@ func (w *QiWechat) StartWork() {
 		x, _ := strconv.Atoi(pos[0])
 		y, _ := strconv.Atoi(pos[1])
 		sendMouseClick(int32(x), int32(y))
-		time.Sleep(10 * time.Millisecond)
+		time.Sleep(5 * time.Millisecond)
 	}
 }
 
