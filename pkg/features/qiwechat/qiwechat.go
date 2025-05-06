@@ -2,7 +2,7 @@ package qiwechat
 
 import (
 	"fmt"
-	"net/url"
+	"path"
 	"strconv"
 	"strings"
 	"syscall"
@@ -13,9 +13,6 @@ import (
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 	"github.com/lxn/win"
-
-	"github.com/wppzxc/taobao_links/pkg/features/qiwechat/app"
-	"github.com/wppzxc/taobao_links/pkg/features/qiwechat/types"
 )
 
 type QiWechat struct {
@@ -62,7 +59,9 @@ var (
 	procSendInput = user32.NewProc("SendInput")
 )
 
-func sendMouseClick() {
+func sendMouseClick(x, y int32) {
+	// 设置鼠标位置
+	win.SetCursorPos(x, y)
 	var inputs [2]INPUT
 
 	inputs[0].Type = INPUT_MOUSE
@@ -80,15 +79,6 @@ func sendMouseClick() {
 		fmt.Println("SendInput failed:", err)
 	}
 	fmt.Println("SendInput ok")
-}
-
-func click10000Times() {
-	start := time.Now()
-	for i := 0; i < 10000; i++ {
-		sendMouseClick()
-	}
-	elapsed := time.Since(start)
-	fmt.Printf("10000 clicks done in: %v\n", elapsed)
 }
 
 func GetWechatPage() *QiWechat {
@@ -201,25 +191,20 @@ func GetWechatPage() *QiWechat {
 						Layout: HBox{},
 						Children: []Widget{
 							TextLabel{
-								Text: "微信列表（多个用户用 / 分隔）：",
-							},
-							PushButton{
-								Text:      "自动获取",
-								AssignTo:  &qiWechat.AutoImport,
-								OnClicked: qiWechat.AutoImportUsers,
-							},
-							PushButton{
-								Text:      "移到左上角",
-								AssignTo:  &qiWechat.MoveToLeft,
-								OnClicked: qiWechat.MoveToLeftTop,
-							},
-							PushButton{
-								Text:      "移到右上角",
-								AssignTo:  &qiWechat.MoveToRight,
-								OnClicked: qiWechat.MoveToRightTop,
+								Text: "坐标列表（多个用 / 分隔）：",
 							},
 							TextLabel{
-								Text: "按 F6 自动点击 10000 次",
+								Text: "按 F5 添加坐标",
+							},
+							PushButton{
+								Text:      "全部清除",
+								AssignTo:  &qiWechat.AutoImport,
+								OnClicked: qiWechat.RemoveAllPosition,
+							},
+							PushButton{
+								Text:      "开始执行",
+								AssignTo:  &qiWechat.MoveToLeft,
+								OnClicked: qiWechat.StartWork,
 							},
 						},
 					},
@@ -250,52 +235,54 @@ func GetWechatPage() *QiWechat {
 		},
 	}
 	// 监听 F6事件
-	go qiWechat.listenF6Hotkey()
+	go qiWechat.listenMouseCenterHotkey()
 	return qiWechat
 }
 
-// listenF6Hotkey 监听 F6 点击事件
-func (w *QiWechat) listenF6Hotkey() {
+// listenMouseCenterHotkey 监听 mouse center 点击事件
+// 点击鼠标中键时，记录当前鼠标坐标
+func (w *QiWechat) listenMouseCenterHotkey() {
+	var lastPressed time.Time
+	// 设置去抖动的时间间隔 1s
+	debounceDuration := 1 * time.Second
 	for {
-		// 监听 F6 被按下（true 表示按下，false 表示松开）
-		if robotgo.AddEvent("f6") {
-			fmt.Println("F6 detected, clicking 10000 times...")
-			start := time.Now()
-			click10000Times()
-			elapsed := time.Since(start)
-			walk.MsgBox(w.ParentWindow, "成功", fmt.Sprintf("已完成10000次点击, 耗时: %s", elapsed.String()), walk.MsgBoxIconInformation)
+		// 监听 mouse center 被按下（true 表示按下，false 表示松开）
+		if robotgo.AddEvent("center") {
+			fmt.Println("mouse center detected, add position...")
+			// 获取当前时间
+			now := time.Now()
+			// 如果上次按键与当前时间差小于 debounceDuration，则跳过此次按键事件
+			if now.Sub(lastPressed) < debounceDuration {
+				continue
+			}
+			// 更新上次按键时间
+			lastPressed = now
+
+			var pt win.POINT
+			win.GetCursorPos(&pt)
+			allPositions := w.Users.Text()
+			newAllPositions := path.Join(allPositions, fmt.Sprintf("%d,%d", pt.X, pt.Y))
+			w.Users.SetText(newAllPositions)
 		}
-		time.Sleep(10 * time.Second)
 	}
 }
 
-func (w *QiWechat) AutoImportUsers() {
-	users := app.AutoImportUsers(true, false)
-	w.Users.SetText(users)
-	fmt.Println("auto import users")
+// RemoveAllPosition 移除所有坐标
+func (w *QiWechat) RemoveAllPosition() {
+	w.Users.SetText("")
+	fmt.Println("remove all position")
 }
 
-func (w *QiWechat) MoveToLeftTop() {
-	users := w.GetUsers()
-	if len(users) == 0 {
-		errMsg := "未指定转发用户！"
-		walk.MsgBox(w.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
-		return
-	}
-	for _, u := range users {
-		app.MoveUserToLeftTop(u)
-	}
-}
-
-func (w *QiWechat) MoveToRightTop() {
-	users := w.GetUsers()
-	if len(users) == 0 {
-		errMsg := "未指定转发用户！"
-		walk.MsgBox(w.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
-		return
-	}
-	for _, u := range users {
-		app.MoveUserToRightTop(u)
+// StartWork 开始执行, 将记录的坐标全都点击一遍
+func (w *QiWechat) StartWork() {
+	positionStr := w.Users.Text()
+	ps := strings.Split(positionStr, "/")
+	for _, p := range ps {
+		pos := strings.Split(p, ",")
+		x, _ := strconv.Atoi(pos[0])
+		y, _ := strconv.Atoi(pos[1])
+		sendMouseClick(int32(x), int32(y))
+		time.Sleep(10 * time.Millisecond)
 	}
 }
 
@@ -331,84 +318,6 @@ func (w *QiWechat) SetUIEnable(enable bool) {
 	w.AutoImport.SetEnabled(enable)
 	// stop is unEnable with others
 	w.Stop.SetEnabled(!enable)
-}
-
-func (w *QiWechat) StartWork() {
-	fmt.Println("start wechat work!")
-	wsUrl := w.WebSocketUrl.Text()
-	if len(wsUrl) == 0 {
-	Login:
-		for {
-			errMsg := "未指定 websocket url, 是否已登录本地酷Q？ "
-			result := walk.MsgBox(w.ParentWindow, "Warning", errMsg, walk.MsgBoxOKCancel)
-			switch result {
-			case win.IDOK:
-				fmt.Println("click already login coolq")
-				if ok := app.CheckCoolqLogined(); !ok {
-					fmt.Println("coolq not logined, please retry! ")
-					continue
-				}
-				wsUrl = "ws://127.0.0.1:6700/event/"
-				w.WebSocketUrl.SetText(wsUrl)
-				break Login
-			case win.IDCANCEL:
-				fmt.Println("cancel login coolq")
-				return
-			default:
-				fmt.Println("close login coolq")
-				return
-			}
-		}
-	}
-
-	u, err := url.Parse(wsUrl)
-	if err != nil {
-		walk.MsgBox(w.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
-		return
-	}
-
-	types.Host = u.Host
-	types.Port = u.Port()
-
-	tlkTitle := w.TaoKouLingTitle.Text()
-	filterNo := strings.Split(w.FilterNo.Text(), "/")
-	filterYes := strings.Split(w.FilterYes.Text(), "/")
-
-	if len(filterNo) == 1 && filterNo[0] == "" {
-		filterNo = nil
-	}
-
-	if len(filterYes) == 1 && filterYes[0] == "" {
-		filterYes = nil
-	}
-
-	intervalStr := w.SendInterval.Text()
-	interval, _ := strconv.Atoi(intervalStr)
-	if interval == 0 {
-		fmt.Println("sendInterval can't be 0, reset to 1000")
-		interval = 1000
-		w.SendInterval.SetText("1000")
-	}
-
-	groups := w.GetGroups()
-	if len(groups) == 0 {
-		errMsg := "未指定QQ群ID！"
-		walk.MsgBox(w.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
-		return
-	}
-	users := w.GetUsers()
-	if len(users) == 0 {
-		errMsg := "未指定转发用户！"
-		walk.MsgBox(w.ParentWindow, "Error", errMsg, walk.MsgBoxIconError)
-		return
-	}
-	w.StopCh = make(chan struct{})
-	w.SetUIEnable(false)
-	if err := app.Start(wsUrl, groups, users, interval, tlkTitle, filterNo, filterYes, w.StopCh); err != nil {
-		walk.MsgBox(w.ParentWindow, "Error", err.Error(), walk.MsgBoxIconError)
-		w.SetUIEnable(true)
-	}
-	fmt.Println("wechat trans work started!")
 }
 
 func (w *QiWechat) GetMainPage() *TabPage {
