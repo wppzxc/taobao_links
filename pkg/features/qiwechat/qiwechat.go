@@ -282,7 +282,7 @@ func (w *QiWechat) StartWork() {
 		x, _ := strconv.Atoi(pos[0])
 		y, _ := strconv.Atoi(pos[1])
 		sendMouseClick(int32(x), int32(y))
-		time.Sleep(5 * time.Millisecond)
+		// time.Sleep(5 * time.Millisecond)
 	}
 }
 
